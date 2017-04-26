@@ -1,0 +1,39 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        xmlns:view="clr-namespace:GUI.View"
+        xmlns:vm="clr-namespace:GUI.ViewModel.ViewViewModel"
+        mc:Ignorable="d"
+        Title="SightSeeingOnline" Height="600" Width="600"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    <Grid>
+        <ContentControl Content="{Binding CurrentVM}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:LoginVM}">
+                    <view:Login/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:CalendarReportVM}">
+                    <view:CalendarReport/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ListReportVM}">
+                    <view:ListReport/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:TourVM}">
+                    <view:Tour/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:TourListVM}">
+                    <view:TourList/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:PositionVM}">
+                    <view:Position/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:MemberVM}">
+                    <view:Member/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
+</Window>
