@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Dejvid\Documents\Visual Studio 2015\Projects\TourGuideApp\GUI\obj\Debug\
+C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\
 GUI
 none
 false
 DEBUG;TRACE
-C:\Users\Dejvid\Documents\Visual Studio 2015\Projects\TourGuideApp\GUI\App.xaml
+C:\Users\Roman\Source\Repos\desktop-app\GUI\App.xaml
 8-816739209
 
-26-140439411
-72-718574285
+261712161846
+72-155814102
 MainWindow.xaml;View\CalendarReport.xaml;View\ListReport.xaml;View\Login.xaml;View\Member.xaml;View\Position.xaml;View\Tour.xaml;View\TourList.xaml;
 
 True

@@ -5,3 +5,10 @@ C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\DataLayer\bin\Debug\Shared.pdb
 C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
 C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\DataLayer\obj\Debug\DataLayer.dll
 C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\DataLayer\obj\Debug\DataLayer.pdb
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\DataLayer.dll
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\DataLayer.pdb
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\Shared.dll
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\obj\Debug\DataLayer.dll
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\obj\Debug\DataLayer.pdb

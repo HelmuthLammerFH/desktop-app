@@ -4,6 +4,8 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using GUI.ViewModel.ViewViewModel;
 using System.ServiceModel;
+using System.IO;
+using DataLayer;
 
 namespace GUI.ViewModel
 {
@@ -11,6 +13,8 @@ namespace GUI.ViewModel
     {
         #region ATTRIBUTES
         private ViewModelBase currentVM;
+        private string loginCredentialsFilePath = "loginCredentials.csv";
+        private DataProvider dp = new DataProvider();
         #endregion
 
         #region PROPERTIES
@@ -38,7 +42,15 @@ namespace GUI.ViewModel
             SimpleIoc.Default.GetInstance<TourListVM>();
             SimpleIoc.Default.GetInstance<PositionVM>();
             SimpleIoc.Default.GetInstance<MemberVM>();
-            CurrentVM = SimpleIoc.Default.GetInstance<LoginVM>();
+
+            if (Angemeldet())
+            {
+                CurrentVM = SimpleIoc.Default.GetInstance<TourVM>();
+            }
+            else
+            {
+                CurrentVM = SimpleIoc.Default.GetInstance<LoginVM>();
+            }
 
             MessengerInstance.Register<ViewModelBase>(this, UpdateCurrentVM);
         }
@@ -48,6 +60,16 @@ namespace GUI.ViewModel
         private void UpdateCurrentVM(ViewModelBase obj)
         {
             CurrentVM = obj;
+        }
+        private bool Angemeldet()
+        {
+            if (File.Exists(loginCredentialsFilePath))
+            {
+                string loginCredentials = File.ReadAllLines(loginCredentialsFilePath)[0];
+                if (loginCredentials.Split(';')[2].Equals("True") && dp.ConnectionExists() && dp.Login(loginCredentials.Split(';')[0], loginCredentials.Split(';')[1]))
+                    return true;
+            }
+            return false;
         }
         #endregion
     }
