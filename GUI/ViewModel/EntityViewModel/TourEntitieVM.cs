@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUI.ViewModel.EntityViewModel
 {
-    public class TourVM : ViewModelBase
+    public class TourEntitieVM : ViewModelBase
     {
     }
 }
