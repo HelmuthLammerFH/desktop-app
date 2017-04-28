@@ -14,8 +14,8 @@ namespace GUI.ViewModel.ViewViewModel
     public class ListReportVM : ViewModelBase
     {
         #region ATTRIBUTES
-        ObservableCollection<TourEntitieVM> tourEntitieList = new ObservableCollection<TourEntitieVM>();
-        TourEntitieVM selectedTourEntitie;
+        ObservableCollection<TourEntityVM> tourEntitieList = new ObservableCollection<TourEntityVM>();
+        TourEntityVM selectedTourEntitie;
         #endregion
 
         #region PROPERTIES
@@ -23,7 +23,7 @@ namespace GUI.ViewModel.ViewViewModel
         public RelayCommand TourBtn { get; set; }
         public RelayCommand PositionsBtn { get; set; }
         public RelayCommand MemberBtn { get; set; }
-        public TourEntitieVM SelectedTourEntitie
+        public TourEntityVM SelectedTourEntitie
         {
             get
             {
@@ -33,11 +33,11 @@ namespace GUI.ViewModel.ViewViewModel
             set
             {
                 selectedTourEntitie = value;
-                MessengerInstance.Send<TourEntitieVM>(selectedTourEntitie);
+                MessengerInstance.Send<TourEntityVM>(selectedTourEntitie);
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
             }
         }
-        public ObservableCollection<TourEntitieVM> TourEntitieList
+        public ObservableCollection<TourEntityVM> TourEntitieList
         {
             get
             {

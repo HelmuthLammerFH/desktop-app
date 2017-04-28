@@ -13,12 +13,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Background="#FFB4AAAA">
-            <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
-            <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding PositionsBtn}" />
-            <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
+            <Button x:Name="button" Content="Zurück" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
         </StackPanel>
         <Grid Grid.Column="1">
-            <Button x:Name="button3" Content="Zurück" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
             <Label x:Name="label" Content="Position Content !!!" Grid.Column="1" HorizontalAlignment="Left" Margin="185,265,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>

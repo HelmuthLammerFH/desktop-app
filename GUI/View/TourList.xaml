@@ -18,7 +18,12 @@
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
         </StackPanel>
         <Grid Grid.Column="1">
-            <Label x:Name="label" Content="Positionen Content !!!" Grid.Column="1" HorizontalAlignment="Left" Margin="185,265,0,0" VerticalAlignment="Top"/>
+            <Grid Visibility="{Binding TourEntityIsEmty}">
+                <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Visibility="{Binding TourEntityIsChoosen}">
+                <Label x:Name="label1" Content="Position Content !!!" HorizontalAlignment="Left" Margin="186,109,0,0" VerticalAlignment="Top"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

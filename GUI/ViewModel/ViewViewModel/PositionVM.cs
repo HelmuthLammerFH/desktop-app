@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GUI.ViewModel.EntityViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,34 +13,39 @@ namespace GUI.ViewModel.ViewViewModel
     public class PositionVM : ViewModelBase
     {
         #region ATTRIBUTES
+        PositionEntityVM currentPositionEntity;
         #endregion
 
         #region PROPERTIES
         public RelayCommand TourBtn { get; set; }
-        public RelayCommand PositionsBtn { get; set; }
-        public RelayCommand MemberBtn { get; set; }
+        public PositionEntityVM CurrentPositionEntity
+        {
+            get
+            {
+                return currentPositionEntity;
+            }
+
+            set
+            {
+                currentPositionEntity = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region CONSTRUCTORS
         public PositionVM()
         {
             TourBtn = new RelayCommand(SwitchToTour);
-            PositionsBtn = new RelayCommand(SwitchToPositions);
-            MemberBtn = new RelayCommand(SwitchToMember);
+            MessengerInstance.Register<PositionEntityVM>(this, UpdateCurrentPositionEntity);
         }
         #endregion
 
         #region METHODS
-        private void SwitchToMember()
+        private void UpdateCurrentPositionEntity(PositionEntityVM obj)
         {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<MemberVM>()));
+            CurrentPositionEntity = obj;
         }
-
-        private void SwitchToPositions()
-        {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourListVM>()));
-        }
-
         private void SwitchToTour()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
