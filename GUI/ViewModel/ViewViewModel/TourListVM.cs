@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataLayer;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
@@ -15,14 +16,24 @@ namespace GUI.ViewModel.ViewViewModel
     {
         #region ATTRIBUTES
         TourEntityVM currentTourEntity;
+        PositionEntityVM selectedPositionItem;
+        PositionEntityVM createdOrUpdatedPositionItem;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
+        private DataProvider dp;
         #endregion
 
-        #region PROPERTIES
+        #region NAVIGATIONCOMMANDPROPERTIES
         public RelayCommand TourBtn { get; set; }
         public RelayCommand PositionsBtn { get; set; }
         public RelayCommand MemberBtn { get; set; }
+        #endregion
+        #region GENERALCOMMANDPROPERTIES
+        public RelayCommand UpdatePositionBtn { get; set; }
+        public RelayCommand DeletePositionBtn { get; set; }
+        public RelayCommand SavePositionBtn { get; set; }
+        #endregion
+        #region PROPERTIES
         public TourEntityVM CurrentTourEntity
         {
             get
@@ -78,25 +89,54 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
+        public PositionEntityVM SelectedPositionItem
+        {
+            get
+            {
+                return selectedPositionItem;
+            }
+
+            set
+            {
+                selectedPositionItem = value;
+                RaisePropertyChanged();
+            }
+        }
+        public PositionEntityVM CreatedOrUpdatedPositionItem
+        {
+            get
+            {
+                return createdOrUpdatedPositionItem;
+            }
+
+            set
+            {
+                createdOrUpdatedPositionItem = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region CONSTRUCTORS
         public TourListVM()
         {
+            //CreatedOrUpdatedPositionItem = new PositionEntityVM(new Position());
             TourEntityIsChoosen = Visibility.Hidden;
+            //Navigation Commands
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
+            //General Commands
+            UpdatePositionBtn = new RelayCommand(UpdatePosition, CanExecuteUpdatePosition);
+            DeletePositionBtn = new RelayCommand(DeletePosition, CanExecuteDeletePosition);
+            SavePositionBtn = new RelayCommand(SavePosition, CanExecuteSavePosition);
+
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
-        #region METHODS
-        private void UpdateCurrentTourEntity(TourEntityVM obj)
-        {
-            CurrentTourEntity = obj;
-        }
-
+        #region NAVIGATIONCOMMANDMETHODS
         private void SwitchToMember()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<MemberVM>()));
@@ -111,6 +151,72 @@ namespace GUI.ViewModel.ViewViewModel
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
         }
+        #endregion
+        #region GENERALCOMMANDMETHODS
+        private bool CanExecuteSavePosition()
+        {
+            //if (CreatedOrUpdatedPositionItem.Bezeichnung != "")
+                return true;
+            //return false;
+        }
+        private void SavePosition()
+        {
+            /*if (CreatedOrUpdatedPositionItem.Id == null)
+            {
+                CurrentTourEntity.Positionen.Add(CreatedOrUpdatedPositionItem);
+            }else
+            {
+                PositionEntityVM positionToRemove;
+                foreach (PositionEntityVM position in CurrentTourEntity.Positionen)
+                {
+                    if (position.Id == CreatedOrUpdatedPositionItem.Id)
+                        positionToRemove = position;
+                }
+                CurrentTourEntity.Positionen.Remove(positionToRemove);
+                CurrentTourEntity.Positionen.Add(CreatedOrUpdatedPositionItem);
+            }
+            MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+            dp.UpdateTour(CurrentTourEntity.Tour);
+            MessengerInstance.Send<DataProvider>(dp);*/
+        }
+
+        private bool CanExecuteDeletePosition()
+        {
+            if (SelectedPositionItem != null)
+                return true;
+            return false;
+        }
+
+        private void DeletePosition()
+        {
+            //CurrentTourEntity.Positionen.Remove(SelectedPositionItem);
+            //MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+            //dp.UpdateTour(CurrentTourEntity.Tour);
+            //MessengerInstance.Send<DataProvider>(dp);
+        }
+
+        private bool CanExecuteUpdatePosition()
+        {
+            if (SelectedPositionItem != null)
+                return true;
+            return false;
+        }
+        private void UpdatePosition()
+        {
+            CreatedOrUpdatedPositionItem = SelectedPositionItem;
+        }
+        #endregion
+        #region METHODS
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
+        }
+        private void UpdateCurrentTourEntity(TourEntityVM obj)
+        {
+            CurrentTourEntity = obj;
+        }
+
+        
         #endregion
     }
 }

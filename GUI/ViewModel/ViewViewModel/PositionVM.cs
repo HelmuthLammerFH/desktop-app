@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataLayer;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
@@ -13,7 +14,8 @@ namespace GUI.ViewModel.ViewViewModel
     public class PositionVM : ViewModelBase
     {
         #region ATTRIBUTES
-        PositionEntityVM currentPositionEntity;
+        private PositionEntityVM currentPositionEntity;
+        private DataProvider dp;
         #endregion
 
         #region PROPERTIES
@@ -38,17 +40,26 @@ namespace GUI.ViewModel.ViewViewModel
         {
             TourBtn = new RelayCommand(SwitchToTour);
             MessengerInstance.Register<PositionEntityVM>(this, UpdateCurrentPositionEntity);
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
+        #region NAVIGATIONCOMMANDMETHODS
+        private void SwitchToTour()
+        {
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+        }
+        #endregion
+        #region GENERALCOMMANDPROPERTIES
+        #endregion
         #region METHODS
         private void UpdateCurrentPositionEntity(PositionEntityVM obj)
         {
             CurrentPositionEntity = obj;
         }
-        private void SwitchToTour()
+        private void UpdateDataProvider(DataProvider obj)
         {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+            dp = obj;
         }
         #endregion
     }

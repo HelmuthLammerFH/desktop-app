@@ -53,10 +53,15 @@ namespace GUI.ViewModel
             }
 
             MessengerInstance.Register<ViewModelBase>(this, UpdateCurrentVM);
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
         #region METHODS
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
+        }
         private void UpdateCurrentVM(ViewModelBase obj)
         {
             CurrentVM = obj;
@@ -67,7 +72,10 @@ namespace GUI.ViewModel
             {
                 string loginCredentials = File.ReadAllLines(loginCredentialsFilePath)[0];
                 if (loginCredentials.Split(';')[2].Equals("True") && dp.ConnectionExists() && dp.Login(loginCredentials.Split(';')[0], loginCredentials.Split(';')[1]))
+                {
+                    MessengerInstance.Send<DataProvider>(dp);
                     return true;
+                }           
             }
             return false;
         }

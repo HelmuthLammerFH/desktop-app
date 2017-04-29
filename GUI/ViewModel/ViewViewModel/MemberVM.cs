@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataLayer;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
@@ -14,12 +15,13 @@ namespace GUI.ViewModel.ViewViewModel
     public class MemberVM : ViewModelBase
     {
         #region ATTRIBUTES
-        TourEntityVM currentTourEntity;
+        private TourEntityVM currentTourEntity;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
+        private DataProvider dp;
         #endregion
 
-        #region PROPERTIES
+        #region NAVIGATIONCOMMANDPROPERTIES
         public RelayCommand TourBtn { get; set; }
         public RelayCommand PositionsBtn { get; set; }
         public RelayCommand MemberBtn { get; set; }
@@ -44,6 +46,11 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
+        #endregion
+        #region GENERALCOMMANDPROPERTIES
+
+        #endregion
+        #region PROPERTIES
         public Visibility TourEntityIsEmty
         {
             get
@@ -80,22 +87,23 @@ namespace GUI.ViewModel.ViewViewModel
         }
         #endregion
 
+
         #region CONSTRUCTORS
         public MemberVM()
         {
             TourEntityIsChoosen = Visibility.Hidden;
+
+            //Navigation Commands
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
+
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
-        #region METHODS
-        private void UpdateCurrentTourEntity(TourEntityVM obj)
-        {
-            CurrentTourEntity = obj;
-        }
+        #region NAVIGATIONCOMMANDMETHODS
         private void SwitchToMember()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<MemberVM>()));
@@ -111,5 +119,17 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
         }
         #endregion
+        #region GENERALCOMMANDMETHODS
+        #endregion
+        #region METHODS
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
+        }
+        private void UpdateCurrentTourEntity(TourEntityVM obj)
+        {
+            CurrentTourEntity = obj;
+        }
+        #endregion    
     }
 }

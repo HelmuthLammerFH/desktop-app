@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataLayer;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
@@ -14,8 +15,9 @@ namespace GUI.ViewModel.ViewViewModel
     public class CalendarReportVM : ViewModelBase
     {
         #region ATTRIBUTES
-        ObservableCollection<TourEntityVM> tourEntitieList = new ObservableCollection<TourEntityVM>();
-        TourEntityVM selectedTourEntitie;
+        private ObservableCollection<TourEntityVM> tourEntitieList = new ObservableCollection<TourEntityVM>();
+        private TourEntityVM selectedTourEntitie;
+        private DataProvider dp;
         #endregion
 
         #region PROPERTIES
@@ -55,14 +57,19 @@ namespace GUI.ViewModel.ViewViewModel
         #region CONSTRUCTORS
         public CalendarReportVM()
         {
+            //Load From DataProvider all TourEntities in TourEntitieList
+            
+            //Navigation Commands
             ListReportBtn = new RelayCommand(SwitchToListReport);
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
+
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
-        #region METHODS
+        #region NAVIGATIONCOMMANDMETHODS
         private void SwitchToListReport()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<ListReportVM>()));
@@ -81,6 +88,15 @@ namespace GUI.ViewModel.ViewViewModel
         private void SwitchToTour()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+        }
+        #endregion
+        #region GENERALCOMMANDMETHODS
+
+        #endregion
+        #region METHODS
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
         }
         #endregion
     }

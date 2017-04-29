@@ -84,10 +84,17 @@ namespace GUI.ViewModel.ViewViewModel
         {
             Task.Factory.StartNew(CheckIfConnectionExists);
             LoginBtn = new RelayCommand<PasswordBox>(Login, CanExecuteLogin);
+
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+
         }
         #endregion
 
         #region METHODS
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
+        }
         private void CheckIfConnectionExists()
         {
             while (true)
@@ -120,6 +127,7 @@ namespace GUI.ViewModel.ViewViewModel
                 string[] linesToSave = new string[1];
                 linesToSave[0] = userName + ";" + passwort + ";" + angemeldetBleiben;
                 File.WriteAllLines(loginCredentialsFilePath, linesToSave);
+                MessengerInstance.Send<DataProvider>(dp);
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
                 StatusMessage = "";
             }

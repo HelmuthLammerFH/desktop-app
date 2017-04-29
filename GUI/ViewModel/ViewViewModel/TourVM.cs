@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataLayer;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
@@ -14,9 +15,10 @@ namespace GUI.ViewModel.ViewViewModel
     public class TourVM : ViewModelBase
     {
         #region ATTRIBUTES
-            TourEntityVM currentTourEntity;
-            private Visibility tourEntityIsEmty;
-            private Visibility tourEntityIsChoosen;
+        TourEntityVM currentTourEntity;
+        private Visibility tourEntityIsEmty;
+        private Visibility tourEntityIsChoosen;
+        private DataProvider dp;
         #endregion
 
         #region NAVIGATIONCOMMANDPROPERTIES
@@ -27,11 +29,11 @@ namespace GUI.ViewModel.ViewViewModel
             public RelayCommand MemberBtn { get; set; }
         #endregion
         #region GENERALCOMMANDPROPERTIES
-            public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
-            public RelayCommand<PositionEntityVM> DeletePositionBtn { get; set; }
+        public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
+        public RelayCommand<PositionEntityVM> DeletePositionBtn { get; set; }
         #endregion
         #region PROPERTIES
-            public TourEntityVM CurrentTourEntity
+        public TourEntityVM CurrentTourEntity
             {
                 get
                 {
@@ -52,7 +54,7 @@ namespace GUI.ViewModel.ViewViewModel
                     RaisePropertyChanged();
                 }
             }
-            public Visibility TourEntityIsEmty
+        public Visibility TourEntityIsEmty
             {
                 get
                 {
@@ -65,7 +67,7 @@ namespace GUI.ViewModel.ViewViewModel
                     RaisePropertyChanged();
                 }
             }
-            public Visibility TourEntityIsChoosen
+        public Visibility TourEntityIsChoosen
             {
                 get
                 {
@@ -84,12 +86,12 @@ namespace GUI.ViewModel.ViewViewModel
                     }
                     RaisePropertyChanged();
                 }
-            }     
+            }
         #endregion
 
         #region CONSTRUCTORS
-            public TourVM()
-            {
+        public TourVM()
+        {
                 TourEntityIsChoosen = Visibility.Hidden;
                 //Navigation Commands
                 ListReportBtn = new RelayCommand(SwitchToListReport);
@@ -103,7 +105,8 @@ namespace GUI.ViewModel.ViewViewModel
                 DeletePositionBtn = new RelayCommand<PositionEntityVM>(DeletePosition);
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
-            }
+                MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
         #endregion
 
         #region NAVIGATIONCOMMANDMETHODS
@@ -132,21 +135,27 @@ namespace GUI.ViewModel.ViewViewModel
             }
         #endregion
         #region GENERALCOMMANDMETHODS
-            private void DeletePosition(PositionEntityVM obj)
-            {
-                //Lösche Position
-            }
+        private void DeletePosition(PositionEntityVM obj)
+        {
+            //CurrentTourEntity.Positionen.Remove(obj);
+            //dp.UpdateTour(CurrentTourEntity.Tour);
+            //MessengerInstance.Send<DataProvider>(dp);
+        }
 
-            private void ShowPosition(PositionEntityVM obj)
+        private void ShowPosition(PositionEntityVM obj)
             {
                 MessengerInstance.Send<PositionEntityVM>(obj);
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<PositionVM>()));
             }
         #endregion
         #region METHODS
-            private void UpdateCurrentTourEntity(TourEntityVM obj)
+        private void UpdateCurrentTourEntity(TourEntityVM obj)
         {
             CurrentTourEntity = obj;
+        }
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
         }
         #endregion
     }
