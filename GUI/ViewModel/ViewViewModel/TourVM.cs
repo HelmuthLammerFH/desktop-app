@@ -126,7 +126,7 @@ namespace GUI.ViewModel.ViewViewModel
 
             private void SwitchToPositions()
             {
-                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourListVM>()));
+                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourPositionsVM>()));
             }
 
             private void SwitchToTour()

@@ -39,7 +39,7 @@ namespace GUI.ViewModel
             SimpleIoc.Default.GetInstance<CalendarReportVM>();
             SimpleIoc.Default.GetInstance<ListReportVM>();
             SimpleIoc.Default.GetInstance<TourVM>();
-            SimpleIoc.Default.GetInstance<TourListVM>();
+            SimpleIoc.Default.GetInstance<TourPositionsVM>();
             SimpleIoc.Default.GetInstance<PositionVM>();
             SimpleIoc.Default.GetInstance<MemberVM>();
 

@@ -12,12 +12,12 @@ using System.Windows;
 
 namespace GUI.ViewModel.ViewViewModel
 {
-    public class TourListVM : ViewModelBase
+    public class TourPositionsVM : ViewModelBase
     {
         #region ATTRIBUTES
-        TourEntityVM currentTourEntity;
-        PositionEntityVM selectedPositionItem;
-        PositionEntityVM createdOrUpdatedPositionItem;
+        private TourEntityVM currentTourEntity;
+        private PositionEntityVM selectedPositionItem;
+        private PositionEntityVM createdOrUpdatedPositionItem;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
         private DataProvider dp;
@@ -118,7 +118,7 @@ namespace GUI.ViewModel.ViewViewModel
         #endregion
 
         #region CONSTRUCTORS
-        public TourListVM()
+        public TourPositionsVM()
         {
             //CreatedOrUpdatedPositionItem = new PositionEntityVM(new Position());
             TourEntityIsChoosen = Visibility.Hidden;
@@ -144,7 +144,7 @@ namespace GUI.ViewModel.ViewViewModel
 
         private void SwitchToPositions()
         {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourListVM>()));
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourPositionsVM>()));
         }
 
         private void SwitchToTour()

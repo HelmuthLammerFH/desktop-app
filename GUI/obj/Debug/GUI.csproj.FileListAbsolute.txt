@@ -125,7 +125,6 @@ C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Login.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Member.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Position.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Tour.g.cs
-C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\TourList.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\App.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI_MarkupCompile.cache
@@ -138,7 +137,8 @@ C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Login.baml
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Member.baml
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Position.baml
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\Tour.baml
-C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\TourList.baml
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.g.resources
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.Properties.Resources.resources
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
+C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\TourPositions.g.cs
+C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\TourPositions.baml
