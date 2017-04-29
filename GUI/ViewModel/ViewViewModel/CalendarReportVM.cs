@@ -58,7 +58,11 @@ namespace GUI.ViewModel.ViewViewModel
         public CalendarReportVM()
         {
             //Load From DataProvider all TourEntities in TourEntitieList
-            
+            /*foreach (Tour tour in dp.QueryAllTours)
+            {
+                TourEntitieList.Add(new TourEntityVM(tour));
+            }*/
+
             //Navigation Commands
             ListReportBtn = new RelayCommand(SwitchToListReport);
             TourBtn = new RelayCommand(SwitchToTour);

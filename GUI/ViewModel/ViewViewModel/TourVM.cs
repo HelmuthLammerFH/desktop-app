@@ -140,6 +140,7 @@ namespace GUI.ViewModel.ViewViewModel
             //CurrentTourEntity.Positionen.Remove(obj);
             //dp.UpdateTour(CurrentTourEntity.Tour);
             //MessengerInstance.Send<DataProvider>(dp);
+            //MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
         }
 
         private void ShowPosition(PositionEntityVM obj)
