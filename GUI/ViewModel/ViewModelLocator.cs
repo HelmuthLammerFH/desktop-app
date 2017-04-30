@@ -29,7 +29,7 @@ namespace GUI.ViewModel
             SimpleIoc.Default.Register<CalendarReportVM>();
             SimpleIoc.Default.Register<ListReportVM>();
             SimpleIoc.Default.Register<TourVM>();
-            SimpleIoc.Default.Register<TourListVM>();
+            SimpleIoc.Default.Register<TourPositionsVM>();
             SimpleIoc.Default.Register<PositionVM>();
             SimpleIoc.Default.Register<MemberVM>();
         }
@@ -70,11 +70,11 @@ namespace GUI.ViewModel
                 return ServiceLocator.Current.GetInstance<TourVM>();
             }
         }
-        public TourListVM TourList
+        public TourPositionsVM TourPositions
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<TourListVM>();
+                return ServiceLocator.Current.GetInstance<TourPositionsVM>();
             }
         }
         public PositionVM Position

@@ -1,6 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using DataLayer;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GUI.ViewModel.EntityViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,37 +14,52 @@ namespace GUI.ViewModel.ViewViewModel
     public class PositionVM : ViewModelBase
     {
         #region ATTRIBUTES
+        private PositionEntityVM currentPositionEntity;
+        private DataProvider dp;
         #endregion
 
         #region PROPERTIES
         public RelayCommand TourBtn { get; set; }
-        public RelayCommand PositionsBtn { get; set; }
-        public RelayCommand MemberBtn { get; set; }
+        public PositionEntityVM CurrentPositionEntity
+        {
+            get
+            {
+                return currentPositionEntity;
+            }
+
+            set
+            {
+                currentPositionEntity = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region CONSTRUCTORS
         public PositionVM()
         {
             TourBtn = new RelayCommand(SwitchToTour);
-            PositionsBtn = new RelayCommand(SwitchToPositions);
-            MemberBtn = new RelayCommand(SwitchToMember);
+            MessengerInstance.Register<PositionEntityVM>(this, UpdateCurrentPositionEntity);
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
-        #region METHODS
-        private void SwitchToMember()
-        {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<MemberVM>()));
-        }
-
-        private void SwitchToPositions()
-        {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourListVM>()));
-        }
-
+        #region NAVIGATIONCOMMANDMETHODS
         private void SwitchToTour()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+        }
+        #endregion
+        #region GENERALCOMMANDPROPERTIES
+        #endregion
+        #region METHODS
+        private void UpdateCurrentPositionEntity(PositionEntityVM obj)
+        {
+            CurrentPositionEntity = obj;
+        }
+        private void UpdateDataProvider(DataProvider obj)
+        {
+            dp = obj;
         }
         #endregion
     }

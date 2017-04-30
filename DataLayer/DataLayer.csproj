@@ -48,6 +48,10 @@
       <Project>{49545335-667E-47F0-A6DB-F05402ACC1A4}</Project>
       <Name>Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SR_Synchronisation_Dummy\SR_Synchronisation_Dummy.csproj">
+      <Project>{7CB91CBE-0198-43CC-8FDB-901D87ED82D4}</Project>
+      <Name>SR_Synchronisation_Dummy</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
