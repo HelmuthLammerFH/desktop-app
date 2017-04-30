@@ -7,3 +7,4 @@ C:\Users\Roman\Source\Repos\desktop-app\Shared\bin\Debug\Shared.dll
 C:\Users\Roman\Source\Repos\desktop-app\Shared\bin\Debug\Shared.pdb
 C:\Users\Roman\Source\Repos\desktop-app\Shared\obj\Debug\Shared.dll
 C:\Users\Roman\Source\Repos\desktop-app\Shared\obj\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app\Shared\obj\Debug\Shared.csprojResolveAssemblyReference.cache

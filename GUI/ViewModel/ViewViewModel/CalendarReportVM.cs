@@ -57,12 +57,6 @@ namespace GUI.ViewModel.ViewViewModel
         #region CONSTRUCTORS
         public CalendarReportVM()
         {
-            //Load From DataProvider all TourEntities in TourEntitieList
-            /*foreach (Tour tour in dp.QueryAllTours)
-            {
-                TourEntitieList.Add(new TourEntityVM(tour));
-            }*/
-
             //Navigation Commands
             ListReportBtn = new RelayCommand(SwitchToListReport);
             TourBtn = new RelayCommand(SwitchToTour);
@@ -101,6 +95,11 @@ namespace GUI.ViewModel.ViewViewModel
         private void UpdateDataProvider(DataProvider obj)
         {
             dp = obj;
+            //Load From DataProvider all TourEntities in TourEntitieList
+            /*foreach (Tour tour in dp.QueryAllTours)
+            {
+                TourEntitieList.Add(new TourEntityVM(tour));
+            }*/
         }
         #endregion
     }

@@ -142,3 +142,5 @@ C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.Properties.Resources.r
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\TourPositions.g.cs
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\View\TourPositions.baml
+C:\Users\Roman\Source\Repos\desktop-app\GUI\bin\Debug\SR_Synchronisation_Dummy.dll
+C:\Users\Roman\Source\Repos\desktop-app\GUI\bin\Debug\SR_Synchronisation_Dummy.pdb
