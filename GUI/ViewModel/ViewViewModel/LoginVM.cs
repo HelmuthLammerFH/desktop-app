@@ -5,9 +5,12 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GUI.ViewModel.ViewViewModel
 {
@@ -15,13 +18,15 @@ namespace GUI.ViewModel.ViewViewModel
     {
         #region ATTRIBUTES
         private string userName;
-        private string passwort;
+        private string passwort = "";
         private bool angemeldetBleiben;
         private DataProvider dp = new DataProvider();
+        private string loginCredentialsFilePath = "loginCredentials.csv";
+        private string statusMessage = "";
         #endregion
 
         #region PROPERTIES
-        public RelayCommand LoginBtn { get; set; }
+        public RelayCommand<PasswordBox> LoginBtn { get; set; }
         public string UserName
         {
             get
@@ -58,26 +63,90 @@ namespace GUI.ViewModel.ViewViewModel
                 angemeldetBleiben = value;
             }
         }
+
+        public string StatusMessage
+        {
+            get
+            {
+                return statusMessage;
+            }
+
+            set
+            {
+                statusMessage = value;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region CONSTRUCTORS
         public LoginVM()
         {
-            LoginBtn = new RelayCommand(Login, CanExecuteLogin);
+            Task.Factory.StartNew(CheckIfConnectionExists);
+            LoginBtn = new RelayCommand<PasswordBox>(Login, CanExecuteLogin);
+
+            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+
         }
         #endregion
 
         #region METHODS
-        private void Login()
+        private void UpdateDataProvider(DataProvider obj)
         {
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+            dp = obj;
+        }
+        private void CheckIfConnectionExists()
+        {
+            while (true)
+            {
+                if (dp.ConnectionExists())
+                {
+                    if (StatusMessage != "Username oder Passwort wurde Falsch eingegeben!")
+                        StatusMessage = "";
+                }
+                else
+                {
+                    StatusMessage = "Für den Login muss eine Internetverbindung bestehen!";
+                }
+                Thread.Sleep(2000);
+            }
         }
 
-        private bool CanExecuteLogin()
+        private void ShowCredentialsFalseMessage()
         {
-            if(dp.Login(userName,passwort,angemeldetBleiben))
+            StatusMessage = "Username oder Passwort wurde Falsch eingegeben!";
+            Thread.Sleep(2000);
+            StatusMessage = "";
+        }
+
+        private void Login(PasswordBox arg)
+        {
+            Passwort = arg.Password;
+            if (dp.Login(userName, passwort))
+            {
+                string[] linesToSave = new string[1];
+                linesToSave[0] = userName + ";" + passwort + ";" + angemeldetBleiben;
+                File.WriteAllLines(loginCredentialsFilePath, linesToSave);
+                MessengerInstance.Send<DataProvider>(dp);
+                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+                StatusMessage = "";
+            }
+            else
+            {
+                Task.Factory.StartNew(ShowCredentialsFalseMessage);
+            }
+        }
+
+        private bool CanExecuteLogin(PasswordBox arg)
+        {
+            if (dp.ConnectionExists())
+            {
                 return true;
-            return false;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

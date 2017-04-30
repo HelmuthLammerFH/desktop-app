@@ -24,8 +24,8 @@
                 <DataTemplate DataType="{x:Type vm:TourVM}">
                     <view:Tour/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:TourListVM}">
-                    <view:TourList/>
+                <DataTemplate DataType="{x:Type vm:TourPositionsVM}">
+                    <view:TourPositions/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:PositionVM}">
                     <view:Position/>

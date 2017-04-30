@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GUI.View
 {
     /// <summary>
-    /// Interaktionslogik für TourList.xaml
+    /// Interaktionslogik für TourPositions.xaml
     /// </summary>
-    public partial class TourList : UserControl
+    public partial class TourPositions : UserControl
     {
-        public TourList()
+        public TourPositions()
         {
             InitializeComponent();
         }

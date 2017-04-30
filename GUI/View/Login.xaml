@@ -9,10 +9,11 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=Login}">
     <Grid Background="#FFB4AAAA">
         <Label x:Name="label" Content="Benutzername:" HorizontalAlignment="Left" Margin="140,184,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="25" Margin="140,215,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="25" Margin="140,215,0,0" TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Top" Width="300"/>
         <Label x:Name="label1" Content="Passwort:" HorizontalAlignment="Left" Margin="140,255,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="25" Margin="140,286,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="300"/>
-        <CheckBox x:Name="checkBox" Content="Angemeldet bleiben" HorizontalAlignment="Left" Margin="220,325,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="Anmelden" HorizontalAlignment="Left" Margin="245,355,0,0" VerticalAlignment="Top" Width="75" Command="{Binding LoginBtn}" Background="#FFD6A1A1"/>
+        <PasswordBox x:Name="passwort" HorizontalAlignment="Left" Height="25" Margin="140,286,0,0" VerticalAlignment="Top" Width="300"/>
+        <CheckBox x:Name="checkBox" Content="Angemeldet bleiben" HorizontalAlignment="Left" Margin="220,325,0,0" VerticalAlignment="Top" IsChecked="{Binding AngemeldetBleiben}"/>
+        <Button x:Name="button" Content="Anmelden" HorizontalAlignment="Left" Margin="245,355,0,0" VerticalAlignment="Top" Width="75" Command="{Binding LoginBtn}" CommandParameter="{Binding ElementName=passwort}" Background="#FFD6A1A1"/>
+        <Label x:Name="label2" HorizontalAlignment="Left" Margin="140,395,0,0" VerticalAlignment="Top" Content="{Binding StatusMessage}" Foreground="#FFB94F4F" />
     </Grid>
 </UserControl>

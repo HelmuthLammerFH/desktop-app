@@ -1,4 +1,5 @@
 ﻿using Shared;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +10,56 @@ namespace DataLayer
 {
     public class DataProvider
     {
-        public void DeleteTour(Tour tour)
+        SR_Synchronisation_Dummy.Client client;
+        static List<Tour> tourList;
+        static TourGuide tourGuide;
+
+        public bool ConnectionExists()
         {
-            throw new NotImplementedException();
+            client = new SR_Synchronisation_Dummy.Client();
+            if (client == null)
+                return false;
+            return true;
         }
 
-        public bool Login(string userName, string passwort, bool angemeldetBleiben)
+        public bool Login(string userName, string passwort)
         {
-            //anmelden und daten in ein statische liste laden
-            return true;
+            if (client.Login(userName, passwort))
+            {
+                tourGuide = client.GetTourGuid(userName, passwort);
+                tourList = client.GetTourListByGuideId(tourGuide.TourGuideID);
+                return true;
+            }      
+            return false;
+        }
+
+        public void DeleteTour(Tour tour)
+        {
+            int index = -1;
+            foreach (Tour t in tourList)
+            {
+                if (t.TourID == tour.TourID)
+                    index = tourList.IndexOf(t);
+            }
+            if (index != -1)
+                tourList.RemoveAt(index);
         }
 
         public List<Tour> QueryAllTours()
         {
-            throw new NotImplementedException();
+            return tourList;
         }
 
         public void UpdateTour(Tour tour)
         {
-            throw new NotImplementedException();
+            int index = -1;
+            foreach (Tour t in tourList)
+            {
+                if (t.TourID == tour.TourID)
+                    index = tourList.IndexOf(t);                
+            }
+            if(index != -1)
+                tourList[index] = tour;
         }
     }
 }

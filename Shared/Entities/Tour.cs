@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared
+namespace Shared.Entities
 {
     [DataContract]
     public class Tour
@@ -27,7 +27,7 @@ namespace Shared
         public Status Status { get; set; }
 
         [DataMember]
-        public DateTime Dauer { get; set; }
+        public int Dauer { get; set; }
 
         [DataMember]
         public Route Route { get; set; }
