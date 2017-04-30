@@ -1,4 +1,5 @@
 ﻿using Shared;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,36 +10,56 @@ namespace DataLayer
 {
     public class DataProvider
     {
-        string testUserName = "test";
-        string testPasswort = "test";
+        SR_Synchronisation_Dummy.Client client;
+        static List<Tour> tourList;
+        static TourGuide tourGuide;
 
         public bool ConnectionExists()
         {
-            //try Synchronisation
+            client = new SR_Synchronisation_Dummy.Client();
+            if (client == null)
+                return false;
             return true;
         }
 
         public bool Login(string userName, string passwort)
         {
-            //if credentials from Syncronisation then load static lists
-            if (userName == testUserName && passwort == testPasswort)
+            if (client.Login(userName, passwort))
+            {
+                tourGuide = client.GetTourGuid(userName, passwort);
+                tourList = client.GetTourListByGuideId(tourGuide.TourGuideID);
                 return true;
+            }      
             return false;
         }
 
         public void DeleteTour(Tour tour)
         {
-            throw new NotImplementedException();
+            int index = -1;
+            foreach (Tour t in tourList)
+            {
+                if (t.TourID == tour.TourID)
+                    index = tourList.IndexOf(t);
+            }
+            if (index != -1)
+                tourList.RemoveAt(index);
         }
 
         public List<Tour> QueryAllTours()
         {
-            throw new NotImplementedException();
+            return tourList;
         }
 
         public void UpdateTour(Tour tour)
         {
-            throw new NotImplementedException();
+            int index = -1;
+            foreach (Tour t in tourList)
+            {
+                if (t.TourID == tour.TourID)
+                    index = tourList.IndexOf(t);                
+            }
+            if(index != -1)
+                tourList[index] = tour;
         }
     }
 }
