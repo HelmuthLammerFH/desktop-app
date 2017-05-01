@@ -22,7 +22,26 @@
                 <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             </Grid>
             <Grid Visibility="{Binding TourEntityIsChoosen}">
-                <Label x:Name="label1" Content="Teilnehmer Content !!!" HorizontalAlignment="Left" Margin="186,109,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="label2" HorizontalAlignment="Left" Margin="12,45,0,0" VerticalAlignment="Top" Content="{Binding CurrentTourEntity.Title}" FontSize="16" FontWeight="Bold"/>
+                <Label x:Name="label3" Content="Vorname" HorizontalAlignment="Left" Margin="12,84,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="label3_Copy" Content="Nachname" HorizontalAlignment="Left" Margin="152,84,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="label3_Copy1" Content="Teilnahme" HorizontalAlignment="Left" Margin="292,84,0,0" VerticalAlignment="Top"/>
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="435" Margin="10,115,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Members}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="140"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Prename}" />
+                                <TextBlock Grid.Column="1" Text="{Binding SureName}" />
+                                <CheckBox Grid.Column="2" IsChecked="{Binding AttendTour}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Grid>
     </Grid>

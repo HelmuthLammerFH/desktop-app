@@ -3,8 +3,10 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
+using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +33,7 @@ namespace GUI.ViewModel.ViewViewModel
         #region GENERALCOMMANDPROPERTIES
         public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
         public RelayCommand<PositionEntityVM> DeletePositionBtn { get; set; }
+        public RelayCommand DeleteTourBtn { get; set; }
         #endregion
         #region PROPERTIES
         public TourEntityVM CurrentTourEntity
@@ -103,6 +106,7 @@ namespace GUI.ViewModel.ViewViewModel
                 //General Commands
                 ShowPositionBtn = new RelayCommand<PositionEntityVM>(ShowPosition);
                 DeletePositionBtn = new RelayCommand<PositionEntityVM>(DeletePosition);
+                DeleteTourBtn = new RelayCommand(DeleteTour);
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
                 MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
@@ -110,7 +114,7 @@ namespace GUI.ViewModel.ViewViewModel
         #endregion
 
         #region NAVIGATIONCOMMANDMETHODS
-            private void SwitchToCalendarReport()
+        private void SwitchToCalendarReport()
             {
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<CalendarReportVM>()));
             }
@@ -135,12 +139,18 @@ namespace GUI.ViewModel.ViewViewModel
             }
         #endregion
         #region GENERALCOMMANDMETHODS
+        private void DeleteTour()
+        {
+            dp.DeleteTour(CurrentTourEntity.Tour);
+            MessengerInstance.Send<DataProvider>(dp);
+            CurrentTourEntity = null;
+        }
         private void DeletePosition(PositionEntityVM obj)
         {
-            //CurrentTourEntity.Positionen.Remove(obj);
-            //dp.UpdateTour(CurrentTourEntity.Tour);
-            //MessengerInstance.Send<DataProvider>(dp);
-            //MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+            CurrentTourEntity.Positions.Remove(obj);
+            dp.UpdateTour(CurrentTourEntity.Tour);
+            MessengerInstance.Send<DataProvider>(dp);
+            MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
         }
 
         private void ShowPosition(PositionEntityVM obj)

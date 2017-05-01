@@ -19,8 +19,7 @@
         </StackPanel>
         <Grid Grid.Column="1">
             <Button x:Name="button3" Content="Kalendar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding CalendarReportBtn}" />
-            <Button x:Name="button4" Content="Fortschritt" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
-            <Button x:Name="button5" Content="Teilnehmer" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
+            <Button x:Name="button4" Content="Liste" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
             <Grid Visibility="{Binding TourEntityIsEmty}">
                 <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
             </Grid>
@@ -28,41 +27,40 @@
                 <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="1" Margin="10,35,10,405">
                     <Grid>
                         <Label x:Name="label2" Content="Beschreibung:" HorizontalAlignment="Left" Margin="9,2,0,0" VerticalAlignment="Top"/>
-                        <!--<Label x:Name="label3" Content="{Binding Beschreibung}" HorizontalAlignment="Left" Margin="200,2,0,0" VerticalAlignment="Top"/>-->
+                        <Label x:Name="label3" Content="{Binding CurrentTourEntity.Title}" HorizontalAlignment="Left" Margin="200,2,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label4" Content="Datum:" HorizontalAlignment="Left" Margin="9,33,0,0" VerticalAlignment="Top"/>
-                        <!--<Label x:Name="label5" Content="{Binding Datum}" HorizontalAlignment="Left" Margin="200,33,0,0" VerticalAlignment="Top"/>-->
-                        <Label x:Name="label6" Content="Kumulierte Tage:" HorizontalAlignment="Left" Margin="9,64,0,0" VerticalAlignment="Top"/>
-                        <!--<Label x:Name="label7" Content="{Binding KumulierteTage}" HorizontalAlignment="Left" Margin="200,64,0,0" VerticalAlignment="Top"/>-->
+                        <Label x:Name="label5" Content="{Binding CurrentTourEntity.Date, StringFormat='{}{0:dd.MM.yyyy}'}" HorizontalAlignment="Left" Margin="200,33,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label6" Content="Dauer:" HorizontalAlignment="Left" Margin="9,64,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label7" Content="{Binding CurrentTourEntity.Duration, StringFormat='{}{0:hh:mm}'}" HorizontalAlignment="Left" Margin="200,64,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label8" Content="Status:" HorizontalAlignment="Left" Margin="9,95,0,-5" VerticalAlignment="Top"/>
-                        <!--<Label x:Name="label9" Content="{Binding Status}" HorizontalAlignment="Left" Margin="200,95,0,-5" VerticalAlignment="Top"/>-->
+                        <Label x:Name="label9" Content="{Binding CurrentTourEntity.State}" HorizontalAlignment="Left" Margin="200,95,0,-5" VerticalAlignment="Top"/>
                     </Grid>
                 </Border>
                 <Label x:Name="label10" Content="Zeitplan" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                 <Label x:Name="label11" Content="Position" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="label12" Content="Start Zeit" HorizontalAlignment="Left" Margin="200,196,0,0" VerticalAlignment="Top"/>
-                <!--<ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="200" Margin="10,270,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding PositionList}">-->
-                <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="258" Margin="10,227,0,0" VerticalAlignment="Top" Width="460">
+                <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="258" Margin="10,227,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="190"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="70"/>
                                 </Grid.ColumnDefinitions>
-                                <!--<TextBlock Grid.Column="0" Text="{Binding Bezeichnung}"/>-->
-                                <!--<TextBlock Grid.Column="1" Text="{Binding StartZeit}"/>-->
-                                <Button Grid.Column="2" Content="Show" Command="{Binding DataContext.ShowPositionBtn, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}"/>
-                                <Button Grid.Column="3" Content="Delete" Command="{Binding DataContext.DeletePositionBtn, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}"/>
+                                <TextBlock Grid.Column="0" Text="{Binding Title}" />
+                                <TextBlock Grid.Column="1" Text="{Binding FromDateTime, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                                <Button Grid.Column="2" Content="Show" Width="60" Command="{Binding DataContext.ShowPositionBtn, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}"/>
+                                <Button Grid.Column="3" Content="Delete" Width="60" Command="{Binding DataContext.DeletePositionBtn, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}"/>
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,500,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="380"/>
                 <Button x:Name="button6" Content="Hochladen" HorizontalAlignment="Left" Margin="395,500,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
-                <Button x:Name="button7" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,535,0,0" VerticalAlignment="Top" Width="75"/>
-                <Button x:Name="button8" Content="Löschen" HorizontalAlignment="Left" Margin="395,535,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="button7" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,535,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PositionsBtn}"/>
+                <Button x:Name="button8" Content="Löschen" HorizontalAlignment="Left" Margin="395,535,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTourBtn}"/>
             </Grid>
         </Grid>
     </Grid>
