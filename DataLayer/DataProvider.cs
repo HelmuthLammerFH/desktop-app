@@ -1,4 +1,5 @@
 ﻿using Shared;
+using Shared.DummyEntities;
 using Shared.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace DataLayer
     public class DataProvider
     {
         SR_Synchronisation_Dummy.Client client;
-        static List<Tour> tourList;
-        static TourGuide tourGuide;
+        static List<DummyTour> tourList;
+        static DummyTourGuide tourGuide;
 
         public bool ConnectionExists()
         {
@@ -26,17 +27,17 @@ namespace DataLayer
         {
             if (client.Login(userName, passwort))
             {
-                tourGuide = client.GetTourGuid(userName, passwort);
+                tourGuide = client.GetTourGuide(userName, passwort);
                 tourList = client.GetTourListByGuideId(tourGuide.TourGuideID);
                 return true;
             }      
             return false;
         }
 
-        public void DeleteTour(Tour tour)
+        public void DeleteTour(DummyTour tour)
         {
             int index = -1;
-            foreach (Tour t in tourList)
+            foreach (DummyTour t in tourList)
             {
                 if (t.TourID == tour.TourID)
                     index = tourList.IndexOf(t);
@@ -45,15 +46,15 @@ namespace DataLayer
                 tourList.RemoveAt(index);
         }
 
-        public List<Tour> QueryAllTours()
+        public List<DummyTour> QueryAllTours()
         {
             return tourList;
         }
 
-        public void UpdateTour(Tour tour)
+        public void UpdateTour(DummyTour tour)
         {
             int index = -1;
-            foreach (Tour t in tourList)
+            foreach (DummyTour t in tourList)
             {
                 if (t.TourID == tour.TourID)
                     index = tourList.IndexOf(t);                

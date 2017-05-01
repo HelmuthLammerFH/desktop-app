@@ -20,13 +20,7 @@ namespace Shared.Entities
         public DateTime VonDatum { get; set; }
 
         [DataMember]
-        public DateTime VonUhrzeit { get; set; }
-
-        [DataMember]
         public DateTime BisDatum { get; set; }
-
-        [DataMember]
-        public DateTime BisUhrzeit { get; set; }
 
         [DataMember]
         public Sehenswuerdigkeit Sehenswuerdigkeit { get; set; }

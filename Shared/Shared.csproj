@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyEntities\DummyMember.cs" />
+    <Compile Include="DummyEntities\DummyPosition.cs" />
+    <Compile Include="DummyEntities\DummyTour.cs" />
+    <Compile Include="DummyEntities\DummyTourGuide.cs" />
+    <Compile Include="DummyEntities\DummyUser.cs" />
     <Compile Include="Entities\Agentur.cs" />
     <Compile Include="Entities\Kunde.cs" />
     <Compile Include="Entities\KundeInTour.cs" />
@@ -58,6 +63,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

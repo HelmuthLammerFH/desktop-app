@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -77,6 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\EntityViewModel\MemberEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\PositionEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\TourEntityVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -183,6 +185,10 @@
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{8408E0D2-6686-4614-AC91-9614FA3F27D9}</Project>
       <Name>DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{49545335-667E-47F0-A6DB-F05402ACC1A4}</Project>
+      <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
