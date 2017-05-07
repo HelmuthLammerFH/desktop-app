@@ -8,3 +8,8 @@ C:\Users\Roman\Source\Repos\desktop-app\Shared\bin\Debug\Shared.pdb
 C:\Users\Roman\Source\Repos\desktop-app\Shared\obj\Debug\Shared.dll
 C:\Users\Roman\Source\Repos\desktop-app\Shared\obj\Debug\Shared.pdb
 C:\Users\Roman\Source\Repos\desktop-app\Shared\obj\Debug\Shared.csprojResolveAssemblyReference.cache
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\Shared\bin\Debug\Shared.dll
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\Shared\bin\Debug\Shared.pdb
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\Shared\obj\Debug\Shared.csprojResolveAssemblyReference.cache
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\Shared\obj\Debug\Shared.dll
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\Shared\obj\Debug\Shared.pdb
