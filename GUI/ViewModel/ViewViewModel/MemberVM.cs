@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace GUI.ViewModel.ViewViewModel
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
         private DataProvider dp;
+        private bool update = false;
         #endregion
 
         #region NAVIGATIONCOMMANDPROPERTIES
@@ -42,6 +44,12 @@ namespace GUI.ViewModel.ViewViewModel
                 else
                 {
                     TourEntityIsChoosen = Visibility.Visible;
+                    if (update == false)
+                    {
+                        dp.UpdateTour(CurrentTourEntity.Tour);
+                        MessengerInstance.Send<DataProvider>(dp);
+                        MessengerInstance.Send<TourEntityVM>(currentTourEntity);
+                    }                
                 }
                 RaisePropertyChanged();
             }
@@ -128,7 +136,9 @@ namespace GUI.ViewModel.ViewViewModel
         }
         private void UpdateCurrentTourEntity(TourEntityVM obj)
         {
+            update = true;
             CurrentTourEntity = obj;
+            update = false;
         }
         #endregion    
     }

@@ -8,12 +8,17 @@ C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\DataLayer\obj\Debug\DataLayer.pdb
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\DataLayer.dll
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\DataLayer.pdb
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\Shared.dll
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\SR_Synchronisation_Dummy.dll
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\SR_Synchronisation_Dummy.pdb
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\obj\Debug\DataLayer.dll
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\obj\Debug\DataLayer.pdb
+<<<<<<< HEAD
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\SR_Synchronisation_Dummy.dll
 C:\Users\Roman\Source\Repos\desktop-app\DataLayer\bin\Debug\SR_Synchronisation_Dummy.pdb
+=======
+>>>>>>> dejvid
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\bin\Debug\DataLayer.dll
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\bin\Debug\DataLayer.pdb
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\bin\Debug\Shared.dll

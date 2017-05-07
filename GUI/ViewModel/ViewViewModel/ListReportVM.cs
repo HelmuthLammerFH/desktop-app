@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
+using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -96,10 +97,11 @@ namespace GUI.ViewModel.ViewViewModel
         {
             dp = obj;
             //Load From DataProvider all TourEntities in TourEntitieList
-            /*foreach (Tour tour in dp.QueryAllTours)
+            TourEntitieList.Clear();
+            foreach (DummyTour tour in dp.QueryAllTours())
             {
                 TourEntitieList.Add(new TourEntityVM(tour));
-            }*/
+            }
         }
         #endregion
     }
