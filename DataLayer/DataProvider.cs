@@ -1,4 +1,6 @@
 ﻿using Shared;
+using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +11,56 @@ namespace DataLayer
 {
     public class DataProvider
     {
-        public void DeleteTour(Tour tour)
-        {
-            throw new NotImplementedException();
-        }
+        SR_Synchronisation_Dummy.Client client;
+        static List<DummyTour> tourList;
+        static DummyTourGuide tourGuide;
 
-        public bool Login(string userName, string passwort, bool angemeldetBleiben)
+        public bool ConnectionExists()
         {
-            //anmelden und daten in ein statische liste laden
+            client = new SR_Synchronisation_Dummy.Client();
+            if (client == null)
+                return false;
             return true;
         }
 
-        public List<Tour> QueryAllTours()
+        public bool Login(string userName, string passwort)
         {
-            throw new NotImplementedException();
+            if (client.Login(userName, passwort))
+            {
+                tourGuide = client.GetTourGuide(userName, passwort);
+                tourList = client.GetTourListByGuideId(tourGuide.TourGuideID);
+                return true;
+            }      
+            return false;
         }
 
-        public void UpdateTour(Tour tour)
+        public void DeleteTour(DummyTour tour)
         {
-            throw new NotImplementedException();
+            int index = -1;
+            foreach (DummyTour t in tourList)
+            {
+                if (t.TourID == tour.TourID)
+                    index = tourList.IndexOf(t);
+            }
+            if (index != -1)
+                tourList.RemoveAt(index);
+        }
+
+        public List<DummyTour> QueryAllTours()
+        {
+            return tourList;
+        }
+
+        public void UpdateTour(DummyTour tour)
+        {
+            int index = -1;
+            foreach (DummyTour t in tourList)
+            {
+                if (t.TourID == tour.TourID)
+                    index = tourList.IndexOf(t);                
+            }
+            if(index != -1)
+                tourList[index] = tour;
         }
     }
 }

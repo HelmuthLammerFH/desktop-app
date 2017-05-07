@@ -19,7 +19,7 @@
         </StackPanel>
         <Grid Grid.Column="1">
             <Button x:Name="button4" Content="Listen Ansicht" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
-            <Label x:Name="label" Content="Kalendar Ansicht Content !!!" Grid.Column="1" HorizontalAlignment="Left" Margin="185,265,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label" Content="Kalendar Ansicht Content !!!" HorizontalAlignment="Left" Margin="217,270,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -19,7 +19,31 @@
         </StackPanel>
         <Grid Grid.Column="1">
             <Button x:Name="button4" Content="Kalendar Ansicht" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Background="#FFD6A1A1" Command="{Binding CalendarReportBtn}" />
-            <Label x:Name="label" Content="Listen Ansicht Content !!!" Grid.Column="1" HorizontalAlignment="Left" Margin="185,265,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label1" Content="Tour" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label2" Content="Datum" HorizontalAlignment="Left" Margin="170,43,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label3" Content="Uhrzeit" HorizontalAlignment="Left" Margin="270,43,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label4" Content="Dauer" HorizontalAlignment="Left" Margin="330,43,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label5" Content="Status" HorizontalAlignment="Left" Margin="390,43,0,0" VerticalAlignment="Top"/>
+            <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="481" Margin="10,74,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding TourEntitieList}" SelectedItem="{Binding SelectedTourEntitie}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Title}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat='{}{0:HH:mm}'}" />
+                            <TextBlock Grid.Column="3" Text="{Binding Duration, StringFormat='{}{0:HH:mm}'}" />
+                            <TextBlock Grid.Column="4" Text="{Binding State}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 </UserControl>
