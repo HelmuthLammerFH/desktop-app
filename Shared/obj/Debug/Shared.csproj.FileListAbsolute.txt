@@ -3,3 +3,8 @@ C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\Shared\bin\Debug\Shared.pdb
 C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\Shared\obj\Debug\Shared.dll
 C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\Shared\obj\Debug\Shared.pdb
 C:\Users\Roman\Desktop\C#_lernen\TourGuideApp\Shared\obj\Debug\Shared.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\bin\Debug\Shared.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\bin\Debug\Shared.pdb
+C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\obj\Debug\Shared.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\obj\Debug\Shared.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\obj\Debug\Shared.pdb
