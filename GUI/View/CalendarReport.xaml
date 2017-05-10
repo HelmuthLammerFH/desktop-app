@@ -24,7 +24,7 @@
                 <RowDefinition Height="90*"/>
             </Grid.RowDefinitions>
             <Button x:Name="button4" Grid.Row="0" Content="Listen Ansicht" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
-            <controls:MonthViewControl  Grid.Row ="1" DataSource="{Binding TourEntitieList}" x:Name="AptCalendar" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <controls:MonthViewControl  Grid.Row ="1" DataSource="{Binding TourEntitieList}" SelectedTour="{Binding SelectedTourEntitie}" x:Name="AptCalendar" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />

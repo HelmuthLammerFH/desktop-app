@@ -45,6 +45,23 @@ namespace GUI.View.UserControls
             }
         }
 
+
+        public static readonly DependencyProperty CustomSelectedTourProperty =
+        DependencyProperty.Register(
+        "SelectedTour", typeof(TourEntityVM), typeof(MonthViewControl),
+        new FrameworkPropertyMetadata(new TourEntityVM(new Shared.DummyEntities.DummyTour()), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+        public TourEntityVM SelectedTour
+        {
+            get { return (TourEntityVM)GetValue(CustomSelectedTourProperty); }
+            set
+            {
+
+                SetValue(CustomSelectedTourProperty, value);
+
+            }
+        }
+
         public DateTime DisplayStartDate
         {
             get { return displayStartDate; }
@@ -64,8 +81,6 @@ namespace GUI.View.UserControls
 
         private void MonthView_Loaded(object sender, RoutedEventArgs e)
         {
-            //-- Want to have the calendar show up, even if no appoints are assigned 
-            //   Note - in my own app, appointments are loaded by a backgroundWorker thread to avoid a laggy UI
                 BuildCalendarUI();
         }
 
@@ -84,28 +99,26 @@ namespace GUI.View.UserControls
             {
                 if ((i != 1) && Math.IEEERemainder((i + iOffsetDays - 1), 7) == 0)
                 {
-                    //-- add existing weekrowcontrol to the monthgrid
+
                     Grid.SetRow(weekRowCtrl, iWeekCount);
                     MonthViewGrid.Children.Add(weekRowCtrl);
-                    //-- make a new weekrowcontrol
+
                     weekRowCtrl = new WeekOfDaysControl();
                     iWeekCount += 1;
                 }
 
-                //-- load each weekrow with a DayBoxControl whose label is set to day number
+  
                 DayBoxControl dayBox = new DayBoxControl();
                 dayBox.DayNumberLabel.Content = i.ToString();
                 dayBox.Tag = i;
                 dayBox.MouseDoubleClick += DayBox_DoubleClick;
 
-                //-- customize daybox for today:
                 if ((new System.DateTime(displayYear, displayMonth, i)) == DateTime.Today)
                 {
                     dayBox.DayLabelRowBorder.Background = (Brush)dayBox.TryFindResource("OrangeGradientBrush");
                     dayBox.DayAppointmentsStack.Background = Brushes.Wheat;
                 }
 
-                //-- for design mode, add appointments to random days for show...
                 if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
                 {
                     if (new Random().Next() < 0.25)
@@ -118,8 +131,6 @@ namespace GUI.View.UserControls
                 }
                 else if (DataSource != null)
                 {
-                    //-- Compiler warning about unpredictable results if using i (the iterator) in lambda, the 
-                    //   "hint" suggests declaring another var and set equal to iterator var
                     int iday = i;
                     List<TourEntityVM> aptInDay = DataSource.Where(apt => apt.Date.Day == iday && apt.Date.Month == displayMonth).ToList();
                     foreach (TourEntityVM a in aptInDay)
@@ -182,11 +193,12 @@ namespace GUI.View.UserControls
             {
                 if (((AppointmentControl)e.Source).Tag != null)
                 {
-                    //-- You could put your own call to your appointment-displaying code or whatever here..
-                    if (AppointmentDblClicked != null)
-                    {
-                        AppointmentDblClicked(Convert.ToInt32(((AppointmentControl)e.Source).Tag));
-                    }
+                    var apt = (AppointmentControl)e.Source;
+                    SelectedTour = DataSource.FirstOrDefault((a) => a.Tour.TourID == (Guid)apt.Tag);
+                    //if (AppointmentDblClicked != null)
+                    //{
+                    //    AppointmentDblClicked(Convert.ToInt32(((AppointmentControl)e.Source).Tag));
+                    //}
                 }
                 e.Handled = true;
             }
