@@ -1,10 +1,3 @@
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.dll
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.pdb
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\bin\Debug\Shared.dll
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\bin\Debug\Shared.pdb
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.csprojResolveAssemblyReference.cache
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.dll
-C:\Users\Roman\Source\Repos\desktop-app\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.pdb
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.dll
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.pdb
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\SR_Synchronisation_Dummy\bin\Debug\Shared.dll

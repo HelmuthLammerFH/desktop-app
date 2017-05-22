@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI.View"
+             xmlns:controls="clr-namespace:GUI.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="580"
              DataContext="{Binding Source={StaticResource Locator}, Path=CalendarReport}">
@@ -18,8 +19,39 @@
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
         </StackPanel>
         <Grid Grid.Column="1">
-            <Button x:Name="button4" Content="Listen Ansicht" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
-            <Label x:Name="label" Content="Kalendar Ansicht Content !!!" HorizontalAlignment="Left" Margin="217,270,0,0" VerticalAlignment="Top"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="90*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="button4" Grid.Row="0" Content="Listen Ansicht" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
+            <controls:MonthViewControl  Grid.Row ="1" DataSource="{Binding TourEntitieList}" SelectedTour="{Binding SelectedTourEntitie}" x:Name="AptCalendar" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <!--<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="14*" />
+                    <ColumnDefinition Width="14*" />
+                </Grid.ColumnDefinitions>
+            </Grid>-->
         </Grid>
     </Grid>
 </UserControl>
