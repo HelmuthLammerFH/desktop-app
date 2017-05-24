@@ -144,3 +144,6 @@ C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.Properties.Resources.r
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.exe
 C:\Users\Roman\Source\Repos\desktop-app\GUI\obj\Debug\GUI.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\GUI\bin\Debug\GUI.exe.config
+C:\Users\Roman\Source\Repos\desktop-app2\GUI\obj\Debug\GUI.exe
+C:\Users\Roman\Source\Repos\desktop-app2\GUI\obj\Debug\GUI.pdb
