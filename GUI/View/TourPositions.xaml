@@ -16,31 +16,50 @@
             <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
             <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFB94F4F" Command="{Binding PositionsBtn}" />
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
+            <Button x:Name="button2_Copy" Content="Aktualiesieren" HorizontalAlignment="Left" Margin="10,410,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding SynchroniesBtn}"/>
+            <Button x:Name="button2_Copy1" Content="Logout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding LogoutBtn}" />
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid Visibility="{Binding TourEntityIsEmty}">
                 <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             </Grid>
-            <Grid Visibility="{Binding TourEntityIsChoosen}">
-                <Label x:Name="label2" Content="Positionsliste" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" SelectedItem="{Binding SelectedPositionItem}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Title}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Button x:Name="button3" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdatePositionBtn}" />
-                <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="395,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}"/>
-                <Label x:Name="label3" Content="Name:" HorizontalAlignment="Left" Margin="51,487,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="100,491,0,0" TextWrapping="Wrap" Text="{Binding CreatedOrUpdatedPositionItem.Title}" VerticalAlignment="Top" Width="210"/>
-                <Button x:Name="button5" Content="Speichern" HorizontalAlignment="Left" Margin="315,490,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding SavePositionBtn}" />
-            </Grid>
+            <!--<Grid Visibility="{Binding TourEntityIsChoosen}">-->
+            <Label x:Name="label2" Content="Positionsliste" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="269" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" SelectedItem="{Binding SelectedPositionItem}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Title}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button x:Name="button3" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,315,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdatePositionBtn}" />
+            <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="395,315,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}"/>
+            <Label x:Name="label3" Content="Name:" HorizontalAlignment="Left" Margin="10,340,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="99,343,0,0" TextWrapping="Wrap" Text="{Binding CreatedOrUpdatedPositionItem.Title}" VerticalAlignment="Top" Width="371"/>
+            <Button x:Name="button5" Content="Speichern" HorizontalAlignment="Left" Margin="315,525,0,0" VerticalAlignment="Top" Width="150" Height="24" Command="{Binding SavePositionBtn}" />
+            <Label x:Name="label4" Content="Beschreibung:" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="87" Margin="99,371,0,0" TextWrapping="Wrap" Text="{Binding CreatedOrUpdatedPositionItem.Description}" VerticalAlignment="Top" Width="371"/>
+
+            <Label x:Name="label4_Copy" Content="Von:" HorizontalAlignment="Left" Margin="11,464,0,0" VerticalAlignment="Top"/>
+            <DatePicker HorizontalAlignment="Left" Margin="100,464,0,0" VerticalAlignment="Top" DisplayDate="{Binding CreatedOrUpdatedPositionItem.FromDateTime}" SelectedDate="{Binding CreatedOrUpdatedPositionItem.FromDateTime}" Width="210" Height="26"/>
+            <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="26" Margin="315,463,0,0" TextWrapping="Wrap" Text="{Binding FromHour}" VerticalAlignment="Top" Width="70"/>
+            <Label x:Name="label_Copy4" Content=":" HorizontalAlignment="Left" Margin="385,463,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox_Copy2" HorizontalAlignment="Left" Height="26" Margin="398,463,0,0" TextWrapping="Wrap" Text="{Binding FromMinute}" VerticalAlignment="Top" Width="67"/>
+
+            <Label x:Name="label4_Copy1" Content="Bis:" HorizontalAlignment="Left" Margin="11,495,0,0" VerticalAlignment="Top"/>
+            <DatePicker HorizontalAlignment="Left" Margin="100,495,0,0" VerticalAlignment="Top" DisplayDate="{Binding CreatedOrUpdatedPositionItem.ToDateTime}" SelectedDate="{Binding CreatedOrUpdatedPositionItem.ToDateTime}" Width="210" Height="26"/>
+            <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="26" Margin="315,495,0,0" TextWrapping="Wrap" Text="{Binding ToHour}" VerticalAlignment="Top" Width="70"/>
+            <Label x:Name="label_Copy" Content=":" HorizontalAlignment="Left" Margin="385,494,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox_Copy3" HorizontalAlignment="Left" Height="26" Margin="398,494,0,0" TextWrapping="Wrap" Text="{Binding ToMinute}" VerticalAlignment="Top" Width="67"/>
+            <Label x:Name="label4_Copy2" Content="Preis:" HorizontalAlignment="Left" Margin="11,521,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox2_Copy" HorizontalAlignment="Left" Height="23" Margin="100,524,0,0" TextWrapping="Wrap" Text="{Binding CreatedOrUpdatedPositionItem.Cost}" VerticalAlignment="Top" Width="210"/>
+            <!--</Grid>-->
         </Grid>
     </Grid>
 </UserControl>

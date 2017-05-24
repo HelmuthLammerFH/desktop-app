@@ -42,6 +42,7 @@ namespace GUI.ViewModel
             SimpleIoc.Default.GetInstance<TourPositionsVM>();
             SimpleIoc.Default.GetInstance<PositionVM>();
             SimpleIoc.Default.GetInstance<MemberVM>();
+            SimpleIoc.Default.GetInstance<CreateUpdateTourVM>();
 
             if (Angemeldet())
             {

@@ -6,6 +6,7 @@ using GUI.ViewModel.EntityViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,8 @@ namespace GUI.ViewModel.ViewViewModel
         }
         #endregion
         #region GENERALCOMMANDPROPERTIES
-
+        public RelayCommand SynchroniesBtn { get; set; }
+        public RelayCommand LogoutBtn { get; set; }
         #endregion
         #region PROPERTIES
         public Visibility TourEntityIsEmty
@@ -106,6 +108,9 @@ namespace GUI.ViewModel.ViewViewModel
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
 
+            SynchroniesBtn = new RelayCommand(Synchronies, CanExecuteSynchronies);
+            LogoutBtn = new RelayCommand(Logout);
+
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
@@ -140,6 +145,27 @@ namespace GUI.ViewModel.ViewViewModel
             CurrentTourEntity = obj;
             update = false;
         }
-        #endregion    
+        #endregion
+        #region GENERALCOMMANDPROPERTIES
+        private void Logout()
+        {
+            if (File.Exists("loginCredentials.csv"))
+                File.Delete("loginCredentials.csv");
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
+        }
+
+        private bool CanExecuteSynchronies()
+        {
+            if (dp != null && dp.ConnectionExists())
+                return true;
+            return false;
+        }
+
+        private void Synchronies()
+        {
+            dp.Synchronies();
+            MessengerInstance.Send<DataProvider>(dp);
+        }
+        #endregion
     }
 }

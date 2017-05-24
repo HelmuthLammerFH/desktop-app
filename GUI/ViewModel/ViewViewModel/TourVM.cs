@@ -7,6 +7,7 @@ using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,12 +29,16 @@ namespace GUI.ViewModel.ViewViewModel
             public RelayCommand CalendarReportBtn { get; set; }
             public RelayCommand TourBtn { get; set; }
             public RelayCommand PositionsBtn { get; set; }
+            public RelayCommand UpdateTourBtn { get; set; }
+            public RelayCommand CreateTourBtn { get; set; } 
             public RelayCommand MemberBtn { get; set; }
         #endregion
         #region GENERALCOMMANDPROPERTIES
         public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
         public RelayCommand<PositionEntityVM> DeletePositionBtn { get; set; }
         public RelayCommand DeleteTourBtn { get; set; }
+        public RelayCommand SynchroniesBtn { get; set; }
+        public RelayCommand LogoutBtn { get; set; }
         #endregion
         #region PROPERTIES
         public TourEntityVM CurrentTourEntity
@@ -100,13 +105,17 @@ namespace GUI.ViewModel.ViewViewModel
                 ListReportBtn = new RelayCommand(SwitchToListReport);
                 CalendarReportBtn = new RelayCommand(SwitchToCalendarReport);
                 TourBtn = new RelayCommand(SwitchToTour);
-                PositionsBtn = new RelayCommand(SwitchToPositions);
+                UpdateTourBtn = new RelayCommand(SwitchToCreateUpdateTour);
+                CreateTourBtn = new RelayCommand(CreateTour);
                 MemberBtn = new RelayCommand(SwitchToMember);
+                PositionsBtn = new RelayCommand(SwitchToPositions);
 
                 //General Commands
                 ShowPositionBtn = new RelayCommand<PositionEntityVM>(ShowPosition);
                 DeletePositionBtn = new RelayCommand<PositionEntityVM>(DeletePosition);
                 DeleteTourBtn = new RelayCommand(DeleteTour);
+                SynchroniesBtn = new RelayCommand(Synchronies, CanExecuteSynchronies);
+                LogoutBtn = new RelayCommand(Logout);
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
                 MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
@@ -114,7 +123,11 @@ namespace GUI.ViewModel.ViewViewModel
         #endregion
 
         #region NAVIGATIONCOMMANDMETHODS
-        private void SwitchToCalendarReport()
+            private void SwitchToPositions()
+            {
+                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourPositionsVM>()));
+            }
+            private void SwitchToCalendarReport()
             {
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<CalendarReportVM>()));
             }
@@ -128,9 +141,9 @@ namespace GUI.ViewModel.ViewViewModel
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<MemberVM>()));
             }
 
-            private void SwitchToPositions()
+            private void SwitchToCreateUpdateTour()
             {
-                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourPositionsVM>()));
+                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<CreateUpdateTourVM>()));
             }
 
             private void SwitchToTour()
@@ -139,6 +152,30 @@ namespace GUI.ViewModel.ViewViewModel
             }
         #endregion
         #region GENERALCOMMANDMETHODS
+        private void Logout()
+        {
+            if (File.Exists("loginCredentials.csv"))
+                File.Delete("loginCredentials.csv");
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
+        }
+
+        private bool CanExecuteSynchronies()
+        {
+            if (dp != null && dp.ConnectionExists())
+                return true;
+            return false;
+        }
+
+        private void Synchronies()
+        {
+            dp.Synchronies();
+            MessengerInstance.Send<DataProvider>(dp);
+        }
+        private void CreateTour()
+        {
+            MessengerInstance.Send<TourEntityVM>(null);
+            SwitchToCreateUpdateTour();
+        }
         private void DeleteTour()
         {
             dp.DeleteTour(CurrentTourEntity.Tour);

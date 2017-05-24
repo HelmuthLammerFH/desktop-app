@@ -19,3 +19,10 @@ C:\Users\Alex\Documents\GitHub\Desktop-App\SR_Synchronisation_Dummy\bin\Debug\Sh
 C:\Users\Alex\Documents\GitHub\Desktop-App\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.csprojResolveAssemblyReference.cache
 C:\Users\Alex\Documents\GitHub\Desktop-App\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.dll
 C:\Users\Alex\Documents\GitHub\Desktop-App\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.dll
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\bin\Debug\Shared.dll
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\bin\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.csprojResolveAssemblyReference.cache
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.dll
+C:\Users\Roman\Source\Repos\desktop-app2\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.pdb

@@ -16,3 +16,12 @@ C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\SR_Synchronisatio
 C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
 C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.dll
 C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\bin\Debug\DataLayer.dll
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\bin\Debug\DataLayer.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\bin\Debug\Shared.dll
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\bin\Debug\SR_Synchronisation_Dummy.dll
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\bin\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\bin\Debug\SR_Synchronisation_Dummy.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\obj\Debug\DataLayer.dll
+C:\Users\Roman\Source\Repos\desktop-app2\DataLayer\obj\Debug\DataLayer.pdb

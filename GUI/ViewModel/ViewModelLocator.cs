@@ -32,6 +32,7 @@ namespace GUI.ViewModel
             SimpleIoc.Default.Register<TourPositionsVM>();
             SimpleIoc.Default.Register<PositionVM>();
             SimpleIoc.Default.Register<MemberVM>();
+            SimpleIoc.Default.Register<CreateUpdateTourVM>();
         }
 
         public MainViewModel Main
@@ -89,6 +90,14 @@ namespace GUI.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MemberVM>();
+            }
+        }
+
+        public CreateUpdateTourVM CreateUpdateTour
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CreateUpdateTourVM>();
             }
         }
 

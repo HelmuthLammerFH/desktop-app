@@ -6,6 +6,7 @@ using GUI.ViewModel.EntityViewModel;
 using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
         }
         #endregion
-        #region GENERALCOMMANDPROPERTIES
+        #region GENERALCOMMANDPROPERTIES     
         #endregion
         #region METHODS
         private void UpdateCurrentPositionEntity(PositionEntityVM obj)

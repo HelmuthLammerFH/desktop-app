@@ -7,3 +7,7 @@ C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\bin\Debug\Shared.pdb
 C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\obj\Debug\Shared.csprojResolveAssemblyReference.cache
 C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\obj\Debug\Shared.dll
 C:\Users\Alex\Documents\GitHub\Desktop-App\Shared\obj\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\Shared\bin\Debug\Shared.dll
+C:\Users\Roman\Source\Repos\desktop-app2\Shared\bin\Debug\Shared.pdb
+C:\Users\Roman\Source\Repos\desktop-app2\Shared\obj\Debug\Shared.dll
+C:\Users\Roman\Source\Repos\desktop-app2\Shared\obj\Debug\Shared.pdb

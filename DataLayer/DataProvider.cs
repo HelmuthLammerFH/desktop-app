@@ -13,6 +13,7 @@ namespace DataLayer
     {
         SR_Synchronisation_Dummy.Client client;
         static List<DummyTour> tourList;
+        static List<DummyTourGuide> tourGuideList;
         static DummyTourGuide tourGuide;
 
         public bool ConnectionExists()
@@ -23,11 +24,17 @@ namespace DataLayer
             return true;
         }
 
+        public void Synchronies()
+        {
+            client.SetTourList(tourList);
+        }
+
         public bool Login(string userName, string passwort)
         {
             if (client.Login(userName, passwort))
             {
                 tourGuide = client.GetTourGuide(userName, passwort);
+                tourGuideList = client.GetTourGuideList();
                 tourList = client.GetTourListByGuideId(tourGuide.TourGuideID);
                 return true;
             }      
@@ -46,6 +53,11 @@ namespace DataLayer
                 tourList.RemoveAt(index);
         }
 
+        public List<DummyTourGuide> QueryAllTourGuides()
+        {
+            return tourGuideList;
+        }
+
         public List<DummyTour> QueryAllTours()
         {
             return tourList;
@@ -61,6 +73,11 @@ namespace DataLayer
             }
             if(index != -1)
                 tourList[index] = tour;
+        }
+        public void SaveTour(DummyTour tour)
+        {
+            tour.TourID = Guid.NewGuid();
+            tourList.Add(tour);
         }
     }
 }

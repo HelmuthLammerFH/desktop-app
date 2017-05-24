@@ -16,10 +16,13 @@
             <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFB94F4F" Command="{Binding TourBtn}" />
             <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding PositionsBtn}" />
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
+            <Button x:Name="button2_Copy" Content="Aktualiesieren" HorizontalAlignment="Left" Margin="10,410,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding SynchroniesBtn}"/>
+            <Button x:Name="button2_Copy1" Content="Logout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding LogoutBtn}" />
         </StackPanel>
         <Grid Grid.Column="1">
             <Button x:Name="button3" Content="Kalendar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding CalendarReportBtn}" />
             <Button x:Name="button4" Content="Liste" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding ListReportBtn}" />
+            <Button x:Name="button4_Copy" Content="Neue Tour" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding CreateTourBtn}"/>
             <Grid Visibility="{Binding TourEntityIsEmty}">
                 <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
             </Grid>
@@ -59,9 +62,9 @@
                 </ListBox>
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,500,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="380"/>
                 <Button x:Name="button6" Content="Hochladen" HorizontalAlignment="Left" Margin="395,500,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
-                <Button x:Name="button7" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,535,0,0" VerticalAlignment="Top" Width="75" Command="{Binding PositionsBtn}"/>
+                <Button x:Name="button7" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,535,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateTourBtn}"/>
                 <Button x:Name="button8" Content="Löschen" HorizontalAlignment="Left" Margin="395,535,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteTourBtn}"/>
-            </Grid>
+        </Grid>
         </Grid>
     </Grid>
 </UserControl>
