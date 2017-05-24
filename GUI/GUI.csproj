@@ -81,9 +81,11 @@
     <Compile Include="ViewModel\EntityViewModel\MemberEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\PositionEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\TourEntityVM.cs" />
+    <Compile Include="ViewModel\EntityViewModel\TourGuideEntityVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewViewModel\CalendarReportVM.cs" />
+    <Compile Include="ViewModel\ViewViewModel\CreateUpdateTourVM.cs" />
     <Compile Include="ViewModel\ViewViewModel\ListReportVM.cs" />
     <Compile Include="ViewModel\ViewViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\ViewViewModel\MemberVM.cs" />
@@ -92,6 +94,9 @@
     <Compile Include="ViewModel\ViewViewModel\TourVM.cs" />
     <Compile Include="View\CalendarReport.xaml.cs">
       <DependentUpon>CalendarReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CreateUpdateTour.xaml.cs">
+      <DependentUpon>CreateUpdateTour.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListReport.xaml.cs">
       <DependentUpon>ListReport.xaml</DependentUpon>
@@ -111,6 +116,18 @@
     <Compile Include="View\TourPositions.xaml.cs">
       <DependentUpon>TourPositions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\AppointmentControl.xaml.cs">
+      <DependentUpon>AppointmentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\DayBoxControl.xaml.cs">
+      <DependentUpon>DayBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\MonthViewControl.xaml.cs">
+      <DependentUpon>MonthViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\WeekOfDaysControl.xaml.cs">
+      <DependentUpon>WeekOfDaysControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,6 +141,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CalendarReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateUpdateTour.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +169,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TourPositions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\AppointmentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\DayBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\MonthViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\WeekOfDaysControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,7 +217,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="View\UserControls\ForwardGreen.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
       <Project>{8408E0D2-6686-4614-AC91-9614FA3F27D9}</Project>
@@ -190,6 +229,12 @@
       <Project>{49545335-667E-47F0-A6DB-F05402ACC1A4}</Project>
       <Name>Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Travel2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Travel.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

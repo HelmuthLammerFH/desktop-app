@@ -2,10 +2,15 @@
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\App.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\MainWindow.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\CalendarReport.xaml;;
+FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\CreateUpdateTour.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\ListReport.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\Login.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\Member.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\Position.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\Tour.xaml;;
 FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\TourPositions.xaml;;
+FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\UserControls\AppointmentControl.xaml;;
+FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\UserControls\DayBoxControl.xaml;;
+FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\UserControls\MonthViewControl.xaml;;
+FC:\Users\Roman\Source\Repos\desktop-app2\GUI\View\UserControls\WeekOfDaysControl.xaml;;
 

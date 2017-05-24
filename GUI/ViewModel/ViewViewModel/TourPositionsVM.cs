@@ -6,6 +6,7 @@ using GUI.ViewModel.EntityViewModel;
 using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,11 @@ namespace GUI.ViewModel.ViewViewModel
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
         private DataProvider dp;
+        private int fromMinute;
+        private int fromHour;
+        private int toMinute;
+        private int toHour;
+        public DateTime fromDate;
         #endregion
 
         #region NAVIGATIONCOMMANDPROPERTIES
@@ -33,6 +39,8 @@ namespace GUI.ViewModel.ViewViewModel
         public RelayCommand UpdatePositionBtn { get; set; }
         public RelayCommand DeletePositionBtn { get; set; }
         public RelayCommand SavePositionBtn { get; set; }
+        public RelayCommand SynchroniesBtn { get; set; }
+        public RelayCommand LogoutBtn { get; set; }
         #endregion
         #region PROPERTIES
         public TourEntityVM CurrentTourEntity
@@ -116,12 +124,87 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
+
+        public int FromMinute
+        {
+            get
+            {
+                return fromMinute;
+            }
+
+            set
+            {
+                fromMinute = value;
+                DateTime newDate = new DateTime(CreatedOrUpdatedPositionItem.FromDateTime.Year, CreatedOrUpdatedPositionItem.FromDateTime.Month, CreatedOrUpdatedPositionItem.FromDateTime.Day, CreatedOrUpdatedPositionItem.FromDateTime.Hour, FromMinute, CreatedOrUpdatedPositionItem.FromDateTime.Second);
+                CreatedOrUpdatedPositionItem.FromDateTime = newDate;
+                RaisePropertyChanged();
+            }
+        }
+        public int FromHour
+        {
+            get
+            {
+                return fromHour;
+            }
+
+            set
+            {
+                fromHour = value;
+                DateTime newDate = new DateTime(CreatedOrUpdatedPositionItem.FromDateTime.Year, CreatedOrUpdatedPositionItem.FromDateTime.Month, CreatedOrUpdatedPositionItem.FromDateTime.Day, FromHour, CreatedOrUpdatedPositionItem.FromDateTime.Minute, CreatedOrUpdatedPositionItem.FromDateTime.Second);
+                CreatedOrUpdatedPositionItem.FromDateTime = newDate;
+                RaisePropertyChanged();
+            }
+        }
+        public int ToMinute
+        {
+            get
+            {
+                return toMinute;
+            }
+
+            set
+            {
+                toMinute = value;
+                DateTime newDate = new DateTime(CreatedOrUpdatedPositionItem.FromDateTime.Year, CreatedOrUpdatedPositionItem.FromDateTime.Month, CreatedOrUpdatedPositionItem.FromDateTime.Day, CreatedOrUpdatedPositionItem.FromDateTime.Hour, ToMinute, CreatedOrUpdatedPositionItem.FromDateTime.Second);
+                CreatedOrUpdatedPositionItem.FromDateTime = newDate;
+                RaisePropertyChanged();
+            }
+        }
+        public int ToHour
+        {
+            get
+            {
+                return toHour;
+            }
+
+            set
+            {
+                toHour = value;
+                DateTime newDate = new DateTime(CreatedOrUpdatedPositionItem.FromDateTime.Year, CreatedOrUpdatedPositionItem.FromDateTime.Month, CreatedOrUpdatedPositionItem.FromDateTime.Day, ToHour, CreatedOrUpdatedPositionItem.FromDateTime.Minute, CreatedOrUpdatedPositionItem.FromDateTime.Second);
+                CreatedOrUpdatedPositionItem.FromDateTime = newDate;
+                RaisePropertyChanged();
+            }
+        }
+        public DateTime FromDate
+        {
+            get
+            {
+                return fromDate;
+            }
+
+            set
+            {
+                fromDate = value;
+                CreatedOrUpdatedPositionItem.FromDateTime = FromDate;
+                RaisePropertyChanged();
+            }
+        }
         #endregion
 
         #region CONSTRUCTORS
         public TourPositionsVM()
         {
-            CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
+            CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition() { FromDateTime = DateTime.Now, ToDateTime = DateTime.Now });
             TourEntityIsChoosen = Visibility.Hidden;
             //Navigation Commands
             TourBtn = new RelayCommand(SwitchToTour);
@@ -131,6 +214,8 @@ namespace GUI.ViewModel.ViewViewModel
             UpdatePositionBtn = new RelayCommand(UpdatePosition, CanExecuteUpdatePosition);
             DeletePositionBtn = new RelayCommand(DeletePosition, CanExecuteDeletePosition);
             SavePositionBtn = new RelayCommand(SavePosition, CanExecuteSavePosition);
+            SynchroniesBtn = new RelayCommand(Synchronies, CanExecuteSynchronies);
+            LogoutBtn = new RelayCommand(Logout);
 
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
@@ -154,6 +239,25 @@ namespace GUI.ViewModel.ViewViewModel
         }
         #endregion
         #region GENERALCOMMANDMETHODS
+        private void Logout()
+        {
+            if (File.Exists("loginCredentials.csv"))
+                File.Delete("loginCredentials.csv");
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
+        }
+
+        private bool CanExecuteSynchronies()
+        {
+            if (dp != null && dp.ConnectionExists())
+                return true;
+            return false;
+        }
+
+        private void Synchronies()
+        {
+            dp.Synchronies();
+            MessengerInstance.Send<DataProvider>(dp);
+        }
         private bool CanExecuteSavePosition()
         {
             if (CreatedOrUpdatedPositionItem.Title != "")
@@ -176,7 +280,7 @@ namespace GUI.ViewModel.ViewViewModel
                 CurrentTourEntity.Positions.Remove(positionToRemove);
                 CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
             }
-            CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
+            CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition() { FromDateTime = DateTime.Now, ToDateTime = DateTime.Now });
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);
@@ -206,6 +310,11 @@ namespace GUI.ViewModel.ViewViewModel
         private void UpdatePosition()
         {
             CreatedOrUpdatedPositionItem = SelectedPositionItem;
+            FromDate = SelectedPositionItem.FromDateTime;
+            FromHour = SelectedPositionItem.FromDateTime.Hour;
+            FromMinute = SelectedPositionItem.FromDateTime.Minute;
+            ToHour = SelectedPositionItem.ToDateTime.Hour;
+            ToMinute = SelectedPositionItem.ToDateTime.Minute;
         }
         #endregion
         #region METHODS
@@ -218,9 +327,7 @@ namespace GUI.ViewModel.ViewViewModel
         private void UpdateCurrentTourEntity(TourEntityVM obj)
         {
             CurrentTourEntity = obj;
-        }
-
-        
+        }     
         #endregion
     }
 }

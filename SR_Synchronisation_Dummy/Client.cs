@@ -14,8 +14,9 @@ namespace SR_Synchronisation_Dummy
         Guid testTourGuideId = Guid.NewGuid();
         DummyTourGuide testGuide;
         List<DummyTour> testTourList;
+        List<DummyTourGuide> testTourGuideList;
 
-        
+
 
         public bool Login(string userName, string passwort)
         {
@@ -29,9 +30,19 @@ namespace SR_Synchronisation_Dummy
             return testGuide;
         }
 
+        public List<DummyTourGuide> GetTourGuideList()
+        {
+            return testTourGuideList;
+        }
+
         public List<DummyTour> GetTourListByGuideId(Guid id)
         {
             return testTourList;
+        }
+
+        public void SetTourList(List<DummyTour> tourList)
+        {
+            this.testTourList = tourList;
         }
 
         public Client()
@@ -124,6 +135,11 @@ namespace SR_Synchronisation_Dummy
                 TourGuideID = testTourGuideId,
                 User = user1
             };
+            DummyTourGuide testGuide1 = new DummyTourGuide()
+            {
+                TourGuideID = Guid.NewGuid(),
+                User = user3
+            };
             DummyMember member1 = new DummyMember()
             {
                 MemberID = Guid.NewGuid(),
@@ -187,6 +203,10 @@ namespace SR_Synchronisation_Dummy
             testTourList = new List<DummyTour>() {
                 tour1,
                 tour2
+            };
+            testTourGuideList = new List<DummyTourGuide>() {
+                testGuide,
+                testGuide1
             };
         }
     }

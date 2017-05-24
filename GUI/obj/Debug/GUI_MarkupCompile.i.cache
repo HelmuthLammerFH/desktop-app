@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Roman\Source\Repos\desktop-app2\GUI\App.xaml
-8-399759336
+13-1467497003
 
-281338827231
+35-1654077043
 74-1152807276
-MainWindow.xaml;View\CalendarReport.xaml;View\ListReport.xaml;View\Login.xaml;View\Member.xaml;View\Position.xaml;View\Tour.xaml;View\TourPositions.xaml;
+MainWindow.xaml;View\CalendarReport.xaml;View\CreateUpdateTour.xaml;View\ListReport.xaml;View\Login.xaml;View\Member.xaml;View\Position.xaml;View\Tour.xaml;View\TourPositions.xaml;View\UserControls\AppointmentControl.xaml;View\UserControls\DayBoxControl.xaml;View\UserControls\MonthViewControl.xaml;View\UserControls\WeekOfDaysControl.xaml;
 
 True
 

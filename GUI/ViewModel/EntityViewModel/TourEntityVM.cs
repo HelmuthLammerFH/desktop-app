@@ -33,7 +33,7 @@ namespace GUI.ViewModel.EntityViewModel
                 {
                     members.Add(new MemberEntityVM(member));
                 }
-            }       
+            }     
         }
 
         public string Title
@@ -90,6 +90,19 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
+        public TourGuideEntityVM TourGuide
+        {
+            get
+            {
+                return new TourGuideEntityVM(tour.TourGuide);
+            }
+
+            set
+            {
+                tour.TourGuide = value.TourGuide;
+            }
+        }
+
         public ObservableCollection<PositionEntityVM> Positions
         {
             get
@@ -100,7 +113,14 @@ namespace GUI.ViewModel.EntityViewModel
             set
             {
                 positions = value;
-                tour.Positions.Clear();
+                if(tour.Positions != null)
+                {
+                    tour.Positions.Clear();
+                }
+                else
+                {
+                    tour.Positions = new List<DummyPosition>();
+                }
                 foreach (PositionEntityVM position in positions)
                 {
                     tour.Positions.Add(position.TourPosition);
@@ -119,7 +139,14 @@ namespace GUI.ViewModel.EntityViewModel
             set
             {
                 members = value;
-                tour.Members.Clear();
+                if (tour.Members != null)
+                {
+                    tour.Members.Clear();
+                }
+                else
+                {
+                    tour.Members = new List<DummyMember>();
+                } 
                 foreach (MemberEntityVM member in members)
                 {
                     tour.Members.Add(member.Member);
