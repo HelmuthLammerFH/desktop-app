@@ -7,34 +7,25 @@ using System.Threading.Tasks;
 
 namespace Shared.DummyEntities
 {
-    [DataContract]
     public class DummyUser
     {
-        [DataMember]
-        public Guid UserID { get; set; }
 
-        [DataMember]
-        public string SureName { get; set; }
+        public int ID { get; set; }
 
-        [DataMember]
-        public string PreName { get; set; }
+        public string Firstname { get; set; }
 
-        [DataMember]
+        public string Lastname { get; set; }
+
         public DateTime Birthdate { get; set; }
 
-        [DataMember]
         public string Email { get; set; }
 
-        [DataMember]
         public string Address { get; set; }
 
-        [DataMember]
-        public string Area { get; set; }
+        public string City { get; set; }
 
-        [DataMember]
         public string Password { get; set; }
 
-        [DataMember]
         public string UserName { get; set; }
     }
 }

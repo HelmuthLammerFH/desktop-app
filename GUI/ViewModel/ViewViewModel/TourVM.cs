@@ -141,14 +141,14 @@ namespace GUI.ViewModel.ViewViewModel
         #region GENERALCOMMANDMETHODS
         private void DeleteTour()
         {
-            dp.DeleteTour(CurrentTourEntity.Tour);
+            //dp.DeleteTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);
             CurrentTourEntity = null;
         }
         private void DeletePosition(PositionEntityVM obj)
         {
-            CurrentTourEntity.Positions.Remove(obj);
-            dp.UpdateTour(CurrentTourEntity.Tour);
+            //CurrentTourEntity.Positions.Remove(obj);
+            //dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
         }

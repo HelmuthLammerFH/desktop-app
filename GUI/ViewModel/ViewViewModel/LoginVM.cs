@@ -17,52 +17,32 @@ namespace GUI.ViewModel.ViewViewModel
     public class LoginVM : ViewModelBase
     {
         #region ATTRIBUTES
-        private string userName;
-        private string passwort = "";
-        private bool angemeldetBleiben;
-        private DataProvider dp = new DataProvider();
-        private string loginCredentialsFilePath = "loginCredentials.csv";
+        private DataHandler dh;
+        const string loginCredentialsFilePath = "loginCredentials.csv";
         private string statusMessage = "";
         #endregion
 
         #region PROPERTIES
         public RelayCommand<PasswordBox> LoginBtn { get; set; }
-        public string UserName
-        {
-            get
-            {
-                return userName;
-            }
 
-            set
-            {
-                userName = value;
-            }
+        public bool AngemeldetBleiben { get; set; }
+
+        private string username;
+
+        public string Username
+        {
+            get { return username; }
+            set { username = value; RaisePropertyChanged(); }
         }
+        private string passwort;
+
         public string Passwort
         {
-            get
-            {
-                return passwort;
-            }
-
-            set
-            {
-                passwort = value;
-            }
+            get { return passwort; }
+            set { passwort = value; RaisePropertyChanged(); }
         }
-        public bool AngemeldetBleiben
-        {
-            get
-            {
-                return angemeldetBleiben;
-            }
 
-            set
-            {
-                angemeldetBleiben = value;
-            }
-        }
+
 
         public string StatusMessage
         {
@@ -82,36 +62,14 @@ namespace GUI.ViewModel.ViewViewModel
         #region CONSTRUCTORS
         public LoginVM()
         {
-            Task.Factory.StartNew(CheckIfConnectionExists);
+            dh = new DataHandler();
+            Username = "";
+            Passwort = "";
             LoginBtn = new RelayCommand<PasswordBox>(Login, CanExecuteLogin);
-
-            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
-
         }
         #endregion
 
         #region METHODS
-        private void UpdateDataProvider(DataProvider obj)
-        {
-            dp = obj;
-        }
-        private void CheckIfConnectionExists()
-        {
-            while (true)
-            {
-                if (dp.ConnectionExists())
-                {
-                    if (StatusMessage != "Username oder Passwort wurde Falsch eingegeben!")
-                        StatusMessage = "";
-                }
-                else
-                {
-                    StatusMessage = "Für den Login muss eine Internetverbindung bestehen!";
-                }
-                Thread.Sleep(2000);
-            }
-        }
-
         private void ShowCredentialsFalseMessage()
         {
             StatusMessage = "Username oder Passwort wurde Falsch eingegeben!";
@@ -122,12 +80,12 @@ namespace GUI.ViewModel.ViewViewModel
         private void Login(PasswordBox arg)
         {
             Passwort = arg.Password;
-            if (dp.Login(userName, passwort))
+            int id = dh.GetCredentials(Username, Passwort);
+            if (id != 0)
             {
                 string[] linesToSave = new string[1];
-                linesToSave[0] = userName + ";" + passwort + ";" + angemeldetBleiben;
+                linesToSave[0] = id +";" + Username + ";" + Passwort + ";" + AngemeldetBleiben;
                 File.WriteAllLines(loginCredentialsFilePath, linesToSave);
-                MessengerInstance.Send<DataProvider>(dp);
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
                 StatusMessage = "";
             }
@@ -139,14 +97,11 @@ namespace GUI.ViewModel.ViewViewModel
 
         private bool CanExecuteLogin(PasswordBox arg)
         {
-            if (dp.ConnectionExists())
+            if (!String.IsNullOrEmpty(Username))
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         #endregion
     }

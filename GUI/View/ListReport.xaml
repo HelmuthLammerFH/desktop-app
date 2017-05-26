@@ -36,9 +36,9 @@
                                 <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="{Binding Title}" />
-                            <TextBlock Grid.Column="1" Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy}'}" />
-                            <TextBlock Grid.Column="2" Text="{Binding Date, StringFormat='{}{0:HH:mm}'}" />
-                            <TextBlock Grid.Column="3" Text="{Binding Duration, StringFormat='{}{0:HH:mm}'}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Startdate, StringFormat=\{0:dd.MM.yyyy\}}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Startdate, StringFormat=\{0:HH:mm\}}" />
+                            <TextBlock Grid.Column="3" Text="{Binding Duration}" />
                             <TextBlock Grid.Column="4" Text="{Binding State}" />
                         </Grid>
                     </DataTemplate>

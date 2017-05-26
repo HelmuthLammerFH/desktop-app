@@ -7,28 +7,25 @@ using System.Threading.Tasks;
 
 namespace Shared.DummyEntities
 {
-    [DataContract]
     public class DummyTour
     {
-        [DataMember]
-        public Guid TourID { get; set; }
 
-        [DataMember]
-        public string Title { get; set; }
+        public int ID { get; set; }
 
-        [DataMember]
-        public DateTime Date { get; set; }
+        public string Name { get; set; }
+        public int MaxAttendees { get; set; }
 
-        [DataMember]
+        public float Price { get; set; }
+
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
         public string State { get; set; }
 
-        [DataMember]
         public List<DummyPosition> Positions { get; set; }
 
-        [DataMember]
         public List<DummyMember> Members { get; set; }
 
-        [DataMember]
         public DummyTourGuide TourGuide { get; set; }
     }
 }

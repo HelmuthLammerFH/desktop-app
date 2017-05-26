@@ -25,12 +25,12 @@ namespace DataLayer
 
         public bool Login(string userName, string passwort)
         {
-            if (client.Login(userName, passwort))
+            /**if (client.Login(userName, passwort))
             {
                 tourGuide = client.GetTourGuide(userName, passwort);
-                tourList = client.GetTourListByGuideId(tourGuide.TourGuideID);
+                //tourList = client.GetTourListByGuideId(tourGuide.ID);
                 return true;
-            }      
+            }   **/   
             return false;
         }
 
@@ -39,7 +39,7 @@ namespace DataLayer
             int index = -1;
             foreach (DummyTour t in tourList)
             {
-                if (t.TourID == tour.TourID)
+                if (t.ID == tour.ID)
                     index = tourList.IndexOf(t);
             }
             if (index != -1)
@@ -56,7 +56,7 @@ namespace DataLayer
             int index = -1;
             foreach (DummyTour t in tourList)
             {
-                if (t.TourID == tour.TourID)
+                if (t.ID == tour.ID)
                     index = tourList.IndexOf(t);                
             }
             if(index != -1)
