@@ -8,28 +8,27 @@ using System.Threading.Tasks;
 
 namespace Shared.DummyEntities
 {
-    [DataContract]
+
     public class DummyPosition
     {
-        [DataMember]
-        public Guid PositionID { get; set; }
 
-        [DataMember]
+        public int PositionID { get; set; }
+
+ 
         public string Title { get; set; }
 
-        [DataMember]
+       
         public string Description { get; set; }
 
-        [DataMember]
-        public DateTime FromDateTime { get; set; }
+      
+        public DateTime Startdate { get; set; }
 
-        [DataMember]
-        public DateTime ToDateTime { get; set; }
+        
+        public DateTime Enddate { get; set; }
 
-        [DataMember]
-        public GeoCoordinate GPSPosition { get; set; }
-
-        [DataMember]
+    
+        public string GPSPosition { get; set; }
+    
         public decimal Cost { get; set; }
     }
 }

@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace Shared.DummyEntities
 {
-    [DataContract]
     public class DummyMember
     {
-        [DataMember]
-        public Guid MemberID { get; set; }
+        public int MemberID { get; set; }
 
-        [DataMember]
         public bool AttendTour { get; set; }
 
-        [DataMember]
         public DummyUser User { get; set; }
     }
 }

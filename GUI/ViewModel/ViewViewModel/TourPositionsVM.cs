@@ -162,7 +162,7 @@ namespace GUI.ViewModel.ViewViewModel
         }
         private void SavePosition()
         {
-            if (CreatedOrUpdatedPositionItem.TourPosition.PositionID == new Guid() && SelectedPositionItem != CreatedOrUpdatedPositionItem)
+            /**if (CreatedOrUpdatedPositionItem.TourPosition.PositionID == new Guid() && SelectedPositionItem != CreatedOrUpdatedPositionItem)
             {
                // CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
             }else
@@ -174,8 +174,8 @@ namespace GUI.ViewModel.ViewViewModel
                         positionToRemove = position;
                 }
                 /**CurrentTourEntity.Positions.Remove(positionToRemove);
-                CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);**/
-            }
+                CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
+            }**/
             CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             //dp.UpdateTour(CurrentTourEntity.Tour);
