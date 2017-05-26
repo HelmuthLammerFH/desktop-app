@@ -15,15 +15,16 @@
         <StackPanel Grid.Column="0" Background="#FFB4AAAA">
             <Button x:Name="button" Content="Zurück" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
         </StackPanel>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Background="White">
             <Label x:Name="label" HorizontalAlignment="Left" Margin="12,45,0,0" VerticalAlignment="Top" Content="{Binding CurrentPositionEntity.Title}" FontSize="16" FontWeight="Bold"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,106,0,0" TextWrapping="Wrap" Text="{Binding CurrentPositionEntity.Description}" VerticalAlignment="Top" Height="179" Width="440"/>
-            <Label x:Name="label_Copy" Content="Beschrebiung:" HorizontalAlignment="Left" Margin="12,75,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy" Content="Beschreibung:" HorizontalAlignment="Left" Margin="12,75,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy1" Content="Dauer:" HorizontalAlignment="Left" Margin="251,433,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy8" Content="{Binding CurrentPositionEntity.Duration, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,434,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy2" Content="Von:" HorizontalAlignment="Left" Margin="251,464,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy3" Content="{Binding CurrentPositionEntity.FromDateTime}" HorizontalAlignment="Left" Margin="290,464,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy3" Content="{Binding CurrentPositionEntity.Startdate.Date, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,464,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy4" Content="Bis:" HorizontalAlignment="Left" Margin="251,495,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy5" Content="{Binding CurrentPositionEntity.ToDateTime}" HorizontalAlignment="Left" Margin="290,495,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy5" Content="{Binding CurrentPositionEntity.Enddate.Date, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,495,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy6" Content="Preis in €:" HorizontalAlignment="Left" Margin="251,526,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy7" Content="{Binding CurrentPositionEntity.Cost}" HorizontalAlignment="Left" Margin="317,526,0,0" VerticalAlignment="Top"/>
         </Grid>

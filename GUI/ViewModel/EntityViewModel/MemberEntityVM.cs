@@ -17,29 +17,29 @@ namespace GUI.ViewModel.EntityViewModel
             this.member = member;
         }
 
-        public string Prename
+        public string Firstname
         {
             get
             {
-                return member.User.PreName;
+                return member.User.Firstname;
             }
 
             set
             {
-                member.User.PreName = value;
+                member.User.Firstname = value;
             }
         }
 
-        public string SureName
+        public string Lastname
         {
             get
             {
-                return member.User.SureName;
+                return member.User.Lastname;
             }
 
             set
             {
-                member.User.SureName = value;
+                member.User.Lastname = value;
             }
         }
 

@@ -132,12 +132,12 @@ namespace GUI.View.UserControls
                 else if (DataSource != null)
                 {
                     int iday = i;
-                    List<TourEntityVM> aptInDay = DataSource.Where(apt => apt.Date.Day == iday && apt.Date.Month == displayMonth).ToList();
+                    List<TourEntityVM> aptInDay = DataSource.Where(apt => apt.Startdate.Day == iday && apt.Startdate.Month == displayMonth).ToList();
                     foreach (TourEntityVM a in aptInDay)
                     {
                         AppointmentControl apt = new AppointmentControl();
                         apt.DisplayText.Text = a.Title;
-                        apt.Tag = a.Tour.TourID;
+                        apt.Tag = a.Tour.ID;
                         apt.MouseDoubleClick += Appointment_DoubleClick;
                         dayBox.DayAppointmentsStack.Children.Add(apt);
                     }
@@ -194,7 +194,7 @@ namespace GUI.View.UserControls
                 if (((AppointmentControl)e.Source).Tag != null)
                 {
                     var apt = (AppointmentControl)e.Source;
-                    SelectedTour = DataSource.FirstOrDefault((a) => a.Tour.TourID == (Guid)apt.Tag);
+                    SelectedTour = DataSource.FirstOrDefault((a) => a.Tour.ID == (int)apt.Tag);
                     //if (AppointmentDblClicked != null)
                     //{
                     //    AppointmentDblClicked(Convert.ToInt32(((AppointmentControl)e.Source).Tag));

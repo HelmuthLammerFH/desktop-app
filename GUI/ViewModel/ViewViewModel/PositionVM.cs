@@ -16,7 +16,7 @@ namespace GUI.ViewModel.ViewViewModel
     {
         #region ATTRIBUTES
         private PositionEntityVM currentPositionEntity;
-        private DataProvider dp;
+        //private DataProvider dp;
         #endregion
 
         #region PROPERTIES
@@ -41,7 +41,7 @@ namespace GUI.ViewModel.ViewViewModel
         {
             TourBtn = new RelayCommand(SwitchToTour);
             MessengerInstance.Register<PositionEntityVM>(this, UpdateCurrentPositionEntity);
-            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+            //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
@@ -58,10 +58,10 @@ namespace GUI.ViewModel.ViewViewModel
         {
             CurrentPositionEntity = obj;
         }
-        private void UpdateDataProvider(DataProvider obj)
+        /**private void UpdateDataProvider(DataProvider obj)
         {
             dp = obj;
-        }
+        }**/
         #endregion
     }
 }

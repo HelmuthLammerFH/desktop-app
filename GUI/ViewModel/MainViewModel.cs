@@ -71,9 +71,9 @@ namespace GUI.ViewModel
             if (File.Exists(loginCredentialsFilePath))
             {
                 string loginCredentials = File.ReadAllLines(loginCredentialsFilePath)[0];
-                if (loginCredentials.Split(';')[2].Equals("True") && dp.ConnectionExists() && dp.Login(loginCredentials.Split(';')[0], loginCredentials.Split(';')[1]))
+                if (loginCredentials.Split(';')[3].Equals("True"))
                 {
-                    MessengerInstance.Send<DataProvider>(dp);
+                    //MessengerInstance.Send<DataProvider>(dp);
                     return true;
                 }           
             }

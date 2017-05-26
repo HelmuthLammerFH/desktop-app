@@ -7,6 +7,7 @@ using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,8 @@ namespace GUI.ViewModel.ViewViewModel
         #region ATTRIBUTES
         private ObservableCollection<TourEntityVM> tourEntitieList = new ObservableCollection<TourEntityVM>();
         private TourEntityVM selectedTourEntitie;
-        private DataProvider dp;
+        const string loginCredentialsFilePath = "loginCredentials.csv";
+        private DataHandler datahandler;
         #endregion
 
         #region PROPERTIES
@@ -59,15 +61,16 @@ namespace GUI.ViewModel.ViewViewModel
         public CalendarReportVM()
         {
             //Navigation Commands
+            datahandler = new DataHandler();
             ListReportBtn = new RelayCommand(SwitchToListReport);
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
-
-            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+            ReadToursFromGuide();
+            //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
-
+        
         #region NAVIGATIONCOMMANDMETHODS
         private void SwitchToListReport()
         {
@@ -93,7 +96,7 @@ namespace GUI.ViewModel.ViewViewModel
 
         #endregion
         #region METHODS
-        private void UpdateDataProvider(DataProvider obj)
+        /**private void UpdateDataProvider(DataProvider obj)
         {
             dp = obj;
             //Load From DataProvider all TourEntities in TourEntitieList
@@ -101,6 +104,17 @@ namespace GUI.ViewModel.ViewViewModel
             foreach (DummyTour tour in dp.QueryAllTours())
             {
                 TourEntitieList.Add(new TourEntityVM(tour));
+            }
+        }**/
+        private void ReadToursFromGuide()
+        {
+            if (File.Exists(loginCredentialsFilePath))
+            {
+                string loginCredentials = File.ReadAllLines(loginCredentialsFilePath)[0];
+                foreach (var item in datahandler.GetAllToursByGuide(Int16.Parse(loginCredentials.Split(';')[0])))
+                {
+                    TourEntitieList.Add(new TourEntityVM(item));
+                }
             }
         }
         #endregion

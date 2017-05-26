@@ -162,9 +162,9 @@ namespace GUI.ViewModel.ViewViewModel
         }
         private void SavePosition()
         {
-            if (CreatedOrUpdatedPositionItem.TourPosition.PositionID == new Guid() && SelectedPositionItem != CreatedOrUpdatedPositionItem)
+            /**if (CreatedOrUpdatedPositionItem.TourPosition.PositionID == new Guid() && SelectedPositionItem != CreatedOrUpdatedPositionItem)
             {
-                CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
+               // CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
             }else
             {
                 PositionEntityVM positionToRemove = new PositionEntityVM(new DummyPosition());
@@ -173,12 +173,12 @@ namespace GUI.ViewModel.ViewViewModel
                     if (position.TourPosition.PositionID == CreatedOrUpdatedPositionItem.TourPosition.PositionID)
                         positionToRemove = position;
                 }
-                CurrentTourEntity.Positions.Remove(positionToRemove);
+                /**CurrentTourEntity.Positions.Remove(positionToRemove);
                 CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
-            }
+            }**/
             CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
-            dp.UpdateTour(CurrentTourEntity.Tour);
+            //dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);
         }
 
@@ -191,10 +191,10 @@ namespace GUI.ViewModel.ViewViewModel
 
         private void DeletePosition()
         {
-            CurrentTourEntity.Positions.Remove(SelectedPositionItem);
+            /**CurrentTourEntity.Positions.Remove(SelectedPositionItem);
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             dp.UpdateTour(CurrentTourEntity.Tour);
-            MessengerInstance.Send<DataProvider>(dp);
+            MessengerInstance.Send<DataProvider>(dp);**/
         }
 
         private bool CanExecuteUpdatePosition()
@@ -211,9 +211,9 @@ namespace GUI.ViewModel.ViewViewModel
         #region METHODS
         private void UpdateDataProvider(DataProvider obj)
         {
-            dp = obj;
+            /**dp = obj;
             if (dp != null && CurrentTourEntity != null && !dp.QueryAllTours().Contains(CurrentTourEntity.Tour))
-                CurrentTourEntity = null;
+                CurrentTourEntity = null;**/
         }
         private void UpdateCurrentTourEntity(TourEntityVM obj)
         {

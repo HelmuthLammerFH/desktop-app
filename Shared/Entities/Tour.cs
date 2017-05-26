@@ -8,43 +8,23 @@ using System.Threading.Tasks;
 
 namespace Shared.Entities
 {
-    [DataContract]
     public class Tour
     {
-        [DataMember]
-        public Guid TourID { get; set; }
+    
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int MaxAttendees { get; set; }
+        public float Price { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string CreatedFrom { get; set; }
+        public string ChangedFrom { get; set; }
+        public int SyncedFrom { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public int TourGuideID { get; set; }
+        public int StatusID { get; set; }
 
-        [DataMember]
-        public string Bezeichnung { get; set; }
 
-        [DataMember]
-        public DateTime Datum { get; set; }
-
-        [DataMember]
-        public int Teilnehmeranzahl { get; set; }
-
-        [DataMember]
-        public Status Status { get; set; }
-
-        [DataMember]
-        public int Dauer { get; set; }
-
-        [DataMember]
-        public Route Route { get; set; }
-
-        [DataMember]
-        public List<ResourceFuerTour> Resourcen { get; set; }
-
-        [DataMember]
-        public Agentur Agentur { get; set; }
-
-        [DataMember]
-        public List<KundeInTour> Kunden { get; set; }
-
-        [DataMember]
-        public List<TourPosition> TourPositionen { get; set; }
-
-        [DataMember]
-        public TourGuide TourGuide { get; set; }
     }
 }

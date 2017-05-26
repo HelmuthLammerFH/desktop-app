@@ -11,7 +11,7 @@ namespace SR_Synchronisation_Dummy
 {
     public class Client
     {
-        Guid testTourGuideId = Guid.NewGuid();
+       /** Guid testTourGuideId = Guid.NewGuid();
         DummyTourGuide testGuide;
         List<DummyTour> testTourList;
 
@@ -37,7 +37,7 @@ namespace SR_Synchronisation_Dummy
         public Client()
         {
             DummyUser user1 = new DummyUser() {
-                UserID = testTourGuideId,
+                ID = testTourGuideId,
                 SureName = "Mustermann",
                 PreName = "Max",
                 Birthdate = new DateTime(1991,6,25),
@@ -121,7 +121,7 @@ namespace SR_Synchronisation_Dummy
             };
             testGuide = new DummyTourGuide()
             {
-                TourGuideID = testTourGuideId,
+                ID = testTourGuideId,
                 User = user1
             };
             DummyMember member1 = new DummyMember()
@@ -188,6 +188,6 @@ namespace SR_Synchronisation_Dummy
                 tour1,
                 tour2
             };
-        }
+        }**/
     }
 }

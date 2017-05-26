@@ -46,7 +46,7 @@ namespace GUI.ViewModel.ViewViewModel
                     TourEntityIsChoosen = Visibility.Visible;
                     if (update == false)
                     {
-                        dp.UpdateTour(CurrentTourEntity.Tour);
+                        //dp.UpdateTour(CurrentTourEntity.Tour);
                         MessengerInstance.Send<DataProvider>(dp);
                         MessengerInstance.Send<TourEntityVM>(currentTourEntity);
                     }                

@@ -35,8 +35,8 @@
                                     <ColumnDefinition Width="140"/>
                                     <ColumnDefinition Width="140"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Prename}" />
-                                <TextBlock Grid.Column="1" Text="{Binding SureName}" />
+                                <TextBlock Grid.Column="0" Text="{Binding Firstname}" />
+                                <TextBlock Grid.Column="1" Text="{Binding Lastname}" />
                                 <CheckBox Grid.Column="2" IsChecked="{Binding AttendTour}" />
                             </Grid>
                         </DataTemplate>

@@ -44,33 +44,33 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
-        public DateTime FromDateTime
+        public DateTime Startdate
         {
             get
             {
-                return tourPosition.FromDateTime;
+                return tourPosition.Startdate;
             }
 
             set
             {
-                tourPosition.FromDateTime = value;
+                tourPosition.Startdate = value;
             }
         }
 
-        public DateTime ToDateTime
+        public DateTime Enddate
         {
             get
             {
-                return tourPosition.ToDateTime;
+                return tourPosition.Enddate;
             }
 
             set
             {
-                tourPosition.ToDateTime = value;
+                tourPosition.Enddate = value;
             }
         }
 
-        public GeoCoordinate GPSPosition
+        public string GPSPosition
         {
             get
             {
@@ -106,6 +106,14 @@ namespace GUI.ViewModel.EntityViewModel
             set
             {
                 tourPosition = value;
+            }
+        }
+
+        public string Duration
+        {
+            get
+            {
+                return (Enddate - Startdate).ToString();
             }
         }
     }

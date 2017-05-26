@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Shared.DummyEntities
 {
-    [DataContract]
+
     public class DummyTourGuide
     {
-        [DataMember]
-        public Guid TourGuideID { get; set; }
+       
+        public int ID { get; set; }
 
-        [DataMember]
+        public DateTime TourGuideSince { get; set; }
+
         public DummyUser User { get; set; }
     }
 }
