@@ -21,19 +21,39 @@ namespace GUI.ViewModel.ViewViewModel
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
         private DataProvider dp;
+        private Visibility tourEdit;
+        private DataHandler datahandler;
+
+        private string status;
+
+        public string Status
+        {
+            get { return status; }
+            set { status = value; RaisePropertyChanged(); }
+        }
+
+
+        public ObservableCollection<string> StatusList { get; set; }
+
+        public Visibility TourEdit
+        {
+            get { return tourEdit; }
+            set { tourEdit = value; RaisePropertyChanged(); }
+        }
+
         #endregion
 
         #region NAVIGATIONCOMMANDPROPERTIES
-            public RelayCommand ListReportBtn { get; set; }
+        public RelayCommand ListReportBtn { get; set; }
             public RelayCommand CalendarReportBtn { get; set; }
             public RelayCommand TourBtn { get; set; }
-            public RelayCommand PositionsBtn { get; set; }
+            public RelayCommand TourEditBtn { get; set; }
             public RelayCommand MemberBtn { get; set; }
+        public RelayCommand UpdateTour { get; set; }
         #endregion
         #region GENERALCOMMANDPROPERTIES
         public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
         public RelayCommand<PositionEntityVM> DeletePositionBtn { get; set; }
-        public RelayCommand DeleteTourBtn { get; set; }
         #endregion
         #region PROPERTIES
         public TourEntityVM CurrentTourEntity
@@ -95,21 +115,39 @@ namespace GUI.ViewModel.ViewViewModel
         #region CONSTRUCTORS
         public TourVM()
         {
-                TourEntityIsChoosen = Visibility.Hidden;
+            datahandler = new DataHandler();
+            TourEntityIsChoosen = Visibility.Hidden;
+            TourEdit = Visibility.Hidden;
+            StatusList = new ObservableCollection<string>();
+            foreach (var item in datahandler.GetAllStatus())
+            {
+                StatusList.Add(item.Description);
+            }
                 //Navigation Commands
                 ListReportBtn = new RelayCommand(SwitchToListReport);
                 CalendarReportBtn = new RelayCommand(SwitchToCalendarReport);
                 TourBtn = new RelayCommand(SwitchToTour);
-                PositionsBtn = new RelayCommand(SwitchToPositions);
+                TourEditBtn = new RelayCommand(EditTour);
                 MemberBtn = new RelayCommand(SwitchToMember);
+            UpdateTour = new RelayCommand(SaveTour);
 
                 //General Commands
                 ShowPositionBtn = new RelayCommand<PositionEntityVM>(ShowPosition);
                 DeletePositionBtn = new RelayCommand<PositionEntityVM>(DeletePosition);
-                DeleteTourBtn = new RelayCommand(DeleteTour);
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
                 MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+        private void SaveTour()
+        {
+            datahandler.UpdateTour(CurrentTourEntity.Tour.ID, CurrentTourEntity.Title, CurrentTourEntity.Startdate, CurrentTourEntity.Enddate, Status);
+            TourEdit = Visibility.Hidden;
+        }
+
+        private void EditTour()
+        {
+            TourEdit = Visibility.Visible;
         }
         #endregion
 
@@ -139,12 +177,6 @@ namespace GUI.ViewModel.ViewViewModel
             }
         #endregion
         #region GENERALCOMMANDMETHODS
-        private void DeleteTour()
-        {
-            //dp.DeleteTour(CurrentTourEntity.Tour);
-            MessengerInstance.Send<DataProvider>(dp);
-            CurrentTourEntity = null;
-        }
         private void DeletePosition(PositionEntityVM obj)
         {
             //CurrentTourEntity.Positions.Remove(obj);

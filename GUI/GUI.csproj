@@ -103,6 +103,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\EntityViewModel\MemberEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\PositionEntityVM.cs" />
+    <Compile Include="ViewModel\EntityViewModel\StatusEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\TourEntityVM.cs" />
     <Compile Include="ViewModel\EntityViewModel\TourGuideVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

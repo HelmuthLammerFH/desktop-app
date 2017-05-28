@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DummyEntities\DummyMember.cs" />
     <Compile Include="DummyEntities\DummyPosition.cs" />
+    <Compile Include="DummyEntities\DummyStatus.cs" />
     <Compile Include="DummyEntities\DummyTour.cs" />
     <Compile Include="DummyEntities\DummyTourGuide.cs" />
     <Compile Include="DummyEntities\DummyUser.cs" />

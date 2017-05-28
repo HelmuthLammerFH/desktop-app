@@ -22,7 +22,7 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "select t.id,t.name,t.maxAttendees,t.price,t.startDate,t.endDate,s.name from tours t INNER JOIN tour_guides tu on tu.id = t.tour_guide_id INNER JOIN statuses s on s.id = t.Status_id where t.tour_guide_id = " + id + " and t.deleteFlag <> 1";
+                command.CommandText = "select t.id,t.name,t.maxAttendees,t.price,t.startDate,t.endDate,s.name from tours t INNER JOIN tourguides tu on tu.id = t.tourguide_id INNER JOIN statuses s on s.id = t.Status_id where t.tourguide_id = " + id + " and t.deleteFlag <> 1";
                 SQLiteDataReader reader = command.ExecuteReader();
                 while(reader.Read())
                 {
@@ -31,12 +31,12 @@ namespace DataLayer
                 SQLiteCommand command2 = new SQLiteCommand(connection);
                 for (int i = 0; i < tours.Count; i++)
                 { 
-                    command2.CommandText = "Select tp.id,tp.name,ttp.startdate, ttp.enddate,ttp.price,tp.position from tour_positions tp INNER JOIN tour_to_tour_positions ttp on tp.id = ttp.tour_position_id where ttp.Tour_id = " + tours[i].ID + " and tp.deleteFlag <> 1";
+                    command2.CommandText = "Select tp.id,tp.name,ttp.startdate, ttp.enddate,tp.price,tp.position,tp.description from tourpositions tp INNER JOIN tour_to_positions ttp on tp.id = ttp.Tourposition_id where ttp.Tour_id = " + tours[i].ID + " and tp.deleteFlag <> 1";
                     SQLiteDataReader readerPosition = command2.ExecuteReader();
                     tours[i].Positions = new List<DummyPosition>();
                     while (readerPosition.Read())
                     {
-                        tours[i].Positions.Add(new DummyPosition() { PositionID = Int16.Parse(readerPosition[0].ToString()), Title = readerPosition[1].ToString(), Startdate = DateTime.Parse(readerPosition[2].ToString()), Enddate = DateTime.Parse(readerPosition[3].ToString()), Cost = Int16.Parse(readerPosition[4].ToString()), GPSPosition = readerPosition[5].ToString() });
+                        tours[i].Positions.Add(new DummyPosition() { PositionID = Int16.Parse(readerPosition[0].ToString()), Title = readerPosition[1].ToString(), Startdate = DateTime.Parse(readerPosition[2].ToString()), Enddate = DateTime.Parse(readerPosition[3].ToString()), Cost = Int16.Parse(readerPosition[4].ToString()), GPSPosition = readerPosition[5].ToString(), Description = readerPosition[6].ToString() });
                     }
                     command2.Dispose();
                 }
@@ -60,6 +60,46 @@ namespace DataLayer
                 Console.WriteLine(e.Message);
             }
             return tours;
+        }
+
+        public List<DummyStatus> GetAllStatus()
+        {
+            List<DummyStatus> status = new List<DummyStatus>();
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "select id,name from statuses";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    status.Add(new DummyStatus() { ID = Int16.Parse(reader[0].ToString()), Description = reader[1].ToString()});
+                }
+                connection.Close();
+            }
+            catch(Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
+            return status;
+        }
+
+        public void UpdateTour(int id, string name,DateTime startDate, DateTime endtime,string status)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE tours SET Name = '"+name+"', startDate = '"+startDate+ "', endDate = '" + endtime + "', status_id = (select id from statuses where name = '" + status+"') WHERE id = "+ id;
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
         }
 
         public int GetCredentials(string username, string passwort)
