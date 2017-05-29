@@ -10,20 +10,31 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="131*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Background="#FFB4AAAA">
             <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
             <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFB94F4F" Command="{Binding PositionsBtn}" />
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
         </StackPanel>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
             <Grid Visibility="{Binding TourEntityIsEmty}">
                 <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             </Grid>
             <Grid Visibility="{Binding TourEntityIsChoosen}">
-                <Label x:Name="label2" Content="Positionsliste" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" SelectedItem="{Binding SelectedPositionItem}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="58*"/>
+                    <ColumnDefinition Width="184*"/>
+                    <ColumnDefinition Width="71*"/>
+                    <ColumnDefinition Width="167*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="243*"/>
+                    <RowDefinition Height="47*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="label2" Content="Positionsliste" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" SelectedItem="{Binding SelectedPositionItem}" Grid.ColumnSpan="4">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -35,11 +46,23 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button x:Name="button3" Content="Bearbeiten" HorizontalAlignment="Left" Margin="315,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdatePositionBtn}" />
-                <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="395,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}"/>
-                <Label x:Name="label3" Content="Name:" HorizontalAlignment="Left" Margin="51,487,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="100,491,0,0" TextWrapping="Wrap" Text="{Binding CreatedOrUpdatedPositionItem.Title}" VerticalAlignment="Top" Width="210"/>
-                <Button x:Name="button5" Content="Speichern" HorizontalAlignment="Left" Margin="315,490,0,0" VerticalAlignment="Top" Width="75" Height="24" Command="{Binding SavePositionBtn}" />
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <Label Content="Name:"/>
+                    <Label Content="Start:"></Label>
+                    <Label Content="Ende:"></Label>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <TextBox Text="{Binding SelectedPositionItem.Title}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.Startdate, Mode=OneWay}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.Enddate, Mode=OneWay}" Margin="5"/>
+                </StackPanel>
+                <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="82,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}" Grid.Column="3"/>
+                <StackPanel Grid.Row="1" Grid.Column="3">
+                    <Label Content="Positionen hinzufügen" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                    <ComboBox Margin="5" ItemsSource="{Binding PositionList}" SelectedIndex="{Binding SelectedPosition}"></ComboBox>
+                    <Button Content="Hinzufügen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" Command="{Binding AddPositionToTour}"></Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

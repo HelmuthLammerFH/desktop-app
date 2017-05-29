@@ -50,6 +50,8 @@ namespace GUI.ViewModel.ViewViewModel
             public RelayCommand TourEditBtn { get; set; }
             public RelayCommand MemberBtn { get; set; }
         public RelayCommand UpdateTour { get; set; }
+
+        public RelayCommand PositionsBtn { get; set; }
         #endregion
         #region GENERALCOMMANDPROPERTIES
         public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
@@ -130,6 +132,7 @@ namespace GUI.ViewModel.ViewViewModel
                 TourEditBtn = new RelayCommand(EditTour);
                 MemberBtn = new RelayCommand(SwitchToMember);
             UpdateTour = new RelayCommand(SaveTour);
+            PositionsBtn = new RelayCommand(SwitchToPositions);
 
                 //General Commands
                 ShowPositionBtn = new RelayCommand<PositionEntityVM>(ShowPosition);

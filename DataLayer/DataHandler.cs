@@ -48,7 +48,20 @@ namespace DataLayer
                     tours[i].Members = new List<DummyMember>();
                     while (readerMembers.Read())
                     {
-                        tours[i].Members.Add(new DummyMember() {MemberID = Int16.Parse(readerMembers[0].ToString()), AttendTour = Boolean.Parse(readerMembers[1].ToString()), User = new DummyUser() { ID = Int16.Parse(readerMembers[2].ToString()), Firstname = readerMembers[3].ToString(), Lastname = readerMembers[4].ToString(), Birthdate = DateTime.Parse(readerMembers[5].ToString()), Address= readerMembers[6].ToString(), City = readerMembers[7].ToString(), Email = readerMembers[8].ToString() } });
+                        bool participated = false;
+                        switch (readerMembers[1].ToString())
+                        {
+                            case "0":
+                                participated = true;
+                                break;
+                            case "1":
+                                participated = false;
+                                break;
+                            default:
+                                participated = false;
+                                break;
+                        }
+                        tours[i].Members.Add(new DummyMember() {MemberID = Int16.Parse(readerMembers[0].ToString()), AttendTour = participated, User = new DummyUser() { ID = Int16.Parse(readerMembers[2].ToString()), Firstname = readerMembers[3].ToString(), Lastname = readerMembers[4].ToString(), Birthdate = DateTime.Parse(readerMembers[5].ToString()), Address= readerMembers[6].ToString(), City = readerMembers[7].ToString(), Email = readerMembers[8].ToString() } });
                     }
                     command3.Dispose();
                 }
@@ -60,6 +73,23 @@ namespace DataLayer
                 Console.WriteLine(e.Message);
             }
             return tours;
+        }
+
+        public void UpdateMembers(int tourid, int memberid, int participated)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE customer_in_tours SET participated = " + participated + " WHERE customer_id = " + memberid + " and tour_id = " + tourid;
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
         }
 
         public List<DummyStatus> GetAllStatus()
@@ -85,6 +115,29 @@ namespace DataLayer
             return status;
         }
 
+        public List<DummyPosition> GetAllPositions()
+        {
+            List<DummyPosition> positions = new List<DummyPosition>();
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "select id,name,position,description,price,createdFrom,changedFrom from tourpositions where deleteFlag <> 1";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    positions.Add(new DummyPosition() {PositionID = Int16.Parse(reader[0].ToString()), Title = reader[1].ToString(), GPSPosition = reader[2].ToString(), Description = reader[3].ToString(), Cost = float.Parse(reader[4].ToString()), CreatedFrom = reader[5].ToString(), ChangedFrom = reader[6].ToString()});
+                }
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
+            return positions;
+        }
+
         public void UpdateTour(int id, string name,DateTime startDate, DateTime endtime,string status)
         {
             try
@@ -92,6 +145,40 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "UPDATE tours SET Name = '"+name+"', startDate = '"+startDate+ "', endDate = '" + endtime + "', status_id = (select id from statuses where name = '" + status+"') WHERE id = "+ id;
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void InsertPosition(int tourid, int positionid, DateTime createdat,DateTime updatedat)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "Insert into tour_to_positions(id, tour_id, Tourposition_id, created_at, updated_at) values((select MAX(id)+1 from tour_to_positions),"+tourid+ "," + positionid + ",'" + createdat + "','" + updatedat + "')";
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void DeletePosition(int tourid, int positionid)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "DELETE FROM tour_to_positions WHERE tour_id = "+ tourid + " and Tourposition_id =" + positionid;
                 command.ExecuteNonQuery();
                 connection.Close();
             }

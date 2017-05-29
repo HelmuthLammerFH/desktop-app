@@ -6,6 +6,7 @@ using GUI.ViewModel.EntityViewModel;
 using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace GUI.ViewModel.ViewViewModel
         private PositionEntityVM createdOrUpdatedPositionItem;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
-        private DataProvider dp;
+        private DataHandler datahandler;
         #endregion
 
         #region NAVIGATIONCOMMANDPROPERTIES
@@ -30,9 +31,14 @@ namespace GUI.ViewModel.ViewViewModel
         public RelayCommand MemberBtn { get; set; }
         #endregion
         #region GENERALCOMMANDPROPERTIES
-        public RelayCommand UpdatePositionBtn { get; set; }
         public RelayCommand DeletePositionBtn { get; set; }
         public RelayCommand SavePositionBtn { get; set; }
+
+        public RelayCommand AddPositionToTour { get; set; }
+
+        public ObservableCollection<string> PositionList { get; set; }
+        public List<PositionEntityVM> PositionEntityList { get; set; }
+        public int SelectedPosition { get; set; }
         #endregion
         #region PROPERTIES
         public TourEntityVM CurrentTourEntity
@@ -128,12 +134,26 @@ namespace GUI.ViewModel.ViewViewModel
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
             //General Commands
-            UpdatePositionBtn = new RelayCommand(UpdatePosition, CanExecuteUpdatePosition);
             DeletePositionBtn = new RelayCommand(DeletePosition, CanExecuteDeletePosition);
             SavePositionBtn = new RelayCommand(SavePosition, CanExecuteSavePosition);
-
+            datahandler = new DataHandler();
+            PositionList = new ObservableCollection<string>();
+            PositionEntityList = new List<PositionEntityVM>();
+            foreach (var item in datahandler.GetAllPositions())
+            {
+                PositionList.Add(item.Title);
+                PositionEntityList.Add(new PositionEntityVM(item));
+            }
+            AddPositionToTour = new RelayCommand(AddPosition);
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
-            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+            //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+        private void AddPosition()
+        {
+            var position = PositionEntityList[SelectedPosition];
+            datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now, DateTime.Now);
+            CurrentTourEntity.Positions.Add(position);
         }
         #endregion
 
@@ -156,10 +176,15 @@ namespace GUI.ViewModel.ViewViewModel
         #region GENERALCOMMANDMETHODS
         private bool CanExecuteSavePosition()
         {
-            if (CreatedOrUpdatedPositionItem.Title != "")
+            if(SelectedPositionItem != null)
+            {
                 return true;
-            return false;
+            }else
+            {
+                return false;
+            }
         }
+
         private void SavePosition()
         {
             /**if (CreatedOrUpdatedPositionItem.TourPosition.PositionID == new Guid() && SelectedPositionItem != CreatedOrUpdatedPositionItem)
@@ -179,7 +204,7 @@ namespace GUI.ViewModel.ViewViewModel
             CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             //dp.UpdateTour(CurrentTourEntity.Tour);
-            MessengerInstance.Send<DataProvider>(dp);
+            //MessengerInstance.Send<DataProvider>(dp);
         }
 
         private bool CanExecuteDeletePosition()
@@ -195,9 +220,12 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);**/
+            var position = PositionEntityList[SelectedPosition];
+            datahandler.DeletePosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID);
+            CurrentTourEntity.Positions.Remove(position);
         }
 
-        private bool CanExecuteUpdatePosition()
+       /** private bool CanExecuteUpdatePosition()
         {
             if (SelectedPositionItem != null)
                 return true;
@@ -206,7 +234,7 @@ namespace GUI.ViewModel.ViewViewModel
         private void UpdatePosition()
         {
             CreatedOrUpdatedPositionItem = SelectedPositionItem;
-        }
+        }**/
         #endregion
         #region METHODS
         private void UpdateDataProvider(DataProvider obj)

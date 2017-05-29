@@ -54,6 +54,9 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
+
+        public RelayCommand EditBtn { get; set; }
+        private DataHandler datahandler;
         #endregion
         #region GENERALCOMMANDPROPERTIES
 
@@ -105,9 +108,27 @@ namespace GUI.ViewModel.ViewViewModel
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
+            EditBtn = new RelayCommand(EditMember);
 
+            datahandler = new DataHandler();
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+        private void EditMember()
+        {
+            foreach (var item in CurrentTourEntity.Members)
+            {
+                int participated = 1;
+                if (item.Member.AttendTour)
+                {
+                    participated = 0;
+                }else
+                {
+                    participated = 1;
+                }
+                datahandler.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated);
+            }
         }
         #endregion
 
