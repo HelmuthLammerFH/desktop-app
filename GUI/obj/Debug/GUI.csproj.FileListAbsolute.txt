@@ -63,3 +63,6 @@ C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implemen
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\bin\Debug\EntityFramework.xml
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\GUI.exe.config
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.exe
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.pdb
