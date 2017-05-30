@@ -157,31 +157,37 @@ namespace GUI.View.UserControls
 
         private void DayBox_LostFocus(object sender, RoutedEventArgs e)
         {
+
             DayBoxControl db = (DayBoxControl)sender;
-            db.DayLabelRowBorder.Background = (Brush)db.TryFindResource("OrangeGradientBrush");
+            if ((new System.DateTime(displayYear, displayMonth, Convert.ToInt32(db.DayNumberLabel.Content)) == DateTime.Today))
+            {
+                return;
+            }
+            db.DayLabelRowBorder.Background = (Brush)db.TryFindResource("BlueGradientBrush");
             db.DayAppointmentsStack.Background = Brushes.White;
         }
 
         private void Appointment_LostFocus(object sender, RoutedEventArgs e)
         {
             AppointmentControl ac = (AppointmentControl)sender;
-            ac.BorderElement.Background = (Brush)ac.TryFindResource("OrangeGradientBrush");
+            ac.BorderElement.Background = Brushes.LightBlue;
             ac.Background = Brushes.White;
         }
 
         private void Appointment_MouseUp(object sender, RoutedEventArgs e)
         {
             AppointmentControl ac = (AppointmentControl)sender;
-            ac.BorderElement.Background = (Brush)ac.TryFindResource("OrangeGradientBrush");
-            ac.Background = Brushes.Wheat;
+            ac.BorderElement.Background = Brushes.Aquamarine;
+            ac.Background = Brushes.Azure;
             ac.Focus();
+            e.Handled = true;
         }
 
         private void DayBox_MouseUp(object sender, RoutedEventArgs e)
         {
             DayBoxControl db = (DayBoxControl)sender;
-            db.DayLabelRowBorder.Background = (Brush)db.TryFindResource("OrangeGradientBrush");
-            db.DayAppointmentsStack.Background = Brushes.Wheat;
+            db.DayLabelRowBorder.Background = Brushes.Aquamarine;
+            db.DayAppointmentsStack.Background = Brushes.Azure;
             db.Focus();
         }
 
