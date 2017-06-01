@@ -16,6 +16,7 @@
             <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFB94F4F" Command="{Binding TourBtn}" />
             <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding PositionsBtn}" />
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
+            <Button x:Name="button5" Content="Logout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding LogoutBtn}"></Button>
         </StackPanel>
         <Grid Grid.Column="1">
             <Button x:Name="button3" Content="Kalendar" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding CalendarReportBtn}" />
@@ -32,15 +33,16 @@
                     <ColumnDefinition Width="137*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="105*"/>
-                    <RowDefinition Height="11*"/>
+                    <RowDefinition Height="164*"/>
+                    <RowDefinition Height="17*"/>
+                    <RowDefinition Height="19*"/>
                 </Grid.RowDefinitions>
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="1" Margin="10,35,10,350.333" Grid.ColumnSpan="5">
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="1" Margin="10,35,10,294" Grid.ColumnSpan="5">
                     <Grid>
                         <Label x:Name="label2" Content="Beschreibung:" HorizontalAlignment="Left" Margin="9,2,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label3" Content="{Binding CurrentTourEntity.Title}" HorizontalAlignment="Left" Margin="200,2,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label4" Content="Datum:" HorizontalAlignment="Left" Margin="9,33,0,0" VerticalAlignment="Top"/>
-                        <Label x:Name="label5" Content="{Binding CurrentTourEntity.Startdate.Date, Mode=OneWay, StringFormat=\{0:dd.MM.yyyy\}}" HorizontalAlignment="Left" Margin="200,33,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label5" Content="{Binding CurrentTourEntity.Startdate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" HorizontalAlignment="Left" Margin="200,33,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label6" Content="Dauer:" HorizontalAlignment="Left" Margin="9,64,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label7" Content="{Binding CurrentTourEntity.Duration, StringFormat='{}{0:hh:mm}'}" HorizontalAlignment="Left" Margin="200,64,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label8" Content="Status:" HorizontalAlignment="Left" Margin="9,95,0,-5" VerticalAlignment="Top"/>
@@ -50,7 +52,7 @@
                 <Label x:Name="label10" Content="Zeitplan" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" FontWeight="Bold" Grid.ColumnSpan="2" Height="25" Width="57"/>
                 <Label x:Name="label11" Content="Position" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="26" Width="52"/>
                 <Label x:Name="label12" Content="Start Zeit" HorizontalAlignment="Left" Margin="28.333,196,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2" Height="26" Width="58"/>
-                <ListBox x:Name="listBox2" HorizontalAlignment="Left" Height="258" Margin="10,227,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" Grid.ColumnSpan="5" >
+                <ListBox x:Name="listBox2" HorizontalAlignment="Left" Margin="10,227,0,10" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" Grid.ColumnSpan="5" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -68,26 +70,26 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,485,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="380" Grid.ColumnSpan="5"/>
-                <Button x:Name="button6" Content="Hochladen" HorizontalAlignment="Left" Margin="20,485,0,0" VerticalAlignment="Top" Width="75" Height="23" Grid.Column="4"/>
-                <Button x:Name="button7" Content="Bearbeiten" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="75" Command="{Binding TourEditBtn}" Grid.Row="1" Grid.Column="4" Height="20"/>
-                <StackPanel Grid.Column="0" Grid.Row="1" Visibility="{Binding TourEdit}">
+                <Button x:Name="button6" Content="Hochladen" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding UploadPictureBtn}"  Grid.Row="1" Margin="0,10,0.333,0" Height="20" Width="61"/>
+                <Label Content="Bild hochladen!" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="9.667,8,9.667,0" Height="26" Width="92"></Label>
+                <Button x:Name="button7" Content="Bearbeiten" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Width="75" Command="{Binding TourEditBtn}" Grid.Row="2" Grid.Column="4" Height="20"/>
+                <StackPanel Grid.Column="0" Grid.Row="2" Visibility="{Binding TourEdit}" Margin="0,2.333,0.333,0">
                     <Label Content="Start:"></Label>
                     <Label Content="Ende:"></Label>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="1" Visibility="{Binding TourEdit}">
-                    <TextBox Margin="5" Text="{Binding CurrentTourEntity.Startdate}" ></TextBox>
-                    <TextBox Margin="5" Text="{Binding CurrentTourEntity.Enddate}"></TextBox>
+                <StackPanel Grid.Row="2" Visibility="{Binding TourEdit}" Grid.ColumnSpan="3" Margin="61,2.333,59.667,0">
+                    <TextBox Margin="5" Text="{Binding CurrentTourEntity.Startdate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" ></TextBox>
+                    <TextBox Margin="5" Text="{Binding CurrentTourEntity.Enddate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}"></TextBox>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Grid.Row="1" Visibility="{Binding TourEdit}">
+                <StackPanel Grid.Column="2" Grid.Row="2" Visibility="{Binding TourEdit}" Grid.ColumnSpan="2" Margin="0.333,2.333,109.667,0">
                     <Label Content="Titel:"></Label>
                     <Label Content="Status:"></Label>
                 </StackPanel>
-                <StackPanel Grid.Column="3" Grid.Row="1" Visibility="{Binding TourEdit}">
+                <StackPanel Grid.Column="3" Grid.Row="2" Visibility="{Binding TourEdit}" Grid.ColumnSpan="2" Margin="0.333,2.333,137,0">
                     <TextBox Margin="5" Text="{Binding CurrentTourEntity.Title}"></TextBox>
                     <ComboBox Margin="5,3" ItemsSource="{Binding StatusList}" SelectedItem="{Binding Status}"></ComboBox>
                 </StackPanel>
-                <Button Grid.Row="1" Grid.Column="4" Content="Speichern" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding TourEdit}" Command="{Binding UpdateTour}"></Button>
+                <Button Grid.Row="2" Grid.Column="4" Content="Speichern" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding TourEdit}" Command="{Binding UpdateTour}" Margin="0.333,2.333,0,0" Height="20" Width="56"/>
             </Grid>
         </Grid>
     </Grid>

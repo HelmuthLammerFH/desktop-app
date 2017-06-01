@@ -22,9 +22,9 @@
             <Label x:Name="label_Copy1" Content="Dauer:" HorizontalAlignment="Left" Margin="251,433,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy8" Content="{Binding CurrentPositionEntity.Duration, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,434,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy2" Content="Von:" HorizontalAlignment="Left" Margin="251,464,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy3" Content="{Binding CurrentPositionEntity.Startdate.Date, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,464,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy3" Content="{Binding CurrentPositionEntity.Startdate,StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,464,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy4" Content="Bis:" HorizontalAlignment="Left" Margin="251,495,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy5" Content="{Binding CurrentPositionEntity.Enddate.Date, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,495,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy5" Content="{Binding CurrentPositionEntity.Enddate,StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,495,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy6" Content="Preis in €:" HorizontalAlignment="Left" Margin="251,526,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy7" Content="{Binding CurrentPositionEntity.Cost}" HorizontalAlignment="Left" Margin="317,526,0,0" VerticalAlignment="Top"/>
         </Grid>

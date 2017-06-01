@@ -66,6 +66,7 @@ namespace GUI.ViewModel.ViewViewModel
             Username = "";
             Passwort = "";
             LoginBtn = new RelayCommand<PasswordBox>(Login, CanExecuteLogin);
+            AngemeldetBleiben = true;
         }
         #endregion
 

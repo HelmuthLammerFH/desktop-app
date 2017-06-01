@@ -17,6 +17,7 @@
             <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
             <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFB94F4F" Command="{Binding PositionsBtn}" />
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding MemberBtn}" />
+            <Button x:Name="button3" Content="Logout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding LogoutBtn}"></Button>
         </StackPanel>
         <Grid Grid.Column="1" Grid.ColumnSpan="2">
             <Grid Visibility="{Binding TourEntityIsEmty}">
@@ -46,17 +47,17 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <StackPanel Grid.Row="1" Grid.Column="0">
+                <StackPanel Grid.Row="1" Grid.Column="0" Visibility="{Binding PositionIsSelected}" >
                     <Label Content="Name:"/>
                     <Label Content="Start:"></Label>
                     <Label Content="Ende:"></Label>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="1">
+                <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding PositionIsSelected}">
                     <TextBox Text="{Binding SelectedPositionItem.Title}" Margin="5"/>
-                    <TextBox Text="{Binding SelectedPositionItem.Startdate, Mode=OneWay}" Margin="5"/>
-                    <TextBox Text="{Binding SelectedPositionItem.Enddate, Mode=OneWay}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.Startdate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.Enddate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
                 </StackPanel>
-                <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding PositionIsSelected}"/>
                 <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="82,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}" Grid.Column="3"/>
                 <StackPanel Grid.Row="1" Grid.Column="3">
                     <Label Content="Positionen hinzufügen" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>

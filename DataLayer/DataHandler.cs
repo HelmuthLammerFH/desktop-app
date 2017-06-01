@@ -155,13 +155,13 @@ namespace DataLayer
             }
         }
 
-        public void InsertPosition(int tourid, int positionid, DateTime createdat,DateTime updatedat)
+        public void InsertPosition(int tourid, int positionid, DateTime date)
         {
             try
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "Insert into tour_to_positions(id, tour_id, Tourposition_id, created_at, updated_at) values((select MAX(id)+1 from tour_to_positions),"+tourid+ "," + positionid + ",'" + createdat + "','" + updatedat + "')";
+                command.CommandText = "Insert into tour_to_positions(id, tour_id, Tourposition_id,startDate,endDate,created_at, updated_at) values((select IFNULL(MAX(id),0)+1 from tour_to_positions),"+tourid+ "," + positionid + ",'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -195,7 +195,7 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "select u.id from users u INNER JOIN tour_guides tu on u.id = tu.User_id where u.passwort = '"+ passwort + "' and u.username = '" + username + "'";
+                command.CommandText = "select u.id from users u INNER JOIN tourguides tu on u.id = tu.User_id where u.passwort = '"+ passwort + "' and u.username = '" + username + "'";
                 SQLiteDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
@@ -214,6 +214,23 @@ namespace DataLayer
             {
                 Console.WriteLine(e.Message);
                 return 0;
+            }
+        }
+
+        public void SavePicture(int tourid, byte[] picture)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "Insert into ressource_for_tours(id, picture,Ressource_Typ_id,created_at,updated_at,tours_id) values((select IFNULL(MAX(id),0) + 1 from ressource_for_tours),'" + Convert.ToBase64String(picture)+"',1,'"+DateTime.Now+"','"+ DateTime.Now + "',"+ tourid + ")"; 
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
             }
         }
     }

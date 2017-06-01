@@ -3,14 +3,17 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
+using Microsoft.Win32;
 using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace GUI.ViewModel.ViewViewModel
 {
@@ -23,6 +26,7 @@ namespace GUI.ViewModel.ViewViewModel
         private DataProvider dp;
         private Visibility tourEdit;
         private DataHandler datahandler;
+        const string loginCredentialsFilePath = "loginCredentials.csv";
 
         private string status;
 
@@ -51,7 +55,11 @@ namespace GUI.ViewModel.ViewViewModel
             public RelayCommand MemberBtn { get; set; }
         public RelayCommand UpdateTour { get; set; }
 
+        public RelayCommand LogoutBtn { get; set; }
+
         public RelayCommand PositionsBtn { get; set; }
+
+        public RelayCommand UploadPictureBtn { get; set; }
         #endregion
         #region GENERALCOMMANDPROPERTIES
         public RelayCommand<PositionEntityVM> ShowPositionBtn { get; set; }
@@ -133,6 +141,8 @@ namespace GUI.ViewModel.ViewViewModel
                 MemberBtn = new RelayCommand(SwitchToMember);
             UpdateTour = new RelayCommand(SaveTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
+            UploadPictureBtn = new RelayCommand(UploadPicture);
+            LogoutBtn = new RelayCommand(SwitchToLogout);
 
                 //General Commands
                 ShowPositionBtn = new RelayCommand<PositionEntityVM>(ShowPosition);
@@ -140,6 +150,29 @@ namespace GUI.ViewModel.ViewViewModel
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
                 MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+        private void SwitchToLogout()
+        {
+            File.Delete(loginCredentialsFilePath);
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
+        }
+
+        private void UploadPicture()
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Bitte wählen Sie ein Bild aus";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                        "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                FileStream fs = new FileStream(op.FileName, FileMode.Open, FileAccess.Read);
+                byte[] data = new byte[fs.Length];
+                fs.Read(data, 0, System.Convert.ToInt32(fs.Length));
+                fs.Close();
+                datahandler.SavePicture(CurrentTourEntity.Tour.ID, data);
+            }
         }
 
         private void SaveTour()

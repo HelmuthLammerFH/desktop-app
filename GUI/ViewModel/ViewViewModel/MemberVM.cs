@@ -6,6 +6,7 @@ using GUI.ViewModel.EntityViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,14 @@ namespace GUI.ViewModel.ViewViewModel
         private Visibility tourEntityIsChoosen;
         private DataProvider dp;
         private bool update = false;
+        const string loginCredentialsFilePath = "loginCredentials.csv";
         #endregion
 
         #region NAVIGATIONCOMMANDPROPERTIES
         public RelayCommand TourBtn { get; set; }
         public RelayCommand PositionsBtn { get; set; }
         public RelayCommand MemberBtn { get; set; }
+        public RelayCommand LogoutBtn { get; set; }
         public TourEntityVM CurrentTourEntity
         {
             get
@@ -109,10 +112,17 @@ namespace GUI.ViewModel.ViewViewModel
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
             EditBtn = new RelayCommand(EditMember);
+            LogoutBtn = new RelayCommand(SwitchToLogout);
 
             datahandler = new DataHandler();
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+        private void SwitchToLogout()
+        {
+            File.Delete(loginCredentialsFilePath);
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
         }
 
         private void EditMember()

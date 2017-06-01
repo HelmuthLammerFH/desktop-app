@@ -3,10 +3,12 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
+using GUI.ViewModel.ViewViewModel;
 using Shared.DummyEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,15 @@ namespace GUI.ViewModel.ViewViewModel
         private PositionEntityVM createdOrUpdatedPositionItem;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
+        private Visibility positionisSelected;
+        const string loginCredentialsFilePath = "loginCredentials.csv";
+
+        public Visibility PositionIsSelected
+        {
+            get { return positionisSelected; }
+            set { positionisSelected = value;RaisePropertyChanged(); }
+        }
+
         private DataHandler datahandler;
         #endregion
 
@@ -35,6 +46,8 @@ namespace GUI.ViewModel.ViewViewModel
         public RelayCommand SavePositionBtn { get; set; }
 
         public RelayCommand AddPositionToTour { get; set; }
+
+        public RelayCommand LogoutBtn { get; set; }
 
         public ObservableCollection<string> PositionList { get; set; }
         public List<PositionEntityVM> PositionEntityList { get; set; }
@@ -106,6 +119,7 @@ namespace GUI.ViewModel.ViewViewModel
             set
             {
                 selectedPositionItem = value;
+                PositionIsSelected = Visibility.Visible;
                 RaisePropertyChanged();
             }
         }
@@ -129,6 +143,7 @@ namespace GUI.ViewModel.ViewViewModel
         {
             CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
             TourEntityIsChoosen = Visibility.Hidden;
+            PositionIsSelected = Visibility.Hidden;
             //Navigation Commands
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
@@ -136,6 +151,7 @@ namespace GUI.ViewModel.ViewViewModel
             //General Commands
             DeletePositionBtn = new RelayCommand(DeletePosition, CanExecuteDeletePosition);
             SavePositionBtn = new RelayCommand(SavePosition, CanExecuteSavePosition);
+            LogoutBtn = new RelayCommand(SwitchToLogout);
             datahandler = new DataHandler();
             PositionList = new ObservableCollection<string>();
             PositionEntityList = new List<PositionEntityVM>();
@@ -144,15 +160,33 @@ namespace GUI.ViewModel.ViewViewModel
                 PositionList.Add(item.Title);
                 PositionEntityList.Add(new PositionEntityVM(item));
             }
-            AddPositionToTour = new RelayCommand(AddPosition);
+            AddPositionToTour = new RelayCommand(AddPosition,CanExecuteAddPosition);
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+        private bool CanExecuteAddPosition()
+        {
+            if (PositionEntityList.Count > 10)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void SwitchToLogout()
+        {
+            File.Delete(loginCredentialsFilePath);
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
         }
 
         private void AddPosition()
         {
             var position = PositionEntityList[SelectedPosition];
-            datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now, DateTime.Now);
+            datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now);
+            //Das heutige Datum setzen, sodass ein default Wert in der Liste drinnen steht und kein ungültiger Wert als Datum
+            position.Startdate = DateTime.Now;
+            position.Enddate = DateTime.Now;
             CurrentTourEntity.Positions.Add(position);
         }
         #endregion
