@@ -144,7 +144,7 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "UPDATE tours SET Name = '"+name+"', startDate = '"+startDate+ "', endDate = '" + endtime + "', status_id = (select id from statuses where name = '" + status+"') WHERE id = "+ id;
+                command.CommandText = "UPDATE tours SET Name = '"+name+"', startDate = '"+startDate.ToString("yyyy-MM-dd HH:mm:ss") + "', endDate = '" + endtime.ToString("yyyy-MM-dd HH:mm:ss") + "', status_id = (select id from statuses where name = '" + status+"') WHERE id = "+ id;
                 command.ExecuteNonQuery();
                 connection.Close();
             }
