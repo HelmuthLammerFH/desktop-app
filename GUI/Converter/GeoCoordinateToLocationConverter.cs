@@ -16,6 +16,7 @@ namespace GUI.Converter
         {
         if(value is GeoCoordinate)
             {
+                // needed for map
                 GeoCoordinate gc = (GeoCoordinate)value;
                 return new Location(gc.Latitude,gc.Longitude);
             }
