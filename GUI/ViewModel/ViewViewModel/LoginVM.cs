@@ -3,6 +3,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using ServiceLayer;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +22,7 @@ namespace GUI.ViewModel.ViewViewModel
         private DataHandler dh;
         const string loginCredentialsFilePath = "loginCredentials.csv";
         private string statusMessage = "";
+        private MessageHandler messages;
         #endregion
 
         #region PROPERTIES
@@ -67,6 +70,48 @@ namespace GUI.ViewModel.ViewViewModel
             Passwort = "";
             LoginBtn = new RelayCommand<PasswordBox>(Login, CanExecuteLogin);
             AngemeldetBleiben = true;
+            //prepare Connection to Backend
+            messages = new MessageHandler();
+            //prepare Database
+            /**try
+            {
+                foreach (var item in messages.GetAllUsers())
+                {
+                    dh.InsertUsers(item);
+                }
+                foreach (var item in messages.GetAllCustomers())
+                {
+                    dh.InsertCustomer(item);
+                }
+                foreach (var item in messages.GetAllTourGuides())
+                {
+                    dh.InsertTourGuides(item);
+                }
+                foreach (var item in messages.GetAllStatuse())
+                {
+                    dh.InsertStatus(item);
+                }
+                foreach (var item in messages.GetAllTours())
+                {
+                    dh.InsertTour(item);
+                }
+                foreach (var item in messages.GetAllPositions())
+                {
+                    dh.InsertTourPosition(item);
+                }
+                foreach (var item in messages.GetAllToursToPosition())
+                {
+                    dh.InsertTourToPositions(item);
+                }
+                foreach (var item in messages.GetAllCustomersToTour())
+                {
+                    dh.InsertCustomerToTours(item);
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }**/
+            
         }
         #endregion
 
@@ -87,8 +132,8 @@ namespace GUI.ViewModel.ViewViewModel
                 string[] linesToSave = new string[1];
                 linesToSave[0] = id +";" + Username + ";" + Passwort + ";" + AngemeldetBleiben;
                 File.WriteAllLines(loginCredentialsFilePath, linesToSave);
-                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
                 StatusMessage = "";
+                MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
             }
             else
             {

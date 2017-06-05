@@ -61,6 +61,7 @@
     <Compile Include="Entities\TourGuide.cs" />
     <Compile Include="Entities\TourGuidHatAgentur.cs" />
     <Compile Include="Entities\TourPosition.cs" />
+    <Compile Include="Entities\TourToPositions.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

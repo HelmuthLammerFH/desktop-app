@@ -246,6 +246,10 @@
       <Project>{8408E0D2-6686-4614-AC91-9614FA3F27D9}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
+      <Project>{A6987C72-FA89-4618-ADDF-D63F097D9C27}</Project>
+      <Name>ServiceLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{49545335-667E-47F0-A6DB-F05402ACC1A4}</Project>
       <Name>Shared</Name>
