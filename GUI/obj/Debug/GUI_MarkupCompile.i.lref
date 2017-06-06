@@ -1,15 +1,15 @@
-﻿C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\GeneratedInternalTypeHelper.g.i.cs
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\App.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\MainWindow.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\CalendarReport.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\ListReport.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\Login.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\Member.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\Position.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\Tour.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\TourPositions.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\AppointmentControl.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\DayBoxControl.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\MonthViewControl.xaml;;
-FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\WeekOfDaysControl.xaml;;
+﻿K:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\obj\Debug\GeneratedInternalTypeHelper.g.i.cs
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\App.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\MainWindow.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\CalendarReport.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\ListReport.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\Login.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\Member.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\Position.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\Tour.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\TourPositions.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\UserControls\AppointmentControl.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\UserControls\DayBoxControl.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\UserControls\MonthViewControl.xaml;;
+FK:\TI\Mitarbeiter\Hollmann\Repos\FH\GUI\View\UserControls\WeekOfDaysControl.xaml;;
 

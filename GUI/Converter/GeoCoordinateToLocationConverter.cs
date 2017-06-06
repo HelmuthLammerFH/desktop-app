@@ -20,8 +20,9 @@ namespace GUI.Converter
                 GeoCoordinate gc = (GeoCoordinate)value;
                 return new Location(gc.Latitude,gc.Longitude);
             }
-            return null;
-         
+            return new Location(48.23965, 16.37779);
+
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
