@@ -5,3 +5,10 @@ C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implemen
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.csprojResolveAssemblyReference.cache
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.dll
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\bin\Debug\SR_Synchronisation_Dummy.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\bin\Debug\Shared.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\bin\Debug\Shared.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.csprojResolveAssemblyReference.cache
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\SR_Synchronisation_Dummy\obj\Debug\SR_Synchronisation_Dummy.pdb

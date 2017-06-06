@@ -1,17 +1,13 @@
 ﻿using Shared.DummyEntities;
-using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataLayer
 {
     public class DataHandler
     {
-        const string path = "C:\\Users\\Dejvid\\Documents\\Wirtschaftsinformatik\\4.Semester\\Fallstudie 4\\Implementierung\\desktop-app\\DataLayer\\Database\\desktop-app.db";
+        const string path =  @"Database\desktop-app.db";
         SQLiteConnection connection = new SQLiteConnection("Data Source=" +  path);
        
 
@@ -195,6 +191,7 @@ namespace DataLayer
             }
             catch (Exception e)
             {
+                connection.Close();
                 Console.WriteLine(e.Message);
                 return 0;
             }
