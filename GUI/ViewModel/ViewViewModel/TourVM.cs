@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
 using Microsoft.Win32;
+using ServiceLayer;
 using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +28,7 @@ namespace GUI.ViewModel.ViewViewModel
         private DataProvider dp;
         private Visibility tourEdit;
         private DataHandler datahandler;
+        private MessageHandler message;
         const string loginCredentialsFilePath = "loginCredentials.csv";
 
         private string status;
@@ -126,6 +129,7 @@ namespace GUI.ViewModel.ViewViewModel
         public TourVM()
         {
             datahandler = new DataHandler();
+            message = new MessageHandler();
             TourEntityIsChoosen = Visibility.Hidden;
             TourEdit = Visibility.Hidden;
             StatusList = new ObservableCollection<string>();
@@ -178,6 +182,8 @@ namespace GUI.ViewModel.ViewViewModel
         private void SaveTour()
         {
             datahandler.UpdateTour(CurrentTourEntity.Tour.ID, CurrentTourEntity.Title, CurrentTourEntity.Startdate, CurrentTourEntity.Enddate, Status);
+            /**Tour temp = new Tour() {ID = CurrentTourEntity.Tour.ID, Name = CurrentTourEntity.Title, ChangedFrom = "DejvidsTest" };
+            message.SendTour(temp);**/
             TourEdit = Visibility.Hidden;
         }
 

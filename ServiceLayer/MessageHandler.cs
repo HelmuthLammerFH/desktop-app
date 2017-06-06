@@ -83,6 +83,18 @@ namespace ServiceLayer
             HttpResponseMessage response = client.GetAsync(path + "/api/v1/customer_in_tours.json?clientID=2").Result;
             customertotour = JsonConvert.DeserializeObject<List<KundeInTour>>(response.Content.ReadAsStringAsync().Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             return customertotour;
+            
+        }
+
+        public bool SendTour(Tour tour)
+        {
+            tour.ID = 10630;
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/tours/" + tour.ID + ".json?clientID=2",new StringContent(JsonConvert.SerializeObject(tour).ToString(),Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
