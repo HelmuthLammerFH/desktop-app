@@ -23,7 +23,7 @@ namespace Shared.Entities
         [DataMember(Name = "syncedFrom")]
         public int SyncedFrom { get; set; }
         [DataMember(Name = "deleteFlag")]
-        public int DeleteFlag { get; set; }
+        public bool DeleteFlag { get; set; }
         [DataMember(Name = "Tourposition_id")]
         public int TourpositionID { get; set; }
         [DataMember(Name = "tour_id")]

@@ -25,7 +25,7 @@ namespace GUI.ViewModel.ViewViewModel
         TourEntityVM currentTourEntity;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
-        private DataProvider dp;
+       // private DataProvider dp;
         private Visibility tourEdit;
         private DataHandler datahandler;
         private MessageHandler message;
@@ -153,7 +153,7 @@ namespace GUI.ViewModel.ViewViewModel
                 DeletePositionBtn = new RelayCommand<PositionEntityVM>(DeletePosition);
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
-                MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+                //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
 
         private void SwitchToLogout()
@@ -182,8 +182,8 @@ namespace GUI.ViewModel.ViewViewModel
         private void SaveTour()
         {
             datahandler.UpdateTour(CurrentTourEntity.Tour.ID, CurrentTourEntity.Title, CurrentTourEntity.Startdate, CurrentTourEntity.Enddate, Status);
-            /**Tour temp = new Tour() {ID = CurrentTourEntity.Tour.ID, Name = CurrentTourEntity.Title, ChangedFrom = "DejvidsTest" };
-            message.SendTour(temp);**/
+            Tour temp = new Tour() {ID = CurrentTourEntity.Tour.ID, Name = CurrentTourEntity.Title, ChangedFrom = "DejvidsTest", SyncedFrom = 2, CreatedFrom = "Dejvid Heast" };
+            message.SendTour(temp);
             TourEdit = Visibility.Hidden;
         }
 
@@ -223,7 +223,7 @@ namespace GUI.ViewModel.ViewViewModel
         {
             //CurrentTourEntity.Positions.Remove(obj);
             //dp.UpdateTour(CurrentTourEntity.Tour);
-            MessengerInstance.Send<DataProvider>(dp);
+            //MessengerInstance.Send<DataProvider>(dp);
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
         }
 
@@ -238,10 +238,10 @@ namespace GUI.ViewModel.ViewViewModel
         {
             CurrentTourEntity = obj;
         }
-        private void UpdateDataProvider(DataProvider obj)
+        /**private void UpdateDataProvider(DataProvider obj)
         {
             dp = obj;
-        }
+        }**/
         #endregion
     }
 }

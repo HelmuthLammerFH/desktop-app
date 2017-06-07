@@ -35,3 +35,4 @@ K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.csprojResolveA
 K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.dll
 K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.pdb
 K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\Database\desktop-app.db
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\bin\Debug\Database\desktop-app.db

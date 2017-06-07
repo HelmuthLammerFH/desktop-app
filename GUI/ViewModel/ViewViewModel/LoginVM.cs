@@ -73,7 +73,7 @@ namespace GUI.ViewModel.ViewViewModel
             //prepare Connection to Backend
             messages = new MessageHandler();
             //prepare Database
-            /**try
+            try
             {
                 foreach (var item in messages.GetAllUsers())
                 {
@@ -110,7 +110,7 @@ namespace GUI.ViewModel.ViewViewModel
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);
-            }**/
+            }
             
         }
         #endregion

@@ -12,7 +12,7 @@ namespace Shared.Entities
     {
         [DataMember(Name = "id")]
         public int ID { get; set; }
-        [DataMember(Name = "tourGuideSince ")]
+        [DataMember(Name = "tourGuideSince")]
         public DateTime TourGuideSince { get; set; }
         [DataMember(Name = "position")]
         public string Position { get; set; }
@@ -27,7 +27,11 @@ namespace Shared.Entities
         [DataMember(Name = "syncedFrom")]
         public int SyncedFrom { get; set; }
         [DataMember(Name = "deleteFlag")]
-        public int DeleteFlag { get; set; }
+        public bool DeleteFlag { get; set; }
+        [DataMember(Name = "user_id")]
+        public int UserID { get; set; }
+        [DataMember(Name = "agency_id")]
+        public object AgencyID { get; set; }
         [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
         [DataMember(Name = "updated_at")]

@@ -27,7 +27,7 @@ namespace Shared.Entities
         [DataMember(Name = "syncedFrom")]
         public int SyncedFrom { get; set; }
         [DataMember(Name = "deleteFlag")]
-        public int DeleteFlag { get; set; }
+        public bool DeleteFlag { get; set; }
         [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
         [DataMember(Name = "updated_at")]

@@ -1,4 +1,5 @@
 ﻿using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -18,28 +19,28 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "select t.id,t.name,t.maxAttendees,t.price,t.startDate,t.endDate,s.name from tours t INNER JOIN tourguides tu on tu.id = t.tourguide_id INNER JOIN statuses s on s.id = t.Status_id where t.tourguide_id = " + id + " and t.deleteFlag <> 1";
+                command.CommandText = "select t.id,t.name,t.maxAttendees,t.price,t.startDate,t.endDate,s.name from tours t INNER JOIN tourguides tu on tu.id = t.tourguide_id INNER JOIN statuses s on s.id = t.Status_id where t.tourguide_id = " + id + " and t.deleteFlag <> 'True'";
                 SQLiteDataReader reader = command.ExecuteReader();
                 while(reader.Read())
                 {
-                    tours.Add(new DummyTour() { ID = Int16.Parse(reader[0].ToString()), Name = reader[1].ToString(), MaxAttendees = Int16.Parse(reader[2].ToString()), Price = float.Parse(reader[3].ToString()), StartDate = DateTime.Parse(reader[4].ToString()), EndDate = DateTime.Parse(reader[5].ToString()), State = reader[6].ToString() });
+                    tours.Add(new DummyTour() { ID = Int16.Parse(reader[0].ToString()), Name = reader[1].ToString(), MaxAttendees = Int16.Parse(reader[2].ToString()), Price = Single.Parse(reader[3].ToString()), StartDate = DateTime.Parse(reader[4].ToString()), EndDate = DateTime.Parse(reader[5].ToString()), State = reader[6].ToString() });
                 }
                 SQLiteCommand command2 = new SQLiteCommand(connection);
                 for (int i = 0; i < tours.Count; i++)
                 { 
-                    command2.CommandText = "Select tp.id,tp.name,ttp.startdate, ttp.enddate,tp.price,tp.position,tp.description from tourpositions tp INNER JOIN tour_to_positions ttp on tp.id = ttp.Tourposition_id where ttp.Tour_id = " + tours[i].ID + " and tp.deleteFlag <> 1";
+                    command2.CommandText = "Select tp.id,tp.name,ttp.startdate, ttp.enddate,tp.price,tp.position,tp.description from tourpositions tp INNER JOIN tour_to_positions ttp on tp.id = ttp.Tourposition_id where ttp.Tour_id = " + tours[i].ID + " and tp.deleteFlag <> 'True'";
                     SQLiteDataReader readerPosition = command2.ExecuteReader();
                     tours[i].Positions = new List<DummyPosition>();
                     while (readerPosition.Read())
                     {
-                        tours[i].Positions.Add(new DummyPosition() { PositionID = Int16.Parse(readerPosition[0].ToString()), Title = readerPosition[1].ToString(), Startdate = DateTime.Parse(readerPosition[2].ToString()), Enddate = DateTime.Parse(readerPosition[3].ToString()), Cost = Int16.Parse(readerPosition[4].ToString()), GPSPosition = readerPosition[5].ToString(), Description = readerPosition[6].ToString() });
+                        tours[i].Positions.Add(new DummyPosition() { PositionID = Int16.Parse(readerPosition[0].ToString()), Title = readerPosition[1].ToString(), Startdate = DateTime.Parse(readerPosition[2].ToString()), Enddate = DateTime.Parse(readerPosition[3].ToString()), Cost = Single.Parse(readerPosition[4].ToString()), GPSPosition = readerPosition[5].ToString(), Description = readerPosition[6].ToString() });
                     }
                     command2.Dispose();
                 }
                 SQLiteCommand command3 = new SQLiteCommand(connection);
                 for (int i = 0; i < tours.Count; i++)
                 {
-                    command3.CommandText = "select c.id,cit.participated,u.id,u.firstname, u.lastname, u.birthdate, u.address, u.city,u.email from customers c INNER JOIN users u on u.id = c.User_id INNER JOIN customer_in_tours cit on cit.Customer_id = c.id where cit.Tour_id = " + tours[i].ID + " and u.deleteflag <> 1";
+                    command3.CommandText = "select c.id,cit.participated,u.id,u.firstname, u.lastname, u.birthdate, u.address, u.city,u.email from customers c INNER JOIN users u on u.id = c.User_id INNER JOIN customer_in_tours cit on cit.Customer_id = c.id where cit.Tour_id = " + tours[i].ID + " and u.deleteflag <> 'True'";
                     SQLiteDataReader readerMembers = command3.ExecuteReader();
                     tours[i].Members = new List<DummyMember>();
                     while (readerMembers.Read())
@@ -118,7 +119,7 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "select id,name,position,description,price,createdFrom,changedFrom from tourpositions where deleteFlag <> 1";
+                command.CommandText = "select id,name,position,description,price,createdFrom,changedFrom from tourpositions where deleteFlag <> 'True'";
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -221,7 +222,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO customers(id,note,createdFrom,changedFrom,syncedFrom,deleteFlag,user_id,created_at,updated_at) VALUES "+
-                    "("+ customer.ID+",'"+ customer.Note+"','"+ customer.CreatedFrom+"','"+ customer.ChangedFrom+"',"+ customer.SyncedFrom+","+ customer.DeleteFlag+","+ customer.UserID+",'"+ customer.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','"+ customer.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "("+ customer.ID+",'"+ customer.Note+"','"+ customer.CreatedFrom+"','"+ customer.ChangedFrom+"',"+ customer.SyncedFrom+",'"+ customer.DeleteFlag+"',"+ customer.UserID+",'"+ customer.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','"+ customer.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -239,7 +240,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO customer_in_tours(id,bookedDate,participated,starRating,feedbackTourGuid,createdFrom,changedFrom,syncedFrom,deleteFlag,customer_id,tour_id,created_at,updated_at) VALUES "+
-                    "(" + customertotours.ID + ",'" + customertotours.BookedDate.ToString("yyyy-MM-dd HH:mm:ss") + "',"+ customertotours.Participated+ ","+customertotours.StarRating+","+ customertotours.FeedbackTourGuid+ ",'" + customertotours.CreatedFrom + "','"+customertotours.ChangedFrom + "'," + " + customertotours.TourID + "+customertotours.SyncedFrom + ","+customertotours.DeleteFlag + "," + customertotours.CustomerID + "," + customertotours.TourID + ",'" + customertotours.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + customertotours.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "(" + customertotours.ID + ",'" + customertotours.BookedDate.ToString("yyyy-MM-dd HH:mm:ss") + "',"+ customertotours.Participated+ ","+customertotours.StarRating+",'"+ customertotours.FeedbackTourGuid+ "','" + customertotours.CreatedFrom + "','"+customertotours.ChangedFrom + "'," +customertotours.SyncedFrom + ",'"+customertotours.DeleteFlag + "'," + customertotours.CustomerID + "," + customertotours.TourID + ",'" + customertotours.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + customertotours.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -257,7 +258,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO statuses(id,name,createdFrom,changedFrom,syncedFrom,deleteFlag,created_at,updated_at) VALUES "+
-                    "(" + state.ID + ",'" + state.Name + "','" + state.CreatedFrom + "','" + state.ChangedFrom + "'," + state.SyncedFrom + "," + state.DeleteFlag + ",'" + state.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + state.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "(" + state.ID + ",'" + state.Name + "','" + state.CreatedFrom + "','" + state.ChangedFrom + "'," + state.SyncedFrom + ",'" + state.DeleteFlag + "','" + state.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + state.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -274,8 +275,8 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "INSERT INTO tourguides(id,tourGuideSince,createdFrom,changedFrom,syncedFrom,deleteFlag,user_id,agency_id,created_at,updated_at) VALUES "+
-                    "(" + tourguide.ID + ",'" + tourguide.TourGuideSince.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourguide.CreatedFrom + "','" + tourguide.ChangedFrom + "'," + tourguide.SyncedFrom + "," + tourguide.DeleteFlag + ",'" + tourguide.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourguide.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                command.CommandText = "INSERT INTO tourguides(id,tourGuideSince,createdFrom,changedFrom,syncedFrom,deleteFlag,user_id,created_at,updated_at) VALUES "+
+                    "(" + tourguide.ID + ",'" + tourguide.TourGuideSince.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourguide.CreatedFrom + "','" + tourguide.ChangedFrom + "'," + tourguide.SyncedFrom + ",'" + tourguide.DeleteFlag + "',"+tourguide.UserID+ ",'" + tourguide.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourguide.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -293,7 +294,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO tourpositions(id,name,position,description,price,createdFrom,changedFrom,syncedFrom,deleteFlag,created_at,updated_at) VALUES "+
-                    "(" + tourposition.ID + ",'" + tourposition.Name + "','" + tourposition.Position + "','" + tourposition.Description + "'," + tourposition.Price + ",'" + tourposition.CreatedFrom + "','" + tourposition.ChangedFrom + "'," + tourposition.SyncedFrom + "," + tourposition.DeleteFlag + ",'" + tourposition.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "(" + tourposition.ID + ",'" + tourposition.Name + "','" + tourposition.Position + "','" + tourposition.Description + "'," + tourposition.Price + ",'" + tourposition.CreatedFrom + "','" + tourposition.ChangedFrom + "'," + tourposition.SyncedFrom + ",'" + tourposition.DeleteFlag + "','" + tourposition.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -311,7 +312,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO tours(id,name,maxAttendees,price,startDate,endDate,createdFrom,changedFrom,syncedFrom,deleteFlag,status_id,Tourguide_id,created_at,updated_at) VALUES "+
-                    "(" + tour.ID + ",'" + tour.Name + "'," + tour.MaxAttendees + "," + tour.Price + ",'" + tour.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.EndDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.CreatedFrom + "','" + tour.ChangedFrom + "'," + tour.SyncedFrom + "," + tour.DeleteFlag + ",'" + tour.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "(" + tour.ID + ",'" + tour.Name + "'," + tour.MaxAttendees + "," + tour.Price + ",'" + tour.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.EndDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.CreatedFrom + "','" + tour.ChangedFrom + "'," + tour.SyncedFrom + ",'" + tour.DeleteFlag + "',"+tour.StatusID+","+tour.TourGuideID+",'" + tour.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -329,7 +330,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO tour_to_positions(id,startDate,endDate,createdFrom,changedFrom,syncedFrom,deleteFlag,tour_id,Tourposition_id,created_at,updated_at) VALUES"+
-                    "(" + tourtoposition.ID + ",'" + tourtoposition.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourtoposition.EndDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourtoposition.CreatedFrom + "','" + tourtoposition.ChangedFrom + "'," + tourtoposition.SyncedFrom + "," + tourtoposition.DeleteFlag + ",'" + tourtoposition.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourtoposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "(" + tourtoposition.ID + ",'" + tourtoposition.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourtoposition.EndDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourtoposition.CreatedFrom + "','" + tourtoposition.ChangedFrom + "'," + tourtoposition.SyncedFrom + ",'" + tourtoposition.DeleteFlag + "',"+tourtoposition.TourID+","+ tourtoposition.TourpositionID+ ",'" + tourtoposition.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tourtoposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -348,7 +349,7 @@ namespace DataLayer
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO users(id,firstname,lastname,birthdate,address,city,email,username,passwort,createdFrom,changedFrom,syncedFrom,deleteFlag,created_at,updated_at) VALUES "+
                     "(" + user.ID + ",'" + user.Firstname + "','" + user.Lastname + "','" + user.Birthdate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.Address + "','" + user.City + "','" + user.Email + "','" + user.Username + "','" + user.Passwort + "',"+
-                    "'" + user.CreatedFrom + "','" + user.ChangedFrom + "'," + user.SyncedFrom + "," + user.DeleteFlag + ",'" + user.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "'" + user.CreatedFrom + "','" + user.ChangedFrom + "'," + user.SyncedFrom + ",'" + user.DeleteFlag + "','" + user.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
                 command.ExecuteNonQuery();
                 connection.Close();
             }

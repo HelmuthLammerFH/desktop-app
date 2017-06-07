@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
