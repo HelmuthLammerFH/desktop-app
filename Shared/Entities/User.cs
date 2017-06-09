@@ -10,31 +10,37 @@ namespace Shared.Entities
     [DataContract]
     public class User
     {
-        [DataMember]
-        public Guid UserID { get; set; }
-
-        [DataMember]
-        public string Nachname { get; set; }
-
-        [DataMember]
-        public string Vorname { get; set; }
-
-        [DataMember]
-        public DateTime Geburtsdatum { get; set; }
-
-        [DataMember]
+        [DataMember(Name = "id")]
+        public int ID { get; set; }
+        [DataMember(Name = "firstname")]
+        public string Firstname { get; set; }
+        [DataMember(Name = "lastname")]
+        public string Lastname { get; set; }
+        [DataMember(Name = "birthdate")]
+        public DateTime Birthdate { get; set; }
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
+        [DataMember(Name = "city")]
+        public string City { get; set; }
+        [DataMember(Name = "email")]
         public string Email { get; set; }
-
-        [DataMember]
-        public string Addresse { get; set; }
-
-        [DataMember]
-        public string Ort { get; set; }
-
-        [DataMember]
+        [DataMember(Name = "username")]
+        public string Username { get; set; }
+        [DataMember(Name = "passwort")]
         public string Passwort { get; set; }
-
-        [DataMember]
-        public string UserName { get; set; }
+        [DataMember(Name = "createdFrom")]
+        public string CreatedFrom { get; set; }
+        [DataMember(Name = "changedFrom")]
+        public string ChangedFrom { get; set; }
+        [DataMember(Name = "syncedFrom")]
+        public int SyncedFrom { get; set; }
+        [DataMember(Name = "deleteFlag")]
+        public bool DeleteFlag { get; set; }
+        [DataMember(Name = "created_at")]
+        public DateTime CreatedAt { get; set; }
+        [DataMember(Name = "updated_at")]
+        public DateTime UpdatedAt { get; set; }
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
     }
 }

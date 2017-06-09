@@ -83,7 +83,7 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
-        public decimal Cost
+        public float Cost
         {
             get
             {
@@ -116,5 +116,18 @@ namespace GUI.ViewModel.EntityViewModel
                 return (Enddate - Startdate).ToString();
             }
         }
+
+        public string CreatedFrom
+        {
+            get { return tourPosition.CreatedFrom; }
+            set { tourPosition.CreatedFrom = value; }
+        }
+
+        public string ChangedFrom
+        {
+            get { return tourPosition.ChangedFrom; }
+            set { tourPosition.ChangedFrom = value; }
+        }
+
     }
 }

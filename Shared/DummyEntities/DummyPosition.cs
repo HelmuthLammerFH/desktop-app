@@ -29,6 +29,8 @@ namespace Shared.DummyEntities
     
         public string GPSPosition { get; set; }
     
-        public decimal Cost { get; set; }
+        public float Cost { get; set; }
+        public string CreatedFrom { get; set; }
+        public string ChangedFrom { get; set; }
     }
 }

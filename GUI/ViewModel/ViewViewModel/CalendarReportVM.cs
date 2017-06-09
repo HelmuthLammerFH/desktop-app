@@ -28,6 +28,7 @@ namespace GUI.ViewModel.ViewViewModel
         public RelayCommand TourBtn { get; set; }
         public RelayCommand PositionsBtn { get; set; }
         public RelayCommand MemberBtn { get; set; }
+        public RelayCommand LogoutBtn { get; set; }
         public ObservableCollection<TourEntityVM> TourEntitieList
         {
             get
@@ -66,11 +67,18 @@ namespace GUI.ViewModel.ViewViewModel
             TourBtn = new RelayCommand(SwitchToTour);
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
+            LogoutBtn = new RelayCommand(SwitchToLogin);
             ReadToursFromGuide();
             //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
+
+        private void SwitchToLogin()
+        {
+            File.Delete(loginCredentialsFilePath);
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
+        }
         #endregion
-        
+
         #region NAVIGATIONCOMMANDMETHODS
         private void SwitchToListReport()
         {

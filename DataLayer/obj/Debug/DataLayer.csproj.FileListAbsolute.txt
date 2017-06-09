@@ -16,3 +16,23 @@ C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implemen
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\obj\Debug\DataLayer.dll
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\obj\Debug\DataLayer.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\DataLayer.dll.config
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\DataLayer.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\DataLayer.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\EntityFramework.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\Shared.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\SR_Synchronisation_Dummy.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\System.Data.SQLite.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\System.Data.SQLite.EF6.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\System.Data.SQLite.Linq.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\Shared.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\SR_Synchronisation_Dummy.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\EntityFramework.xml
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\System.Data.SQLite.xml
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.dll
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.pdb
+K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\Database\desktop-app.db
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\bin\Debug\Database\desktop-app.db

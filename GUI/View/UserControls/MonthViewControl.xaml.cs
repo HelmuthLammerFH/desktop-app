@@ -112,6 +112,8 @@ namespace GUI.View.UserControls
                 dayBox.DayNumberLabel.Content = i.ToString();
                 dayBox.Tag = i;
                 dayBox.MouseDoubleClick += DayBox_DoubleClick;
+                dayBox.MouseUp += DayBox_MouseUp;
+                dayBox.LostFocus += DayBox_LostFocus;
 
                 if ((new System.DateTime(displayYear, displayMonth, i)) == DateTime.Today)
                 {
@@ -139,6 +141,8 @@ namespace GUI.View.UserControls
                         apt.DisplayText.Text = a.Title;
                         apt.Tag = a.Tour.ID;
                         apt.MouseDoubleClick += Appointment_DoubleClick;
+                        apt.MouseUp += Appointment_MouseUp;
+                        apt.LostFocus += Appointment_LostFocus;
                         dayBox.DayAppointmentsStack.Children.Add(apt);
                     }
 
@@ -149,6 +153,42 @@ namespace GUI.View.UserControls
             }
             Grid.SetRow(weekRowCtrl, iWeekCount);
             MonthViewGrid.Children.Add(weekRowCtrl);
+        }
+
+        private void DayBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            DayBoxControl db = (DayBoxControl)sender;
+            if ((new System.DateTime(displayYear, displayMonth, Convert.ToInt32(db.DayNumberLabel.Content)) == DateTime.Today))
+            {
+                return;
+            }
+            db.DayLabelRowBorder.Background = (Brush)db.TryFindResource("BlueGradientBrush");
+            db.DayAppointmentsStack.Background = Brushes.White;
+        }
+
+        private void Appointment_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AppointmentControl ac = (AppointmentControl)sender;
+            ac.BorderElement.Background = Brushes.LightBlue;
+            ac.Background = Brushes.White;
+        }
+
+        private void Appointment_MouseUp(object sender, RoutedEventArgs e)
+        {
+            AppointmentControl ac = (AppointmentControl)sender;
+            ac.BorderElement.Background = Brushes.Aquamarine;
+            ac.Background = Brushes.Azure;
+            ac.Focus();
+            e.Handled = true;
+        }
+
+        private void DayBox_MouseUp(object sender, RoutedEventArgs e)
+        {
+            DayBoxControl db = (DayBoxControl)sender;
+            db.DayLabelRowBorder.Background = Brushes.Aquamarine;
+            db.DayAppointmentsStack.Background = Brushes.Azure;
+            db.Focus();
         }
 
         private void AddRowsToMonthGrid(int DaysInMonth, int OffSetDays)

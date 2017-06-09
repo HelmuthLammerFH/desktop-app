@@ -16,17 +16,18 @@
             <Button x:Name="button" Content="Tour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding TourBtn}" />
             <Button x:Name="button1" Content="Positionen" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding PositionsBtn}" />
             <Button x:Name="button2" Content="Teilnehmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFB94F4F" Command="{Binding MemberBtn}" />
+            <Button x:Name="button3" Content="Logout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="80" Background="#FFD6A1A1" Command="{Binding LogoutBtn}"></Button>
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid Visibility="{Binding TourEntityIsEmty}">
                 <Label x:Name="label" Content="In der Übersicht wurde keine Tour ausgewählt!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             </Grid>
-            <Grid Visibility="{Binding TourEntityIsChoosen}">
+            <Grid  Visibility="{Binding TourEntityIsChoosen}">
                 <Label x:Name="label2" HorizontalAlignment="Left" Margin="12,45,0,0" VerticalAlignment="Top" Content="{Binding CurrentTourEntity.Title}" FontSize="16" FontWeight="Bold"/>
                 <Label x:Name="label3" Content="Vorname" HorizontalAlignment="Left" Margin="12,84,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="label3_Copy" Content="Nachname" HorizontalAlignment="Left" Margin="152,84,0,0" VerticalAlignment="Top"/>
                 <Label x:Name="label3_Copy1" Content="Teilnahme" HorizontalAlignment="Left" Margin="292,84,0,0" VerticalAlignment="Top"/>
-                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="435" Margin="10,115,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Members}">
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="400" Margin="10,115,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Members}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -42,7 +43,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button Content="Bearbeiten" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,5"></Button>
+                <Button Content="Bearbeiten" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,5" Command="{Binding EditBtn}"></Button>
             </Grid>
         </Grid>
     </Grid>
