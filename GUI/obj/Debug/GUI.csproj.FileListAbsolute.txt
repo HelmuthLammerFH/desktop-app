@@ -70,10 +70,8 @@ C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implemen
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\bin\Debug\ServiceLayer.pdb
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\bin\Debug\Database\desktop-app.db
-C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\GUI.exe.config
-C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.exe
-C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.pdb
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\Database\desktop-app.db
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\GUI.exe.config
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\GUI.exe
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\GUI.pdb
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\bin\Debug\DataLayer.dll
@@ -142,3 +140,5 @@ C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\View\UserControls\WeekO
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.g.resources
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.Properties.Resources.resources
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.exe
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\GUI.pdb

@@ -204,10 +204,21 @@ namespace DataLayer
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "Insert into ressource_for_tours(id, picture,Ressource_Typ_id,created_at,updated_at,tours_id) values((select IFNULL(MAX(id),0) + 1 from ressource_for_tours),'" + Convert.ToBase64String(picture)+"',1,'"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','"+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "',"+ tourid + ")"; 
-                int newRessourceID = (int)command.ExecuteScalar();
-                connection.Close();
-                return newRessourceID;
+                command.CommandText = "Insert into ressource_for_tours(id, picture,created_at,updated_at,tour_id) values((select IFNULL(MAX(id),0) + 1 from ressource_for_tours),'" + Convert.ToBase64String(picture)+"','"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','"+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "',"+ tourid + ")";
+                command.ExecuteNonQuery();
+                command.CommandText = "Select IFNULL(MAX(id),0) FROM ressource_for_tours";
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    var temp = Int16.Parse(reader[0].ToString());
+                    connection.Close();
+                    return temp;
+                }
+                else
+                {
+                    connection.Close();
+                    return null;
+                }
             }
             catch (Exception e)
             {
@@ -370,9 +381,20 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "Insert into tour_to_positions(id, tour_id, Tourposition_id,startDate,endDate,created_at, updated_at) values((select IFNULL(MAX(id),0)+1 from tour_to_positions)," + tourid + "," + positionid + ",'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                int newTourToPositionID = (int)command.ExecuteScalar();
-                connection.Close();
-                return newTourToPositionID;
+                command.ExecuteNonQuery();
+                command.CommandText = "Select IFNULL(MAX(id),0) FROM tour_to_positions";
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    var temp = Int16.Parse(reader[0].ToString());
+                    connection.Close();
+                    return temp;
+                }
+                else
+                {
+                    connection.Close();
+                    return null;
+                }
             }
             catch (Exception e)
             {

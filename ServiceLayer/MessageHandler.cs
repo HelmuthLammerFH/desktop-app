@@ -3,6 +3,7 @@ using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -99,8 +100,7 @@ namespace ServiceLayer
 
         public bool SendMediaData(Ressources ressource)
         {
-
-            HttpResponseMessage response = client.PutAsync(path + "/api/v1/ressource_for_tours.json?clientID=2", new StringContent(JsonConvert.SerializeObject(ressource).ToString(), Encoding.UTF8, "application/json")).Result;
+            HttpResponseMessage response = client.PostAsync(path + "/api/v1/ressource_for_tours.json?clientID=2", new StringContent(JsonConvert.SerializeObject(ressource).ToString(), Encoding.UTF8, "application/json")).Result;
             if (response.IsSuccessStatusCode)
             {
                 return true;
@@ -110,7 +110,7 @@ namespace ServiceLayer
         public bool SendTourToPositionen(TourToPositions TourPosition)
         {
 
-            HttpResponseMessage response = client.PutAsync(path + "/api/v1/tour_to_position.json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourPosition).ToString(), Encoding.UTF8, "application/json")).Result;
+            HttpResponseMessage response = client.PostAsync(path + "/api/v1/tour_to_positions.json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourPosition).ToString(), Encoding.UTF8, "application/json")).Result;
             if (response.IsSuccessStatusCode)
             {
                 return true;
