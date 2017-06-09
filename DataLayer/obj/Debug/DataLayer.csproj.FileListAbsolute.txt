@@ -36,3 +36,22 @@ K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.dll
 K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\obj\Debug\DataLayer.pdb
 K:\TI\Mitarbeiter\Hollmann\Repos\FH\DataLayer\bin\Debug\Database\desktop-app.db
 C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\DataLayer\bin\Debug\Database\desktop-app.db
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\Database\desktop-app.db
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\DataLayer.dll.config
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\DataLayer.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\DataLayer.pdb
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\EntityFramework.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\Shared.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\SR_Synchronisation_Dummy.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\System.Data.SQLite.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\Shared.pdb
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\SR_Synchronisation_Dummy.pdb
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\EntityFramework.xml
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\System.Data.SQLite.xml
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.pdb

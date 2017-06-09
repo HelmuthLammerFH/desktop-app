@@ -96,5 +96,26 @@ namespace ServiceLayer
             }
             return false;
         }
+
+        public bool SendMediaData(Ressources ressource)
+        {
+
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/ressource_for_tours.json?clientID=2", new StringContent(JsonConvert.SerializeObject(ressource).ToString(), Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool SendTourToPositionen(TourToPositions TourPosition)
+        {
+
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/tour_to_position.json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourPosition).ToString(), Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

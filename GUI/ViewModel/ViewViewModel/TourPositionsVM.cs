@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
 using GUI.ViewModel.ViewViewModel;
+using ServiceLayer;
 using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +21,7 @@ namespace GUI.ViewModel.ViewViewModel
     public class TourPositionsVM : ViewModelBase
     {
         #region ATTRIBUTES
+        private MessageHandler message;
         private TourEntityVM currentTourEntity;
         private PositionEntityVM selectedPositionItem;
         private PositionEntityVM createdOrUpdatedPositionItem;
@@ -141,6 +144,7 @@ namespace GUI.ViewModel.ViewViewModel
         #region CONSTRUCTORS
         public TourPositionsVM()
         {
+            message = new MessageHandler();
             CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
             TourEntityIsChoosen = Visibility.Hidden;
             PositionIsSelected = Visibility.Hidden;
@@ -183,7 +187,12 @@ namespace GUI.ViewModel.ViewViewModel
         private void AddPosition()
         {
             var position = PositionEntityList[SelectedPosition];
-            datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now);
+            int? newTourToPositionID = datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now);
+            if (newTourToPositionID != null)
+            {
+                var newTourToPostion = new TourToPositions() { ID = (int)newTourToPositionID, CreatedFrom = "AlexH", TourID = CurrentTourEntity.Tour.ID, TourpositionID = position.TourPosition.PositionID, CreatedAt = DateTime.Now, StartDate = position.Startdate, EndDate = position.Enddate, SyncedFrom = 2 };
+                message.SendTourToPositionen(newTourToPostion);
+            }
             //Das heutige Datum setzen, sodass ein default Wert in der Liste drinnen steht und kein ungültiger Wert als Datum
             position.Startdate = DateTime.Now;
             position.Enddate = DateTime.Now;

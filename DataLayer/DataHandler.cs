@@ -198,20 +198,22 @@ namespace DataLayer
             }
         }
 
-        public void SavePicture(int tourid, byte[] picture)
+        public int? SavePicture(int tourid, byte[] picture)
         {
             try
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "Insert into ressource_for_tours(id, picture,Ressource_Typ_id,created_at,updated_at,tours_id) values((select IFNULL(MAX(id),0) + 1 from ressource_for_tours),'" + Convert.ToBase64String(picture)+"',1,'"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','"+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "',"+ tourid + ")"; 
-                command.ExecuteNonQuery();
+                int newRessourceID = (int)command.ExecuteScalar();
                 connection.Close();
+                return newRessourceID;
             }
             catch (Exception e)
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
+                return null;
             }
         }
 
@@ -361,20 +363,22 @@ namespace DataLayer
         }
 
         //Betrifft Tour_to_Positions
-        public void InsertPosition(int tourid, int positionid, DateTime date)
+        public int? InsertPosition(int tourid, int positionid, DateTime date)
         {
             try
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "Insert into tour_to_positions(id, tour_id, Tourposition_id,startDate,endDate,created_at, updated_at) values((select IFNULL(MAX(id),0)+1 from tour_to_positions)," + tourid + "," + positionid + ",'" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "','" + date.ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                command.ExecuteNonQuery();
+                int newTourToPositionID = (int)command.ExecuteScalar();
                 connection.Close();
+                return newTourToPositionID;
             }
             catch (Exception e)
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
+                return null;
             }
         }
     }

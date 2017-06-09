@@ -175,7 +175,12 @@ namespace GUI.ViewModel.ViewViewModel
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, System.Convert.ToInt32(fs.Length));
                 fs.Close();
-                datahandler.SavePicture(CurrentTourEntity.Tour.ID, data);
+                int? newPictureID = datahandler.SavePicture(CurrentTourEntity.Tour.ID, data);
+                if (newPictureID != null)
+                {
+                    Ressources newPicture = new Ressources() { ID = (int)newPictureID, createdFrom = "AlexH", Picture = data, ChangedFrom = "", syncedFrom = 2, Tour_id = CurrentTourEntity.Tour.ID };
+                    message.SendMediaData(newPicture);
+                }
             }
         }
 
