@@ -57,7 +57,7 @@
                     <TextBox Text="{Binding SelectedPositionItem.Startdate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
                     <TextBox Text="{Binding SelectedPositionItem.Enddate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
                 </StackPanel>
-                <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding PositionIsSelected}"/>
+                <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding PositionIsSelected}" Click="button5_Click"/>
                 <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="82,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}" Grid.Column="3"/>
                 <StackPanel Grid.Row="1" Grid.Column="3">
                     <Label Content="Positionen hinzufügen" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>

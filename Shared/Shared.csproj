@@ -64,6 +64,7 @@
     <Compile Include="Entities\TourPosition.cs" />
     <Compile Include="Entities\TourToPositions.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Helper\BCrypt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
@@ -11,23 +12,25 @@ namespace GUI.ViewModel.EntityViewModel
 {
     public class PositionEntityVM : ViewModelBase
     {
-       private DummyPosition tourPosition;
+       private TourPosition tourPosition;
+        private TourToPositions tourToPosition;
 
-        public PositionEntityVM(DummyPosition tourPosition)
+        public PositionEntityVM(TourPosition tourPosition, TourToPositions tourToPosition = null)
         {
             this.tourPosition = tourPosition;
+            this.tourToPosition = tourToPosition;
         }
 
        public string Title
         {
             get
             {
-                return tourPosition.Title;
+                return tourPosition.Name;
             }
 
             set
             {
-                tourPosition.Title = value;
+                tourPosition.Name = value;
             }
         }
 
@@ -44,42 +47,18 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
-        public DateTime Startdate
-        {
-            get
-            {
-                return tourPosition.Startdate;
-            }
-
-            set
-            {
-                tourPosition.Startdate = value;
-            }
-        }
-
-        public DateTime Enddate
-        {
-            get
-            {
-                return tourPosition.Enddate;
-            }
-
-            set
-            {
-                tourPosition.Enddate = value;
-            }
-        }
+       
 
         public string GPSPosition
         {
             get
             {
-                return tourPosition.GPSPosition;
+                return tourPosition.Position;
             }
 
             set
             {
-                tourPosition.GPSPosition = value;
+                tourPosition.Position = value;
             }
         }
 
@@ -87,16 +66,16 @@ namespace GUI.ViewModel.EntityViewModel
         {
             get
             {
-                return tourPosition.Cost;
+                return tourPosition.Price;
             }
 
             set
             {
-                tourPosition.Cost = value;
+                tourPosition.Price = value;
             }
         }
 
-        public DummyPosition TourPosition
+        public TourPosition TourPosition
         {
             get
             {
@@ -109,11 +88,24 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
+        public TourToPositions TourToPosition
+        {
+            get
+            {
+                return tourToPosition;
+            }
+
+            set
+            {
+                tourToPosition = value;
+            }
+        }
+
         public string Duration
         {
             get
             {
-                return (Enddate - Startdate).ToString();
+                return (TourToPosition.EndDate - TourToPosition.StartDate).ToString();
             }
         }
 

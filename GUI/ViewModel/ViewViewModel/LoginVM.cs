@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace GUI.ViewModel.ViewViewModel
         private DataHandler dh;
         const string loginCredentialsFilePath = "loginCredentials.csv";
         private string statusMessage = "";
-        private MessageHandler messages;
+        //private MessageHandler messages;
         #endregion
 
         #region PROPERTIES
@@ -70,47 +71,7 @@ namespace GUI.ViewModel.ViewViewModel
             Passwort = "";
             LoginBtn = new RelayCommand<PasswordBox>(Login, CanExecuteLogin);
             AngemeldetBleiben = true;
-            //prepare Connection to Backend
-            messages = new MessageHandler();
-            //prepare Database
-            try
-            {
-                foreach (var item in messages.GetAllUsers())
-                {
-                    dh.InsertUsers(item);
-                }
-                foreach (var item in messages.GetAllCustomers())
-                {
-                    dh.InsertCustomer(item);
-                }
-                foreach (var item in messages.GetAllTourGuides())
-                {
-                    dh.InsertTourGuides(item);
-                }
-                foreach (var item in messages.GetAllStatuse())
-                {
-                    dh.InsertStatus(item);
-                }
-                foreach (var item in messages.GetAllTours())
-                {
-                    dh.InsertTour(item);
-                }
-                foreach (var item in messages.GetAllPositions())
-                {
-                    dh.InsertTourPosition(item);
-                }
-                foreach (var item in messages.GetAllToursToPosition())
-                {
-                    dh.InsertTourToPositions(item);
-                }
-                foreach (var item in messages.GetAllCustomersToTour())
-                {
-                    dh.InsertCustomerToTours(item);
-                }
-            }catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+
             
         }
         #endregion
@@ -123,9 +84,11 @@ namespace GUI.ViewModel.ViewViewModel
             StatusMessage = "";
         }
 
+
         private void Login(PasswordBox arg)
         {
             Passwort = arg.Password;
+            //Passwort = GetMD5Hash(Passwort);
             int id = dh.GetCredentials(Username, Passwort);
             if (id != 0)
             {

@@ -165,6 +165,12 @@ namespace GUI.View {
             return;
             case 8:
             this.button5 = ((System.Windows.Controls.Button)(target));
+            
+            #line 60 "..\..\..\View\TourPositions.xaml"
+            this.button5.Click += new System.Windows.RoutedEventHandler(this.button5_Click);
+            
+            #line default
+            #line hidden
             return;
             case 9:
             this.button4 = ((System.Windows.Controls.Button)(target));

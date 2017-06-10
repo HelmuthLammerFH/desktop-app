@@ -112,9 +112,9 @@ namespace DataLayer
             return status;
         }
 
-        public List<DummyPosition> GetAllPositions()
+        public List<TourPosition> GetAllPositions()
         {
-            List<DummyPosition> positions = new List<DummyPosition>();
+            List<TourPosition> positions = new List<TourPosition>();
             try
             {
                 connection.Open();
@@ -123,7 +123,7 @@ namespace DataLayer
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    positions.Add(new DummyPosition() {PositionID = Int16.Parse(reader[0].ToString()), Title = reader[1].ToString(), GPSPosition = reader[2].ToString(), Description = reader[3].ToString(), Cost = float.Parse(reader[4].ToString()), CreatedFrom = reader[5].ToString(), ChangedFrom = reader[6].ToString()});
+                    positions.Add(new TourPosition() {ID = Int16.Parse(reader[0].ToString()), Name = reader[1].ToString(), Position = reader[2].ToString(), Description = reader[3].ToString(), Price = float.Parse(reader[4].ToString()), CreatedFrom = reader[5].ToString(), ChangedFrom = reader[6].ToString()});
                 }
                 connection.Close();
             }
@@ -173,12 +173,18 @@ namespace DataLayer
         {
             try
             {
+               
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "select tu.id from users u INNER JOIN tourguides tu on u.id = tu.User_id where u.passwort = '"+ passwort + "' and u.username = '" + username + "'";
+                command.CommandText = "select tu.id, u.passwort from users u INNER JOIN tourguides tu on u.id = tu.User_id where u.username = '" + username + "'";
                 SQLiteDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
+                    if (!BCrypt.CheckPassword(passwort, reader[1].ToString()))
+                    {
+                        connection.Close();
+                        return 0;
+                    }
                     var temp = Int16.Parse(reader[0].ToString());
                     connection.Close();
                     return temp;
@@ -354,6 +360,63 @@ namespace DataLayer
             }
         }
 
+        public bool UpdateTourToPositions(TourToPositions tourtoposition)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE tour_to_positions " +
+                    "set startDate = @startDate,endDate = @endDate , changedFrom = @changedFrom, synchedFrom = @synchedFrom, updated_at = @updated_at" +
+                    " where id = @id";
+                command.Parameters.AddWithValue("@startDate", tourtoposition.StartDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@endDate", tourtoposition.EndDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@changedFrom", tourtoposition.ChangedFrom);
+                command.Parameters.AddWithValue("@synchedFrom", tourtoposition.SyncedFrom);
+                command.Parameters.AddWithValue("@updated_at", tourtoposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@id", tourtoposition.ID);
+
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public bool UpdatePositions(TourPosition tourposition)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE tourpositions " +
+                    "set name = @name ,position = @position , description = @description, price = @price, changedFrom = @changedFrom, synchedFrom = @synchedFrom, updated_at = @updated_at" +
+                    " where id = @id";
+                command.Parameters.AddWithValue("@name", tourposition.Name);
+                command.Parameters.AddWithValue("@position", tourposition.Position);
+                command.Parameters.AddWithValue("@description", tourposition.Description);
+                command.Parameters.AddWithValue("@price", tourposition.Price);
+                command.Parameters.AddWithValue("@changedFrom", tourposition.ChangedFrom);
+                command.Parameters.AddWithValue("@synchedFrom", tourposition.SyncedFrom);
+                command.Parameters.AddWithValue("@updated_at", tourposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@id", tourposition.ID);
+
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
         public void InsertUsers(User user)
         {
             try

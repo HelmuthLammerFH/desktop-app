@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,6 +109,17 @@ namespace ServiceLayer
             return false;
         }
         public bool SendTourToPositionen(TourToPositions TourPosition)
+        {
+
+            HttpResponseMessage response = client.PostAsync(path + "/api/v1/tour_to_positions.json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourPosition).ToString(), Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool UpdatePosition(TourPosition TourPosition)
         {
 
             HttpResponseMessage response = client.PostAsync(path + "/api/v1/tour_to_positions.json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourPosition).ToString(), Encoding.UTF8, "application/json")).Result;
