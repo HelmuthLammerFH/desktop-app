@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,37 +11,37 @@ namespace Shared.Entities
     [DataContract]
     public class User
     {
-        [DataMember(Name = "id")]
+        [JsonProperty("id")]
         public int ID { get; set; }
-        [DataMember(Name = "firstname")]
+        [JsonProperty("firstname")]
         public string Firstname { get; set; }
-        [DataMember(Name = "lastname")]
+        [JsonProperty("lastname")]
         public string Lastname { get; set; }
-        [DataMember(Name = "birthdate")]
+        [JsonProperty("birthdate")]
         public DateTime Birthdate { get; set; }
-        [DataMember(Name = "address")]
+        [JsonProperty("address")]
         public string Address { get; set; }
-        [DataMember(Name = "city")]
+        [JsonProperty("city")]
         public string City { get; set; }
-        [DataMember(Name = "email")]
+        [JsonProperty("email")]
         public string Email { get; set; }
-        [DataMember(Name = "username")]
+        [JsonProperty("username")]
         public string Username { get; set; }
-        [DataMember(Name = "passwort")]
+        [JsonProperty("passwort")]
         public string Passwort { get; set; }
-        [DataMember(Name = "createdFrom")]
+        [JsonProperty("createdFrom")]
         public string CreatedFrom { get; set; }
-        [DataMember(Name = "changedFrom")]
+        [JsonProperty("changedFrom")]
         public string ChangedFrom { get; set; }
-        [DataMember(Name = "syncedFrom")]
+        [JsonProperty("syncedFrom")]
         public int SyncedFrom { get; set; }
-        [DataMember(Name = "deleteFlag")]
+        [JsonProperty("deleteFlag")]
         public bool DeleteFlag { get; set; }
-        [DataMember(Name = "created_at")]
+        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
-        [DataMember(Name = "updated_at")]
+        [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
-        [DataMember(Name = "url")]
+        [JsonProperty("url")]
         public string Url { get; set; }
     }
 }

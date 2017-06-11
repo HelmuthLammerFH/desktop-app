@@ -25,13 +25,13 @@ namespace GUI.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
          
-            SimpleIoc.Default.Register<LoginVM>();
-            SimpleIoc.Default.Register<CalendarReportVM>();
-            SimpleIoc.Default.Register<ListReportVM>();
-            SimpleIoc.Default.Register<TourVM>();
-            SimpleIoc.Default.Register<TourPositionsVM>();
-            SimpleIoc.Default.Register<PositionVM>();
-            SimpleIoc.Default.Register<MemberVM>();
+            SimpleIoc.Default.Register<LoginVM>(false);
+            SimpleIoc.Default.Register<CalendarReportVM>(false);
+            SimpleIoc.Default.Register<ListReportVM>(false);
+            SimpleIoc.Default.Register<TourVM>(false);
+            SimpleIoc.Default.Register<TourPositionsVM>(false);
+            SimpleIoc.Default.Register<PositionVM>(false);
+            SimpleIoc.Default.Register<MemberVM>(false);
             SimpleIoc.Default.Register<MainViewModel>(true);
         }
 

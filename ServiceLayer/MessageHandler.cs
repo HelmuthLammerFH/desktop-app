@@ -59,7 +59,7 @@ namespace ServiceLayer
         {
             List<TourGuide> tourguides = new List<TourGuide>();
             HttpResponseMessage response = client.GetAsync(path + "/api/v1/tourguides.json?clientID=2").Result;
-            tourguides = JsonConvert.DeserializeObject<List<TourGuide>>(response.Content.ReadAsStringAsync().Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            tourguides = JsonConvert.DeserializeObject<List<TourGuide>>(response.Content.ReadAsStringAsync().Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Error});
             return tourguides;
         }
 

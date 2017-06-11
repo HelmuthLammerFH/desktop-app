@@ -4,39 +4,40 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Shared.Entities
 {
 
     public class TourGuide
     {
-        [DataMember(Name = "id")]
+        [JsonProperty("id")]
         public int ID { get; set; }
-        [DataMember(Name = "tourGuideSince")]
+        [JsonProperty("tourGuideSince")]
         public DateTime TourGuideSince { get; set; }
-        [DataMember(Name = "position")]
+        [JsonProperty("position")]
         public string Position { get; set; }
-        [DataMember(Name = "description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
-        [DataMember(Name = "price")]
+        [JsonProperty("price")]
         public float Price { get; set; }
-        [DataMember(Name = "createdFrom")]
+        [JsonProperty("createdFrom")]
         public string CreatedFrom { get; set; }
-        [DataMember(Name = "changedFrom")]
+        [JsonProperty("changedFrom")]
         public string ChangedFrom { get; set; }
-        [DataMember(Name = "syncedFrom")]
+        [JsonProperty("syncedFrom")]
         public int SyncedFrom { get; set; }
-        [DataMember(Name = "deleteFlag")]
+        [JsonProperty("deleteFlag")]
         public bool DeleteFlag { get; set; }
-        [DataMember(Name = "user_id")]
+        [JsonProperty("user_id")]
         public int UserID { get; set; }
-        [DataMember(Name = "agency_id")]
+        [JsonProperty("agency_id")]
         public object AgencyID { get; set; }
-        [DataMember(Name = "created_at")]
+        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
-        [DataMember(Name = "updated_at")]
+        [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
-        [DataMember(Name = "url")]
+        [JsonProperty("url")]
         public string URL { get; set; }
     }
 }

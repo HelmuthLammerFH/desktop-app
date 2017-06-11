@@ -55,3 +55,5 @@ C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\System.Data.SQLit
 C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
 C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.dll
 C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\obj\Debug\DataLayer.pdb
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Alex\Documents\GitHub\Desktop-App\DataLayer\bin\Debug\Newtonsoft.Json.xml

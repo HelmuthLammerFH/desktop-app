@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,25 +11,25 @@ namespace Shared.Entities
     [DataContract]
     public class Ressources
     {
-        [DataMember(Name = "id")]
+        [JsonProperty( "id")]
         public int ID { get; set; }
-        [DataMember(Name = "createdFrom")]
+        [JsonProperty( "createdFrom")]
         public string createdFrom { get; set; }
-        [DataMember(Name = "picture")]
+        [JsonProperty( "picture")]
         public byte[] Picture { get; set; }
-        [DataMember(Name = "changedFrom")]
+        [JsonProperty( "changedFrom")]
         public string ChangedFrom { get; set; }
-        [DataMember(Name = "syncedFrom")]
+        [JsonProperty( "syncedFrom")]
         public int syncedFrom { get; set; }
-        [DataMember(Name = "deleteFlag")]
+        [JsonProperty( "deleteFlag")]
         public bool DeleteFlag { get; set; }
-        [DataMember(Name = "Tour_id")]
+        [JsonProperty( "Tour_id")]
         public int Tour_id { get; set; }
-        [DataMember(Name = "created_at")]
+        [JsonProperty( "created_at")]
         public DateTime CreatedAt { get; set; }
-        [DataMember(Name = "updated_at")]
+        [JsonProperty( "updated_at")]
         public DateTime UpdatedAt { get; set; }
-        [DataMember(Name = "url")]
+        [JsonProperty( "url")]
         public string Url { get; set; }
     }
 }

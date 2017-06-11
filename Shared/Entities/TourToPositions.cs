@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,29 +11,29 @@ namespace Shared.Entities
     [DataContract]
     public class TourToPositions
     {
-        [DataMember(Name = "id")]
+        [JsonProperty("id")]
         public int ID { get; set; }
-        [DataMember(Name = "startDate")]
+        [JsonProperty("startDate")]
         public DateTime StartDate { get; set; }
-        [DataMember(Name = "endDate")]
+        [JsonProperty("endDate")]
         public DateTime EndDate { get; set; }
-        [DataMember(Name = "createdFrom")]
+        [JsonProperty("createdFrom")]
         public string CreatedFrom { get; set; }
-        [DataMember(Name = "changedFrom")]
+        [JsonProperty("changedFrom")]
         public string ChangedFrom { get; set; }
-        [DataMember(Name = "syncedFrom")]
+        [JsonProperty("syncedFrom")]
         public int SyncedFrom { get; set; }
-        [DataMember(Name = "deleteFlag")]
+        [JsonProperty("deleteFlag")]
         public bool DeleteFlag { get; set; }
-        [DataMember(Name = "Tourposition_id")]
+        [JsonProperty("Tourposition_id")]
         public int TourpositionID { get; set; }
-        [DataMember(Name = "tour_id")]
+        [JsonProperty("tour_id")]
         public int TourID { get; set; }
-        [DataMember(Name = "created_at")]
+        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
-        [DataMember(Name = "updated_at")]
+        [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
-        [DataMember(Name = "url")]
+        [JsonProperty("url")]
         public string URL { get; set; }
     }
 }

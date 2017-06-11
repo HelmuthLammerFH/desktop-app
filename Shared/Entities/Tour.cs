@@ -1,4 +1,5 @@
-﻿using Shared.Entities;
+﻿using Newtonsoft.Json;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,35 +12,35 @@ namespace Shared.Entities
     [DataContract]
     public class Tour
     {
-        [DataMember(Name = "id")]
+        [JsonProperty("id")]
         public int ID { get; set; }
-        [DataMember(Name = "name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
-        [DataMember(Name = "maxAttendees")]
+        [JsonProperty("maxAttendees")]
         public int MaxAttendees { get; set; }
-        [DataMember(Name = "price")]
+        [JsonProperty("price")]
         public float Price { get; set; }
-        [DataMember(Name = "startDate")]
+        [JsonProperty("startDate")]
         public DateTime StartDate { get; set; }
-        [DataMember(Name = "endDate")]
+        [JsonProperty("endDate")]
         public DateTime EndDate { get; set; }
-        [DataMember(Name = "createdFrom")]
+        [JsonProperty("createdFrom")]
         public string CreatedFrom { get; set; }
-        [DataMember(Name = "changedFrom")]
+        [JsonProperty("changedFrom")]
         public string ChangedFrom { get; set; }
-        [DataMember(Name = "syncedFrom")]
+        [JsonProperty("syncedFrom")]
         public int SyncedFrom { get; set; }
-        [DataMember(Name = "deleteFlag")]
+        [JsonProperty("deleteFlag")]
         public bool DeleteFlag { get; set; }
-        [DataMember(Name = "created_at")]
+        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
-        [DataMember(Name = "updated_at")]
+        [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
-        [DataMember(Name = "Tourguide_id")]
+        [JsonProperty("Tourguide_id")]
         public int TourGuideID { get; set; }
-        [DataMember(Name = "status_id")]
+        [JsonProperty("status_id")]
         public int StatusID { get; set; }
-        [DataMember(Name = "url ")]
+        [JsonProperty("url ")]
         public string Url { get; set; }
 
     }
