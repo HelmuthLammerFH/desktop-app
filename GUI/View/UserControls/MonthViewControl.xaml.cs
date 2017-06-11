@@ -23,11 +23,11 @@ namespace GUI.View.UserControls
         private static CultureInfo cultureInfo = new CultureInfo(CultureInfo.CurrentUICulture.LCID);
         private System.Globalization.Calendar sysCal = cultureInfo.Calendar;
 
-        public event DisplayMonthChangedEventHandler DisplayMonthChanged;
+        //public event DisplayMonthChangedEventHandler DisplayMonthChanged;
         public delegate void DisplayMonthChangedEventHandler(MonthChangedEventArgs e);
         public event DayBoxDoubleClickedEventHandler DayBoxDoubleClicked;
         public delegate void DayBoxDoubleClickedEventHandler(NewAppointmentEventArgs e);
-        public event AppointmentDblClickedEventHandler AppointmentDblClicked;
+        //public event AppointmentDblClickedEventHandler AppointmentDblClicked;
         public delegate void AppointmentDblClickedEventHandler(int Appointment_Id);
 
         public static readonly DependencyProperty CustomDataSourceProperty =

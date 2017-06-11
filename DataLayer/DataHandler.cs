@@ -112,9 +112,9 @@ namespace DataLayer
             return status;
         }
 
-        public List<TourPosition> GetAllPositions()
+        public List<DummyPosition> GetAllPositions()
         {
-            List<TourPosition> positions = new List<TourPosition>();
+            List<DummyPosition> positions = new List<DummyPosition>();
             try
             {
                 connection.Open();
@@ -123,7 +123,7 @@ namespace DataLayer
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    positions.Add(new TourPosition() {ID = Int16.Parse(reader[0].ToString()), Name = reader[1].ToString(), Position = reader[2].ToString(), Description = reader[3].ToString(), Price = float.Parse(reader[4].ToString()), CreatedFrom = reader[5].ToString(), ChangedFrom = reader[6].ToString()});
+                    positions.Add(new DummyPosition() { PositionID = Int16.Parse(reader[0].ToString()), Title = reader[1].ToString(), GPSPosition = reader[2].ToString(), Description = reader[3].ToString(), Cost = float.Parse(reader[4].ToString()), CreatedFrom = reader[5].ToString(), ChangedFrom = reader[6].ToString() });
                 }
                 connection.Close();
             }
@@ -180,7 +180,7 @@ namespace DataLayer
                 SQLiteDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    if (!BCrypt.CheckPassword(passwort, reader[1].ToString()))
+                    if (!BCrypt.CheckPassword(passwort, "$2y$10$" + reader[1].ToString()))
                     {
                         connection.Close();
                         return 0;

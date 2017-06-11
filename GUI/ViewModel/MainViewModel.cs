@@ -102,7 +102,7 @@ namespace GUI.ViewModel
             }
 
             MessengerInstance.Register<ViewModelBase>(this, UpdateCurrentVM);
-            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+           // MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
 
