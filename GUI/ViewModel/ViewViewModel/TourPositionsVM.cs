@@ -229,11 +229,13 @@ namespace GUI.ViewModel.ViewViewModel
         private void SavePosition()
         {
 
-           var tourPosition = new TourPosition() { ID = SelectedPositionItem.TourPosition.PositionID, Name = SelectedPositionItem.TourPosition.Title, ChangedFrom = "AlexH",  SyncedFrom = 2, UpdatedAt = DateTime.Now };
-           
-            if (datahandler.UpdatePositions(tourPosition))
+           var tourPosition = new TourToPositions() {StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = "AlexH",  SyncedFrom = 2, UpdatedAt = DateTime.Now };
+            var affectedID = datahandler.UpdateTourToPositions(tourPosition);
+            if (affectedID != null)
             {
-                message.UpdatePosition(tourPosition);
+                tourPosition.ID = (int)affectedID;
+                // Schnittstelle kann kein Update
+                //message.UpdateTourToPosition(tourPosition);
             }
 
             //MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
@@ -254,9 +256,24 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);**/
+            var tourPosition = new TourToPositions() { StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, DeleteFlag=true, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = "AlexH", SyncedFrom = 2, UpdatedAt = DateTime.Now };
+
             var position = PositionEntityList[SelectedPosition];
-            datahandler.DeletePosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID);
-            CurrentTourEntity.Positions.Remove(position);
+            try
+            {
+                var affectedID = datahandler.UpdateTourToPositions(tourPosition);
+                if (affectedID != null)
+                {
+                    tourPosition.ID = (int)affectedID;
+                    // Schnittstelle kann kein Update
+                   // message.UpdateTourToPosition(tourPosition);
+                    CurrentTourEntity.Positions.Remove(position);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
        /** private bool CanExecuteUpdatePosition()

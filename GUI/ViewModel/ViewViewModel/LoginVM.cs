@@ -96,6 +96,12 @@ namespace GUI.ViewModel.ViewViewModel
                 linesToSave[0] = id +";" + Username + ";" + Passwort + ";" + AngemeldetBleiben;
                 File.WriteAllLines(loginCredentialsFilePath, linesToSave);
                 StatusMessage = "";
+                SimpleIoc.Default.GetInstance<CalendarReportVM>();
+                SimpleIoc.Default.GetInstance<ListReportVM>();
+                SimpleIoc.Default.GetInstance<TourVM>();
+                SimpleIoc.Default.GetInstance<TourPositionsVM>();
+                SimpleIoc.Default.GetInstance<PositionVM>();
+                SimpleIoc.Default.GetInstance<MemberVM>();
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
             }
             else

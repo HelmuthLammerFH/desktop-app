@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,7 @@ namespace GUI.ViewModel.ViewViewModel
     public class MemberVM : ViewModelBase
     {
         #region ATTRIBUTES
+        private MessageHandler messages;
         private TourEntityVM currentTourEntity;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
@@ -113,7 +115,7 @@ namespace GUI.ViewModel.ViewViewModel
             MemberBtn = new RelayCommand(SwitchToMember);
             EditBtn = new RelayCommand(EditMember);
             LogoutBtn = new RelayCommand(SwitchToLogout);
-
+            messages = new MessageHandler();
             datahandler = new DataHandler();
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
@@ -130,14 +132,17 @@ namespace GUI.ViewModel.ViewViewModel
             foreach (var item in CurrentTourEntity.Members)
             {
                 int participated = 1;
-                if (item.Member.AttendTour)
+                if (!item.Member.AttendTour)
                 {
                     participated = 0;
                 }else
                 {
                     participated = 1;
                 }
-                datahandler.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated);
+                if(datahandler.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated))
+                {
+                    messages.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated);
+                }
             }
         }
         #endregion

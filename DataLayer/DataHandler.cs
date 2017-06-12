@@ -72,20 +72,22 @@ namespace DataLayer
             return tours;
         }
 
-        public void UpdateMembers(int tourid, int memberid, int participated)
+        public bool UpdateMembers(int tourid, int memberid, int participated)
         {
             try
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "UPDATE customer_in_tours SET participated = " + participated + " WHERE customer_id = " + memberid + " and tour_id = " + tourid;
-                command.ExecuteNonQuery();
+                command.ExecuteScalar();
                 connection.Close();
+                return true;
             }
             catch (Exception e)
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
+                return false;
             }
         }
 
@@ -152,20 +154,22 @@ namespace DataLayer
             }
         }
 
-        public void DeletePosition(int tourid, int positionid)
+        public bool DeletePosition(int tourid, int positionid)
         {
             try
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "DELETE FROM tour_to_positions WHERE tour_id = "+ tourid + " and Tourposition_id =" + positionid;
-                command.ExecuteNonQuery();
+                var affectedRow = command.ExecuteScalar();
                 connection.Close();
+                return true;
             }
             catch (Exception e)
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
+                return false;
             }
         }
 
@@ -360,63 +364,52 @@ namespace DataLayer
             }
         }
 
-        public bool UpdateTourToPositions(TourToPositions tourtoposition)
+        public int? UpdateTourToPositions(TourToPositions tourtoposition)
         {
             try
             {
+                int? affectedID = null;
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT id from tour_to_positions where tour_id = @tour_id and Tourposition_id = @tourPosition_Id";
+                command.Parameters.AddWithValue("@tour_id", tourtoposition.TourID);
+                command.Parameters.AddWithValue("@tourPosition_Id", tourtoposition.TourpositionID);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    affectedID = Int16.Parse(reader[0].ToString());
+                    reader.Close();
+                }
+                else
+                {
+                    connection.Close();
+                    return null;
+                }
+                command.Parameters.Clear();
                 command.CommandText = "UPDATE tour_to_positions " +
-                    "set startDate = @startDate,endDate = @endDate , changedFrom = @changedFrom, synchedFrom = @synchedFrom, updated_at = @updated_at" +
-                    " where id = @id";
+                    "set startDate = @startDate, endDate = @endDate , changedFrom = @changedFrom, syncedFrom = @syncedFrom, updated_at = @updated_at, deleteFlag=@deleteFlag" +
+                    " where tour_id = @tour_id and Tourposition_id = @tourPosition_Id";
                 command.Parameters.AddWithValue("@startDate", tourtoposition.StartDate.ToString("yyyy-MM-dd HH:mm:ss"));
                 command.Parameters.AddWithValue("@endDate", tourtoposition.EndDate.ToString("yyyy-MM-dd HH:mm:ss"));
                 command.Parameters.AddWithValue("@changedFrom", tourtoposition.ChangedFrom);
-                command.Parameters.AddWithValue("@synchedFrom", tourtoposition.SyncedFrom);
+                command.Parameters.AddWithValue("@syncedFrom", tourtoposition.SyncedFrom);
                 command.Parameters.AddWithValue("@updated_at", tourtoposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
-                command.Parameters.AddWithValue("@id", tourtoposition.ID);
+                command.Parameters.AddWithValue("@deleteFlag", tourtoposition.DeleteFlag);
+                command.Parameters.AddWithValue("@tour_id", tourtoposition.TourID);
+                command.Parameters.AddWithValue("@tourPosition_Id", tourtoposition.TourpositionID);
 
                 command.ExecuteNonQuery();
                 connection.Close();
+                return affectedID;
             }
             catch (Exception e)
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
-                return false;
+                return null;
             }
-            return true;
         }
 
-        public bool UpdatePositions(TourPosition tourposition)
-        {
-            try
-            {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "UPDATE tourpositions " +
-                    "set name = @name ,position = @position , description = @description, price = @price, changedFrom = @changedFrom, synchedFrom = @synchedFrom, updated_at = @updated_at" +
-                    " where id = @id";
-                command.Parameters.AddWithValue("@name", tourposition.Name);
-                command.Parameters.AddWithValue("@position", tourposition.Position);
-                command.Parameters.AddWithValue("@description", tourposition.Description);
-                command.Parameters.AddWithValue("@price", tourposition.Price);
-                command.Parameters.AddWithValue("@changedFrom", tourposition.ChangedFrom);
-                command.Parameters.AddWithValue("@synchedFrom", tourposition.SyncedFrom);
-                command.Parameters.AddWithValue("@updated_at", tourposition.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
-                command.Parameters.AddWithValue("@id", tourposition.ID);
-
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-            catch (Exception e)
-            {
-                connection.Close();
-                Console.WriteLine(e.Message);
-                return false;
-            }
-            return true;
-        }
         public void InsertUsers(User user)
         {
             try

@@ -53,9 +53,9 @@
                     <Label Content="Ende:"></Label>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding PositionIsSelected}">
-                    <TextBox Text="{Binding SelectedPositionItem.Title}" Margin="5"/>
-                    <TextBox Text="{Binding SelectedPositionItem.Startdate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
-                    <TextBox Text="{Binding SelectedPositionItem.Enddate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.Title}" IsReadOnly="True" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.StartDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.EndDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
                 </StackPanel>
                 <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding PositionIsSelected}"/>
                 <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="82,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}" Grid.Column="3"/>

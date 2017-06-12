@@ -18,8 +18,7 @@ namespace GUI.ViewModel.EntityViewModel
         {
             this.tourPosition = tourPosition;
         }
-
-       public string Title
+        public string Title
         {
             get
             {
