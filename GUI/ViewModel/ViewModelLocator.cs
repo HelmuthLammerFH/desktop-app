@@ -32,6 +32,7 @@ namespace GUI.ViewModel
             SimpleIoc.Default.Register<TourPositionsVM>();
             SimpleIoc.Default.Register<PositionVM>();
             SimpleIoc.Default.Register<MemberVM>();
+            SimpleIoc.Default.Register<RatingVM>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
@@ -48,6 +49,13 @@ namespace GUI.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LoginVM>();
+            }
+        }
+        public RatingVM Rating
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RatingVM>();
             }
         }
         public CalendarReportVM CalendarReport

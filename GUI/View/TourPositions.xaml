@@ -35,7 +35,7 @@
                     <RowDefinition Height="47*"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="label2" Content="Positionsliste" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" SelectedItem="{Binding SelectedPositionItem}" Grid.ColumnSpan="4">
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPositionItem}" Grid.ColumnSpan="4">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

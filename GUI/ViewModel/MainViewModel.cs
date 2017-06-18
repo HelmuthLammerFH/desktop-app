@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.IO;
 using DataLayer;
 using ServiceLayer;
+using GUI.ViewModel.EntityViewModel;
 
 namespace GUI.ViewModel
 {
@@ -85,9 +86,9 @@ namespace GUI.ViewModel
             }
 
 
-        
 
-            if (Angemeldet())
+            var currentTourGuide = Angemeldet();
+            if (currentTourGuide != null)
             {
                 CurrentVM = SimpleIoc.Default.GetInstance<TourVM>();
                 SimpleIoc.Default.GetInstance<CalendarReportVM>();
@@ -96,6 +97,8 @@ namespace GUI.ViewModel
                 SimpleIoc.Default.GetInstance<TourPositionsVM>();
                 SimpleIoc.Default.GetInstance<PositionVM>();
                 SimpleIoc.Default.GetInstance<MemberVM>();
+                SimpleIoc.Default.GetInstance<RatingVM>();
+                MessengerInstance.Send<TourGuideVM>(currentTourGuide);
             }
             else
             {
@@ -103,6 +106,7 @@ namespace GUI.ViewModel
             }
 
             MessengerInstance.Register<ViewModelBase>(this, UpdateCurrentVM);
+           
            // MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
         #endregion
@@ -116,18 +120,19 @@ namespace GUI.ViewModel
         {
             CurrentVM = obj;
         }
-        private bool Angemeldet()
+        private TourGuideVM Angemeldet()
         {
             if (File.Exists(loginCredentialsFilePath))
             {
                 string loginCredentials = File.ReadAllLines(loginCredentialsFilePath)[0];
-                if (loginCredentials.Split(';')[3].Equals("True"))
+                var logArray = loginCredentials.Split(';');
+                var currentTourGuide = new TourGuideVM(Convert.ToInt32(logArray[0]), logArray[1]);
+                if (logArray[3].Equals("True"))
                 {
-                    //MessengerInstance.Send<DataProvider>(dp);
-                    return true;
+                    return currentTourGuide;
                 }           
             }
-            return false;
+            return null;
         }
         #endregion
     }

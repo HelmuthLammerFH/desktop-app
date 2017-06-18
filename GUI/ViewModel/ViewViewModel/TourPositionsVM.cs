@@ -21,6 +21,8 @@ namespace GUI.ViewModel.ViewViewModel
     public class TourPositionsVM : ViewModelBase
     {
         #region ATTRIBUTES
+
+        private TourGuideVM currentTourGuide;
         private MessageHandler message;
         private TourEntityVM currentTourEntity;
         private PositionEntityVM selectedPositionItem;
@@ -57,6 +59,15 @@ namespace GUI.ViewModel.ViewViewModel
         public int SelectedPosition { get; set; }
         #endregion
         #region PROPERTIES
+
+
+        public TourGuideVM CurrentTourGuide
+        {
+            get { return currentTourGuide; }
+            set { currentTourGuide = value; RaisePropertyChanged(); }
+        }
+
+
         public TourEntityVM CurrentTourEntity
         {
             get
@@ -166,6 +177,7 @@ namespace GUI.ViewModel.ViewViewModel
             }
             AddPositionToTour = new RelayCommand(AddPosition,CanExecuteAddPosition);
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
+            MessengerInstance.Register<TourGuideVM>(this, UpdateCurrentTourGuide);
             //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
 
@@ -190,7 +202,7 @@ namespace GUI.ViewModel.ViewViewModel
             int? newTourToPositionID = datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now);
             if (newTourToPositionID != null)
             {
-                var newTourToPostion = new TourToPositions() { ID = (int)newTourToPositionID, CreatedFrom = "AlexH", TourID = CurrentTourEntity.Tour.ID, TourpositionID = position.TourPosition.PositionID, CreatedAt = DateTime.Now, StartDate = DateTime.Now, EndDate = DateTime.Now, SyncedFrom = 2 };
+                var newTourToPostion = new TourToPositions() { ID = (int)newTourToPositionID, CreatedFrom = CurrentTourGuide.Username, TourID = CurrentTourEntity.Tour.ID, TourpositionID = position.TourPosition.PositionID, CreatedAt = DateTime.Now, StartDate = DateTime.Now, EndDate = DateTime.Now, SyncedFrom = 2 };
                 message.SendTourToPositionen(newTourToPostion);
             }
             //Das heutige Datum setzen, sodass ein default Wert in der Liste drinnen steht und kein ungültiger Wert als Datum
@@ -229,13 +241,13 @@ namespace GUI.ViewModel.ViewViewModel
         private void SavePosition()
         {
 
-           var tourPosition = new TourToPositions() {StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = "AlexH",  SyncedFrom = 2, UpdatedAt = DateTime.Now };
+           var tourPosition = new TourToPositions() {StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = CurrentTourGuide.Username,  SyncedFrom = 2, UpdatedAt = DateTime.Now };
             var affectedID = datahandler.UpdateTourToPositions(tourPosition);
             if (affectedID != null)
             {
                 tourPosition.ID = (int)affectedID;
                 // Schnittstelle kann kein Update
-                //message.UpdateTourToPosition(tourPosition);
+                message.UpdateTourToPosition(tourPosition);
             }
 
             //MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
@@ -256,18 +268,18 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);**/
-            var tourPosition = new TourToPositions() { StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, DeleteFlag=true, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = "AlexH", SyncedFrom = 2, UpdatedAt = DateTime.Now };
+            var tourPosition = new TourToPositions() { StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, DeleteFlag=true, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = CurrentTourGuide.Username, SyncedFrom = 2, UpdatedAt = DateTime.Now };
 
-            var position = PositionEntityList[SelectedPosition];
             try
             {
-                var affectedID = datahandler.UpdateTourToPositions(tourPosition);
+                var affectedID = datahandler.DeleteTourToPositions(tourPosition);
                 if (affectedID != null)
                 {
                     tourPosition.ID = (int)affectedID;
-                    // Schnittstelle kann kein Update
-                   // message.UpdateTourToPosition(tourPosition);
-                    CurrentTourEntity.Positions.Remove(position);
+                   
+                    message.DeleteTourToPosition(tourPosition);
+                    CurrentTourEntity.Positions.Remove(SelectedPositionItem);
+                    
                 }
             }
             catch (Exception ex)
@@ -299,7 +311,10 @@ namespace GUI.ViewModel.ViewViewModel
             CurrentTourEntity = obj;
         }
 
-        
+        private void UpdateCurrentTourGuide(TourGuideVM obj)
+        {
+            CurrentTourGuide = obj;
+        }
         #endregion
     }
 }

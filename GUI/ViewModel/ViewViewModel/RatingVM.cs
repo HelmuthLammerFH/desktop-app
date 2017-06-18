@@ -4,35 +4,73 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
 using ServiceLayer;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Shared.DummyEntities;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace GUI.ViewModel.ViewViewModel
 {
-    public class MemberVM : ViewModelBase
+    public class RatingVM : ViewModelBase
     {
         #region ATTRIBUTES
-        private MemberEntityVM currentSelectedMember;
-        private MessageHandler messages;
-        private TourEntityVM currentTourEntity;
-        private Visibility tourEntityIsEmty;
-        private Visibility tourEntityIsChoosen;
-        private DataProvider dp;
-        private bool update = false;
         const string loginCredentialsFilePath = "loginCredentials.csv";
         #endregion
 
+        #region PROPERTIES
+
+        private DummyRating currentRating;
+
+        public DummyRating CurrentRating
+        {
+            get { return currentRating; }
+            set { currentRating = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        private DataHandler datahandler;
+        private TourGuideVM currentTourGuide;
+        private TourEntityVM currentTourEntity;
+        private Visibility tourEntityIsEmty;
+        private Visibility tourEntityIsChoosen;
+        private MessageHandler message;
+
+
+
+        #endregion
         #region NAVIGATIONCOMMANDPROPERTIES
+        public RelayCommand ListReportBtn { get; set; }
+        public RelayCommand CalendarReportBtn { get; set; }
         public RelayCommand TourBtn { get; set; }
-        public RelayCommand PositionsBtn { get; set; }
         public RelayCommand MemberBtn { get; set; }
+        public RelayCommand SaveBtn { get; set; }
+
         public RelayCommand LogoutBtn { get; set; }
+
+        public RelayCommand PositionsBtn { get; set; }
+
+        #endregion
+
+        #region PROPERTIES
+
+        private MemberEntityVM currentMember;
+
+        public MemberEntityVM CurrentMember
+        {
+            get { return currentMember; }
+            set {
+                currentMember = value;
+               CurrentRating= datahandler.GetRatingForMember(CurrentMember.Member.MemberID, CurrentTourEntity.Tour.ID);
+                RaisePropertyChanged();
+            }
+        }
+
+        public TourGuideVM CurrentTourGuide
+        {
+            get { return currentTourGuide; }
+            set { currentTourGuide = value; RaisePropertyChanged(); }
+        }
         public TourEntityVM CurrentTourEntity
         {
             get
@@ -50,24 +88,10 @@ namespace GUI.ViewModel.ViewViewModel
                 else
                 {
                     TourEntityIsChoosen = Visibility.Visible;
-                    if (update == false)
-                    {
-                        //dp.UpdateTour(CurrentTourEntity.Tour);
-                        MessengerInstance.Send<DataProvider>(dp);
-                        MessengerInstance.Send<TourEntityVM>(currentTourEntity);
-                    }                
                 }
                 RaisePropertyChanged();
             }
         }
-        public RelayCommand FeedbackBtn { get; set; }
-        public RelayCommand EditBtn { get; set; }
-        private DataHandler datahandler;
-        #endregion
-        #region GENERALCOMMANDPROPERTIES
-
-        #endregion
-        #region PROPERTIES
         public Visibility TourEntityIsEmty
         {
             get
@@ -102,44 +126,29 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
-
-
-        public MemberEntityVM CurrentSelectedMember
-        {
-            get { return currentSelectedMember; }
-            set {
-
-                currentSelectedMember = value;
-                RaisePropertyChanged();
-            }
-        }
-
         #endregion
 
-
         #region CONSTRUCTORS
-        public MemberVM()
+        public RatingVM()
         {
-            TourEntityIsChoosen = Visibility.Hidden;
 
-            //Navigation Commands
-            TourBtn = new RelayCommand(SwitchToTour);
-            PositionsBtn = new RelayCommand(SwitchToPositions);
-            MemberBtn = new RelayCommand(SwitchToMember);
-            EditBtn = new RelayCommand(EditMember);
-            FeedbackBtn = new RelayCommand(SwitchToFeedback, ()=> CurrentSelectedMember != null);
-            LogoutBtn = new RelayCommand(SwitchToLogout);
-            messages = new MessageHandler();
             datahandler = new DataHandler();
+            message = new MessageHandler();
+           
+            //Navigation Commands
+            ListReportBtn = new RelayCommand(SwitchToListReport);
+            CalendarReportBtn = new RelayCommand(SwitchToCalendarReport);
+            TourBtn = new RelayCommand(SwitchToTour);
+          
+            MemberBtn = new RelayCommand(SwitchToMember);
+            SaveBtn = new RelayCommand(SaveRating);
+            PositionsBtn = new RelayCommand(SwitchToPositions);
+            LogoutBtn = new RelayCommand(SwitchToLogout);
+
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
-            MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
-        }
-
-
-        private void SwitchToFeedback()
-        {
-            MessengerInstance.Send<MemberEntityVM>((CurrentSelectedMember));
-            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<RatingVM>()));
+            MessengerInstance.Register<TourGuideVM>(this, UpdateCurrentTourGuide);
+            MessengerInstance.Register<MemberEntityVM>(this, UpdateCurrentMember);
+            //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
 
         private void SwitchToLogout()
@@ -148,28 +157,27 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<LoginVM>()));
         }
 
-        private void EditMember()
+
+        private void SaveRating()
         {
-            foreach (var item in CurrentTourEntity.Members)
-            {
-                int participated = 1;
-                if (!item.Member.AttendTour)
-                {
-                    participated = 0;
-                }else
-                {
-                    participated = 1;
-                }
-                var affectedID = datahandler.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated);
-                if (affectedID != null)
-                {
-                    messages.UpdateMembers(affectedID, participated);
-                }
-            }
+            datahandler.SaveRating(CurrentRating.ID,CurrentRating.StarRating,CurrentRating.Feedback);
+            message.SendRating(CurrentRating.ID, CurrentRating.StarRating, CurrentRating.Feedback);
+            MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+            MessengerInstance.Send<MemberEntityVM>(CurrentMember);
         }
+
         #endregion
 
         #region NAVIGATIONCOMMANDMETHODS
+        private void SwitchToCalendarReport()
+        {
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<CalendarReportVM>()));
+        }
+        private void SwitchToListReport()
+        {
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<ListReportVM>()));
+        }
+
         private void SwitchToMember()
         {
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<MemberVM>()));
@@ -185,19 +193,24 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
         }
         #endregion
-        #region GENERALCOMMANDMETHODS
-        #endregion
         #region METHODS
-        private void UpdateDataProvider(DataProvider obj)
-        {
-            dp = obj;
-        }
+
+
+        
+
+        #endregion
+
         private void UpdateCurrentTourEntity(TourEntityVM obj)
         {
-            update = true;
             CurrentTourEntity = obj;
-            update = false;
         }
-        #endregion    
+        private void UpdateCurrentTourGuide(TourGuideVM obj)
+        {
+            CurrentTourGuide = obj;
+        }
+        private void UpdateCurrentMember(MemberEntityVM obj)
+        {
+            CurrentMember = obj;
+        }
     }
 }

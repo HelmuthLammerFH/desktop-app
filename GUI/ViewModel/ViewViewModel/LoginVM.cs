@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
+using GUI.ViewModel.EntityViewModel;
 using ServiceLayer;
 using Shared.Entities;
 using System;
@@ -94,6 +95,7 @@ namespace GUI.ViewModel.ViewViewModel
             {
                 string[] linesToSave = new string[1];
                 linesToSave[0] = id +";" + Username + ";" + Passwort + ";" + AngemeldetBleiben;
+                var currentTourGuide = new TourGuideVM(id, Username);
                 File.WriteAllLines(loginCredentialsFilePath, linesToSave);
                 StatusMessage = "";
                 SimpleIoc.Default.GetInstance<CalendarReportVM>();
@@ -103,6 +105,7 @@ namespace GUI.ViewModel.ViewViewModel
                 SimpleIoc.Default.GetInstance<PositionVM>();
                 SimpleIoc.Default.GetInstance<MemberVM>();
                 MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<TourVM>()));
+                MessengerInstance.Send<TourGuideVM>((currentTourGuide));
             }
             else
             {

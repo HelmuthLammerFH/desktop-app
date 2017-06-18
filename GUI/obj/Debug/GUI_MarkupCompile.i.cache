@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\App.xaml
-12-1333839433
+15836593143
 
-35-1432183833
-83-1573473495
-MainWindow.xaml;View\CalendarReport.xaml;View\ListReport.xaml;View\Login.xaml;View\Member.xaml;View\Position.xaml;View\Tour.xaml;View\TourPositions.xaml;View\UserControls\AppointmentControl.xaml;View\UserControls\DayBoxControl.xaml;View\UserControls\MonthViewControl.xaml;View\UserControls\WeekOfDaysControl.xaml;
+38742251978
+84195388827
+MainWindow.xaml;Themes\Generic.xaml;View\CalendarReport.xaml;View\ListReport.xaml;View\Login.xaml;View\Member.xaml;View\Position.xaml;View\Rating.xaml;View\Tour.xaml;View\TourPositions.xaml;View\UserControls\AppointmentControl.xaml;View\UserControls\DayBoxControl.xaml;View\UserControls\MonthViewControl.xaml;View\UserControls\StarRatingCustom.xaml;View\UserControls\WeekOfDaysControl.xaml;
 
-False
+True
 

@@ -49,10 +49,10 @@ namespace DataLayer
                         switch (readerMembers[1].ToString())
                         {
                             case "0":
-                                participated = true;
+                                participated = false;
                                 break;
                             case "1":
-                                participated = false;
+                                participated = true;
                                 break;
                             default:
                                 participated = false;
@@ -72,22 +72,39 @@ namespace DataLayer
             return tours;
         }
 
-        public bool UpdateMembers(int tourid, int memberid, int participated)
+        public int? UpdateMembers(int tourid, int memberid, int participated)
         {
             try
             {
+
+                int? affectedID = null;
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT id from customer_in_tours where customer_id = @customer_id and tour_id = @tour_id";
+                command.Parameters.AddWithValue("@customer_id", memberid);
+                command.Parameters.AddWithValue("@tour_id", tourid);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    affectedID = Int16.Parse(reader[0].ToString());
+                    reader.Close();
+                }
+                else
+                {
+                    connection.Close();
+                    return null;
+                }
+                command.Parameters.Clear();
                 command.CommandText = "UPDATE customer_in_tours SET participated = " + participated + " WHERE customer_id = " + memberid + " and tour_id = " + tourid;
                 command.ExecuteScalar();
                 connection.Close();
-                return true;
+                return affectedID;
             }
             catch (Exception e)
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
-                return false;
+                return null;
             }
         }
 
@@ -137,6 +154,49 @@ namespace DataLayer
             return positions;
         }
 
+        public DummyRating GetRatingForMember(int memberID, int tourID)
+        {
+            DummyRating rating = new DummyRating();
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "select id,starRating,feedbackTourGuid from customer_in_tours where customer_ID = " + memberID + " and tour_ID = " + tourID + " and deleteFlag <> 'True'";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    rating = new DummyRating() { ID = Int16.Parse(reader[0].ToString()), StarRating = Int32.Parse(reader[1].ToString()), Feedback = reader[2].ToString() };
+                }
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
+            return rating;
+        }
+
+        public void SaveRating(int id, int rating, string feedback)
+        {
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "update CUSTOMER_IN_TOURS set starRating=@rating, feedbackTourGuid=@feedback WHERE id =@id";
+                command.Parameters.AddWithValue("@rating", rating);
+                command.Parameters.AddWithValue("@feedback", feedback);
+                command.Parameters.AddWithValue("@id",id);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+            }
+        }
+
         public void UpdateTour(int id, string name,DateTime startDate, DateTime endtime,string status)
         {
             try
@@ -161,7 +221,7 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "DELETE FROM tour_to_positions WHERE tour_id = "+ tourid + " and Tourposition_id =" + positionid;
-                var affectedRow = command.ExecuteScalar();
+                command.ExecuteScalar();
                 connection.Close();
                 return true;
             }
@@ -426,6 +486,47 @@ namespace DataLayer
             {
                 connection.Close();
                 Console.WriteLine(e.Message);
+            }
+        }
+
+
+        public int? DeleteTourToPositions(TourToPositions tourtoposition)
+        {
+            try
+            {
+                int? affectedID = null;
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT id from tour_to_positions where tour_id = @tour_id and Tourposition_id = @tourPosition_Id";
+                command.Parameters.AddWithValue("@tour_id", tourtoposition.TourID);
+                command.Parameters.AddWithValue("@tourPosition_Id", tourtoposition.TourpositionID);
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    affectedID = Int16.Parse(reader[0].ToString());
+                    reader.Close();
+                }
+                else
+                {
+                    connection.Close();
+                    return null;
+                }
+                command.Parameters.Clear();
+                command.CommandText = "DELETE FROM tour_to_positions " +
+                    " where tour_id = @tour_id and Tourposition_id = @tourPosition_Id and id = @id";
+                command.Parameters.AddWithValue("@id", affectedID);
+                command.Parameters.AddWithValue("@tour_id", tourtoposition.TourID);
+                command.Parameters.AddWithValue("@tourPosition_Id", tourtoposition.TourpositionID);
+
+                command.ExecuteNonQuery();
+                connection.Close();
+                return affectedID;
+            }
+            catch (Exception e)
+            {
+                connection.Close();
+                Console.WriteLine(e.Message);
+                return null;
             }
         }
 
