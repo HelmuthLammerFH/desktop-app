@@ -180,7 +180,7 @@ namespace GUI.ViewModel.ViewViewModel
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Bitte wählen Sie ein Bild aus";
             op.Filter = "All supported graphics|*.jpg;*.jpeg|" +
-                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|";
+                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg";
             if (op.ShowDialog() == true)
             {
                 FileStream fs = new FileStream(op.FileName, FileMode.Open, FileAccess.Read);
