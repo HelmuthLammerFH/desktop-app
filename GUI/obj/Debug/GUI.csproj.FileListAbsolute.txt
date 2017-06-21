@@ -147,3 +147,8 @@ C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\View\Rating.baml
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\View\UserControls\StarRatingCustom.baml
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\View\UserControls\StarRatingCustom.g.cs
 C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\Themes\Generic.baml
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\View\UserControls\StarRatingCustom.baml
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\View\Rating.g.cs
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\View\UserControls\StarRatingCustom.g.cs
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\Themes\Generic.baml
+C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\View\Rating.baml
