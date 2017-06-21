@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,8 @@ namespace GUI.ViewModel.ViewViewModel
     public class MemberVM : ViewModelBase
     {
         #region ATTRIBUTES
+        private MemberEntityVM currentSelectedMember;
+        private MessageHandler messages;
         private TourEntityVM currentTourEntity;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
@@ -57,7 +60,7 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
-
+        public RelayCommand FeedbackBtn { get; set; }
         public RelayCommand EditBtn { get; set; }
         private DataHandler datahandler;
         #endregion
@@ -99,6 +102,18 @@ namespace GUI.ViewModel.ViewViewModel
                 RaisePropertyChanged();
             }
         }
+
+
+        public MemberEntityVM CurrentSelectedMember
+        {
+            get { return currentSelectedMember; }
+            set {
+
+                currentSelectedMember = value;
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion
 
 
@@ -112,11 +127,19 @@ namespace GUI.ViewModel.ViewViewModel
             PositionsBtn = new RelayCommand(SwitchToPositions);
             MemberBtn = new RelayCommand(SwitchToMember);
             EditBtn = new RelayCommand(EditMember);
+            FeedbackBtn = new RelayCommand(SwitchToFeedback, ()=> CurrentSelectedMember != null);
             LogoutBtn = new RelayCommand(SwitchToLogout);
-
+            messages = new MessageHandler();
             datahandler = new DataHandler();
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
             MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+        }
+
+
+        private void SwitchToFeedback()
+        {
+            MessengerInstance.Send<MemberEntityVM>((CurrentSelectedMember));
+            MessengerInstance.Send<ViewModelBase>((SimpleIoc.Default.GetInstance<RatingVM>()));
         }
 
         private void SwitchToLogout()
@@ -130,14 +153,18 @@ namespace GUI.ViewModel.ViewViewModel
             foreach (var item in CurrentTourEntity.Members)
             {
                 int participated = 1;
-                if (item.Member.AttendTour)
+                if (!item.Member.AttendTour)
                 {
                     participated = 0;
                 }else
                 {
                     participated = 1;
                 }
-                datahandler.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated);
+                var affectedID = datahandler.UpdateMembers(CurrentTourEntity.Tour.ID, item.Member.MemberID, participated);
+                if (affectedID != null)
+                {
+                    messages.UpdateMembers(affectedID, participated);
+                }
             }
         }
         #endregion

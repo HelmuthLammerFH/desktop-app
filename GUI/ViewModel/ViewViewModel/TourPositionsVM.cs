@@ -4,7 +4,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GUI.ViewModel.EntityViewModel;
 using GUI.ViewModel.ViewViewModel;
+using ServiceLayer;
 using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +21,9 @@ namespace GUI.ViewModel.ViewViewModel
     public class TourPositionsVM : ViewModelBase
     {
         #region ATTRIBUTES
+
+        private TourGuideVM currentTourGuide;
+        private MessageHandler message;
         private TourEntityVM currentTourEntity;
         private PositionEntityVM selectedPositionItem;
         private PositionEntityVM createdOrUpdatedPositionItem;
@@ -54,6 +59,15 @@ namespace GUI.ViewModel.ViewViewModel
         public int SelectedPosition { get; set; }
         #endregion
         #region PROPERTIES
+
+
+        public TourGuideVM CurrentTourGuide
+        {
+            get { return currentTourGuide; }
+            set { currentTourGuide = value; RaisePropertyChanged(); }
+        }
+
+
         public TourEntityVM CurrentTourEntity
         {
             get
@@ -141,6 +155,7 @@ namespace GUI.ViewModel.ViewViewModel
         #region CONSTRUCTORS
         public TourPositionsVM()
         {
+            message = new MessageHandler();
             CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
             TourEntityIsChoosen = Visibility.Hidden;
             PositionIsSelected = Visibility.Hidden;
@@ -162,6 +177,7 @@ namespace GUI.ViewModel.ViewViewModel
             }
             AddPositionToTour = new RelayCommand(AddPosition,CanExecuteAddPosition);
             MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
+            MessengerInstance.Register<TourGuideVM>(this, UpdateCurrentTourGuide);
             //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
 
@@ -183,10 +199,13 @@ namespace GUI.ViewModel.ViewViewModel
         private void AddPosition()
         {
             var position = PositionEntityList[SelectedPosition];
-            datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now);
+            int? newTourToPositionID = datahandler.InsertPosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID, DateTime.Now);
+            if (newTourToPositionID != null)
+            {
+                var newTourToPostion = new TourToPositions() { ID = (int)newTourToPositionID, CreatedFrom = CurrentTourGuide.Username, TourID = CurrentTourEntity.Tour.ID, TourpositionID = position.TourPosition.PositionID, CreatedAt = DateTime.Now, StartDate = DateTime.Now, EndDate = DateTime.Now, SyncedFrom = 2 };
+                message.SendTourToPositionen(newTourToPostion);
+            }
             //Das heutige Datum setzen, sodass ein default Wert in der Liste drinnen steht und kein ungültiger Wert als Datum
-            position.Startdate = DateTime.Now;
-            position.Enddate = DateTime.Now;
             CurrentTourEntity.Positions.Add(position);
         }
         #endregion
@@ -221,22 +240,17 @@ namespace GUI.ViewModel.ViewViewModel
 
         private void SavePosition()
         {
-            /**if (CreatedOrUpdatedPositionItem.TourPosition.PositionID == new Guid() && SelectedPositionItem != CreatedOrUpdatedPositionItem)
+
+           var tourPosition = new TourToPositions() {StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = CurrentTourGuide.Username,  SyncedFrom = 2, UpdatedAt = DateTime.Now };
+            var affectedID = datahandler.UpdateTourToPositions(tourPosition);
+            if (affectedID != null)
             {
-               // CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
-            }else
-            {
-                PositionEntityVM positionToRemove = new PositionEntityVM(new DummyPosition());
-                foreach (PositionEntityVM position in CurrentTourEntity.Positions)
-                {
-                    if (position.TourPosition.PositionID == CreatedOrUpdatedPositionItem.TourPosition.PositionID)
-                        positionToRemove = position;
-                }
-                /**CurrentTourEntity.Positions.Remove(positionToRemove);
-                CurrentTourEntity.Positions.Add(CreatedOrUpdatedPositionItem);
-            }**/
-            CreatedOrUpdatedPositionItem = new PositionEntityVM(new DummyPosition());
-            MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+                tourPosition.ID = (int)affectedID;
+                // Schnittstelle kann kein Update
+                message.UpdateTourToPosition(tourPosition);
+            }
+
+            //MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             //dp.UpdateTour(CurrentTourEntity.Tour);
             //MessengerInstance.Send<DataProvider>(dp);
         }
@@ -254,9 +268,24 @@ namespace GUI.ViewModel.ViewViewModel
             MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
             dp.UpdateTour(CurrentTourEntity.Tour);
             MessengerInstance.Send<DataProvider>(dp);**/
-            var position = PositionEntityList[SelectedPosition];
-            datahandler.DeletePosition(CurrentTourEntity.Tour.ID, position.TourPosition.PositionID);
-            CurrentTourEntity.Positions.Remove(position);
+            var tourPosition = new TourToPositions() { StartDate = SelectedPositionItem.StartDate, EndDate = SelectedPositionItem.EndDate, TourID = CurrentTourEntity.Tour.ID, DeleteFlag=true, TourpositionID = SelectedPositionItem.TourPosition.PositionID, ChangedFrom = CurrentTourGuide.Username, SyncedFrom = 2, UpdatedAt = DateTime.Now };
+
+            try
+            {
+                var affectedID = datahandler.DeleteTourToPositions(tourPosition);
+                if (affectedID != null)
+                {
+                    tourPosition.ID = (int)affectedID;
+                   
+                    message.DeleteTourToPosition(tourPosition);
+                    CurrentTourEntity.Positions.Remove(SelectedPositionItem);
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
        /** private bool CanExecuteUpdatePosition()
@@ -282,7 +311,10 @@ namespace GUI.ViewModel.ViewViewModel
             CurrentTourEntity = obj;
         }
 
-        
+        private void UpdateCurrentTourGuide(TourGuideVM obj)
+        {
+            CurrentTourGuide = obj;
+        }
         #endregion
     }
 }

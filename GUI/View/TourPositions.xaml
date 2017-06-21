@@ -35,7 +35,7 @@
                     <RowDefinition Height="47*"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="label2" Content="Positionsliste" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions}" SelectedItem="{Binding SelectedPositionItem}" Grid.ColumnSpan="4">
+                <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="404" Margin="10,41,0,0" VerticalAlignment="Top" Width="460" ItemsSource="{Binding CurrentTourEntity.Positions, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPositionItem}" Grid.ColumnSpan="4">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -53,9 +53,9 @@
                     <Label Content="Ende:"></Label>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding PositionIsSelected}">
-                    <TextBox Text="{Binding SelectedPositionItem.Title}" Margin="5"/>
-                    <TextBox Text="{Binding SelectedPositionItem.Startdate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
-                    <TextBox Text="{Binding SelectedPositionItem.Enddate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=OneWay}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.Title}" IsReadOnly="True" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.StartDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                    <TextBox Text="{Binding SelectedPositionItem.EndDate, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
                 </StackPanel>
                 <Button x:Name="button5" Content="Speichern" Grid.Row="1" Grid.Column="2" Command="{Binding SavePositionBtn}" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding PositionIsSelected}"/>
                 <Button x:Name="button4" Content="Löschen" HorizontalAlignment="Left" Margin="82,450,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeletePositionBtn}" Grid.Column="3"/>

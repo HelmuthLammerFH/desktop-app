@@ -24,7 +24,7 @@ namespace GUI.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<MainViewModel>();
+         
             SimpleIoc.Default.Register<LoginVM>();
             SimpleIoc.Default.Register<CalendarReportVM>();
             SimpleIoc.Default.Register<ListReportVM>();
@@ -32,6 +32,8 @@ namespace GUI.ViewModel
             SimpleIoc.Default.Register<TourPositionsVM>();
             SimpleIoc.Default.Register<PositionVM>();
             SimpleIoc.Default.Register<MemberVM>();
+            SimpleIoc.Default.Register<RatingVM>();
+            SimpleIoc.Default.Register<MainViewModel>();
         }
 
         public MainViewModel Main
@@ -47,6 +49,13 @@ namespace GUI.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LoginVM>();
+            }
+        }
+        public RatingVM Rating
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RatingVM>();
             }
         }
         public CalendarReportVM CalendarReport

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
 FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\App.xaml;;
 FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\MainWindow.xaml;;
@@ -12,4 +13,22 @@ FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Impleme
 FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\DayBoxControl.xaml;;
 FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\MonthViewControl.xaml;;
 FC:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\View\UserControls\WeekOfDaysControl.xaml;;
+=======
+﻿
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\App.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\MainWindow.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\Themes\Generic.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\CalendarReport.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\ListReport.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\Login.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\Member.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\Position.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\Rating.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\Tour.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\TourPositions.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\UserControls\AppointmentControl.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\UserControls\DayBoxControl.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\UserControls\MonthViewControl.xaml;;
+FC:\Users\Alex\Documents\GitHub\Desktop-App\GUI\View\UserControls\WeekOfDaysControl.xaml;;
+>>>>>>> refs/remotes/origin/master
 

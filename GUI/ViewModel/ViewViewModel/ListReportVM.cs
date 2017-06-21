@@ -71,6 +71,7 @@ namespace GUI.ViewModel.ViewViewModel
             MemberBtn = new RelayCommand(SwitchToMember);
             LogoutBtn = new RelayCommand(SwitchToLogin);
             ReadToursFromGuide();
+            MessengerInstance.Register<Tuple<TourEntityVM,Boolean>>(this, UpdateCurrentTourEntity);
             //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
 
@@ -133,6 +134,12 @@ namespace GUI.ViewModel.ViewViewModel
                 TourEntitieList.Add(new TourEntityVM(tour));
             }
         }**/
+        private void UpdateCurrentTourEntity(Tuple<TourEntityVM, Boolean> obj)
+        {
+            var tInList = TourEntitieList.FirstOrDefault(t => t.Tour.ID == obj.Item1.Tour.ID);
+            TourEntitieList.Remove(tInList);
+            TourEntitieList.Add(obj.Item1);
+        }
         #endregion
     }
 }

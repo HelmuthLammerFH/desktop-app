@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using Shared.DummyEntities;
+using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
@@ -17,8 +18,7 @@ namespace GUI.ViewModel.EntityViewModel
         {
             this.tourPosition = tourPosition;
         }
-
-       public string Title
+        public string Title
         {
             get
             {
@@ -44,31 +44,7 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
-        public DateTime Startdate
-        {
-            get
-            {
-                return tourPosition.Startdate;
-            }
-
-            set
-            {
-                tourPosition.Startdate = value;
-            }
-        }
-
-        public DateTime Enddate
-        {
-            get
-            {
-                return tourPosition.Enddate;
-            }
-
-            set
-            {
-                tourPosition.Enddate = value;
-            }
-        }
+       
 
         public string GPSPosition
         {
@@ -96,6 +72,32 @@ namespace GUI.ViewModel.EntityViewModel
             }
         }
 
+        public DateTime StartDate
+        {
+            get
+            {
+                return tourPosition.Startdate;
+            }
+
+            set
+            {
+                tourPosition.Startdate = value;
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get
+            {
+                return tourPosition.Enddate;
+            }
+
+            set
+            {
+                tourPosition.Enddate = value;
+            }
+        }
+
         public DummyPosition TourPosition
         {
             get
@@ -113,7 +115,7 @@ namespace GUI.ViewModel.EntityViewModel
         {
             get
             {
-                return (Enddate - Startdate).ToString();
+                return (EndDate - StartDate).ToString();
             }
         }
 

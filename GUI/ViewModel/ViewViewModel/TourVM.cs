@@ -22,6 +22,7 @@ namespace GUI.ViewModel.ViewViewModel
     public class TourVM : ViewModelBase
     {
         #region ATTRIBUTES
+        private TourGuideVM currentTourGuide;
         TourEntityVM currentTourEntity;
         private Visibility tourEntityIsEmty;
         private Visibility tourEntityIsChoosen;
@@ -69,6 +70,13 @@ namespace GUI.ViewModel.ViewViewModel
         public RelayCommand<PositionEntityVM> DeletePositionBtn { get; set; }
         #endregion
         #region PROPERTIES
+
+
+        public TourGuideVM CurrentTourGuide
+        {
+            get { return currentTourGuide; }
+            set { currentTourGuide = value; RaisePropertyChanged(); }
+        }
         public TourEntityVM CurrentTourEntity
             {
                 get
@@ -153,7 +161,8 @@ namespace GUI.ViewModel.ViewViewModel
                 DeletePositionBtn = new RelayCommand<PositionEntityVM>(DeletePosition);
 
                 MessengerInstance.Register<TourEntityVM>(this, UpdateCurrentTourEntity);
-                //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
+            MessengerInstance.Register<TourGuideVM>(this, UpdateCurrentTourGuide);
+            //MessengerInstance.Register<DataProvider>(this, UpdateDataProvider);
         }
 
         private void SwitchToLogout()
@@ -164,27 +173,44 @@ namespace GUI.ViewModel.ViewViewModel
 
         private void UploadPicture()
         {
+            try
+            {
+
+     
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Bitte wählen Sie ein Bild aus";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-                        "Portable Network Graphic (*.png)|*.png";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg|" +
+                        "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg";
             if (op.ShowDialog() == true)
             {
                 FileStream fs = new FileStream(op.FileName, FileMode.Open, FileAccess.Read);
                 byte[] data = new byte[fs.Length];
                 fs.Read(data, 0, System.Convert.ToInt32(fs.Length));
                 fs.Close();
-                datahandler.SavePicture(CurrentTourEntity.Tour.ID, data);
+                int? newPictureID = datahandler.SavePicture(CurrentTourEntity.Tour.ID, data);
+                if (newPictureID != null)
+                {
+                    Ressources newPicture = new Ressources() { ID = (int)newPictureID, createdFrom = CurrentTourGuide.Username, Picture = data, ChangedFrom = "", syncedFrom = 2, Tour_id = CurrentTourEntity.Tour.ID };
+                    message.SendMediaData(newPicture);
+                    MessageBox.Show("Ihr Bild wurde erfolgreich hochgeladen!","Mediendaten hochladen",MessageBoxButton.OK,MessageBoxImage.Asterisk);
+                }
+            }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Das Bild konnte nicht hochgeladen werden!", "Mediendaten hochladen", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine(e.Message);
             }
         }
 
         private void SaveTour()
         {
             datahandler.UpdateTour(CurrentTourEntity.Tour.ID, CurrentTourEntity.Title, CurrentTourEntity.Startdate, CurrentTourEntity.Enddate, Status);
-            Tour temp = new Tour() {ID = CurrentTourEntity.Tour.ID, Name = CurrentTourEntity.Title, ChangedFrom = "DejvidsTest", SyncedFrom = 2, CreatedFrom = "Dejvid Heast" };
+            Tour temp = new Tour() {ID = CurrentTourEntity.Tour.ID, Name = CurrentTourEntity.Title, StartDate = CurrentTourEntity.Startdate, EndDate = CurrentTourEntity.Enddate, ChangedFrom = CurrentTourGuide.Username, SyncedFrom = 2, TourGuideID = CurrentTourGuide.ID, StatusID = CurrentTourEntity.State == "In planung" ? 1 : 2 };
             message.SendTour(temp);
             TourEdit = Visibility.Hidden;
+            MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+            MessengerInstance.Send<Tuple<TourEntityVM, Boolean>>(new Tuple<TourEntityVM, Boolean>(CurrentTourEntity, true));
         }
 
         private void EditTour()
@@ -224,7 +250,24 @@ namespace GUI.ViewModel.ViewViewModel
             //CurrentTourEntity.Positions.Remove(obj);
             //dp.UpdateTour(CurrentTourEntity.Tour);
             //MessengerInstance.Send<DataProvider>(dp);
-            MessengerInstance.Send<TourEntityVM>(CurrentTourEntity);
+            var tourPosition = new TourToPositions() { StartDate = obj.StartDate, EndDate = obj.EndDate, TourID = CurrentTourEntity.Tour.ID, DeleteFlag = true, TourpositionID = obj.TourPosition.PositionID, ChangedFrom = "TourGuide", SyncedFrom = 2, UpdatedAt = DateTime.Now };
+
+            try
+            {
+                var affectedID = datahandler.DeleteTourToPositions(tourPosition);
+                if (affectedID != null)
+                {
+                    tourPosition.ID = (int)affectedID;
+
+                    message.DeleteTourToPosition(tourPosition);
+                    CurrentTourEntity.Positions.Remove(obj);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void ShowPosition(PositionEntityVM obj)
@@ -237,6 +280,10 @@ namespace GUI.ViewModel.ViewViewModel
         private void UpdateCurrentTourEntity(TourEntityVM obj)
         {
             CurrentTourEntity = obj;
+        }
+        private void UpdateCurrentTourGuide(TourGuideVM obj)
+        {
+            CurrentTourGuide = obj;
         }
         /**private void UpdateDataProvider(DataProvider obj)
         {

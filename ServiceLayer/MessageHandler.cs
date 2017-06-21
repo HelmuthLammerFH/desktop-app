@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
+using Shared.DummyEntities;
 using Shared.Entities;
+using Shared.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,7 +61,7 @@ namespace ServiceLayer
         {
             List<TourGuide> tourguides = new List<TourGuide>();
             HttpResponseMessage response = client.GetAsync(path + "/api/v1/tourguides.json?clientID=2").Result;
-            tourguides = JsonConvert.DeserializeObject<List<TourGuide>>(response.Content.ReadAsStringAsync().Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            tourguides = JsonConvert.DeserializeObject<List<TourGuide>>(response.Content.ReadAsStringAsync().Result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Error});
             return tourguides;
         }
 
@@ -86,10 +90,72 @@ namespace ServiceLayer
             
         }
 
+        public bool UpdateMembers(int? memberID, int participated)
+        {
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/customer_in_tours/" + memberID + ".json?clientID=2", new StringContent( "{\"participated\":"+ participated + ", \"syncedFrom\":2}", Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool SendRating(int id, int starRating, string feedbackTourGuid)
+        {
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/customer_in_tours/" + id + ".json?clientID=2", new StringContent("{\"starRating\":" + starRating + ",\"feedbackTourGuid\":\"" + feedbackTourGuid + "\", \"syncedFrom\":2}", Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool SendTour(Tour tour)
         {
-            tour.ID = 10630;
-            HttpResponseMessage response = client.PutAsync(path + "/api/v1/tours/" + tour.ID + ".json?clientID=2",new StringContent(JsonConvert.SerializeObject(tour).ToString(),Encoding.UTF8, "application/json")).Result;
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/tours/" + tour.ID + ".json?clientID=2",new StringContent(JsonConvert.SerializeObject(tour,new BoolConverter()).ToString(),Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool SendMediaData(Ressources ressource)
+        {
+            HttpResponseMessage response = client.PostAsync(path + "/api/v1/ressource_for_tours.json?clientID=2", new StringContent(JsonConvert.SerializeObject(ressource).ToString(), Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool SendTourToPositionen(TourToPositions TourPosition)
+        {
+
+            HttpResponseMessage response = client.PostAsync(path + "/api/v1/tour_to_positions.json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourPosition).ToString(), Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        public bool UpdateTourToPosition(TourToPositions TourToPosition)
+        {
+
+            HttpResponseMessage response = client.PutAsync(path + "/api/v1/tour_to_positions/" + TourToPosition.ID.ToString() + ".json?clientID=2", new StringContent(JsonConvert.SerializeObject(TourToPosition).ToString(), Encoding.UTF8, "application/json")).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteTourToPosition(TourToPositions TourToPosition)
+        {
+
+            HttpResponseMessage response = client.DeleteAsync(path + "/api/v1/tour_to_positions/" + TourToPosition.ID.ToString() + ".json?clientID=2").Result;
             if (response.IsSuccessStatusCode)
             {
                 return true;

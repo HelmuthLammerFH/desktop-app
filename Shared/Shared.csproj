@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\ServiceLayer\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
@@ -44,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DummyEntities\DummyMember.cs" />
     <Compile Include="DummyEntities\DummyPosition.cs" />
+    <Compile Include="DummyEntities\DummyRating.cs" />
     <Compile Include="DummyEntities\DummyStatus.cs" />
     <Compile Include="DummyEntities\DummyTour.cs" />
     <Compile Include="DummyEntities\DummyTourGuide.cs" />
@@ -64,6 +68,8 @@
     <Compile Include="Entities\TourPosition.cs" />
     <Compile Include="Entities\TourToPositions.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Helper\BCrypt.cs" />
+    <Compile Include="Helper\JsonCustomBooleanConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
