@@ -14,10 +14,11 @@ namespace GUI.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-        if(value is GeoCoordinate)
+        if(value is string && !String.IsNullOrEmpty((string)value))
             {
+                var valueArray = value.ToString().Split(';');
                 // needed for map
-                GeoCoordinate gc = (GeoCoordinate)value;
+                GeoCoordinate gc = new GeoCoordinate(double.Parse(valueArray[0]), double.Parse(valueArray[1]));
                 return new Location(gc.Latitude,gc.Longitude);
             }
             return new Location(48.23965, 16.37779);

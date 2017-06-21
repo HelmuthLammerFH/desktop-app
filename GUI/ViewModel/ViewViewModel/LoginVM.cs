@@ -98,6 +98,18 @@ namespace GUI.ViewModel.ViewViewModel
                 var currentTourGuide = new TourGuideVM(id, Username);
                 File.WriteAllLines(loginCredentialsFilePath, linesToSave);
                 StatusMessage = "";
+                SimpleIoc.Default.Reset();
+                SimpleIoc.Default.Register<LoginVM>();
+                SimpleIoc.Default.Register<CalendarReportVM>();
+                SimpleIoc.Default.Register<ListReportVM>();
+                SimpleIoc.Default.Register<TourVM>();
+                SimpleIoc.Default.Register<TourPositionsVM>();
+                SimpleIoc.Default.Register<PositionVM>();
+                SimpleIoc.Default.Register<MemberVM>();
+                SimpleIoc.Default.Register<RatingVM>();
+                SimpleIoc.Default.Register<MainViewModel>();
+
+
                 SimpleIoc.Default.GetInstance<CalendarReportVM>();
                 SimpleIoc.Default.GetInstance<ListReportVM>();
                 SimpleIoc.Default.GetInstance<TourVM>();

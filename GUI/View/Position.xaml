@@ -26,7 +26,9 @@
         <Grid Grid.Column="1" Background="White">
             <Label x:Name="label" HorizontalAlignment="Left" Margin="12,45,0,0" VerticalAlignment="Top" Content="{Binding CurrentPositionEntity.Title}" FontSize="16" FontWeight="Bold"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,106,0,0" TextWrapping="Wrap" Text="{Binding CurrentPositionEntity.Description}" VerticalAlignment="Top" Height="179" Width="440"/>
-             <m:Map x:Name="myMap" Margin="30,290,10,152" Center="{Binding CurrentPositionEntity.GPSPosition, Converter={StaticResource GeoCoordinateToLocationConverter}, UpdateSourceTrigger=PropertyChanged}" ZoomLevel="17"  CredentialsProvider="AlpCBJ6yUtQwkdXDIunuUgrrSnGc0eNHQZ35UkoEQEGVDEovXbiouJrRlKjyJp8y" Mode="Road"/>
+            <m:Map x:Name="myMap" Margin="30,290,10,152"  Center="{Binding CurrentPositionEntity.GPSPosition, Converter={StaticResource GeoCoordinateToLocationConverter}, UpdateSourceTrigger=PropertyChanged}" ZoomLevel="16"  CredentialsProvider="AlpCBJ6yUtQwkdXDIunuUgrrSnGc0eNHQZ35UkoEQEGVDEovXbiouJrRlKjyJp8y" Mode="Road">
+                <m:Pushpin Location="{Binding CurrentPositionEntity.GPSPosition, Converter={StaticResource GeoCoordinateToLocationConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </m:Map>
             <Label x:Name="label_Copy" Content="Beschreibung:" HorizontalAlignment="Left" Margin="12,75,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy1" Content="Dauer:" HorizontalAlignment="Left" Margin="251,433,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy8" Content="{Binding CurrentPositionEntity.Duration, Mode=OneWay}" HorizontalAlignment="Left" Margin="290,434,0,0" VerticalAlignment="Top"/>

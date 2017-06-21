@@ -3,6 +3,7 @@ using Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Globalization;
 
 namespace DataLayer
 {
@@ -395,7 +396,9 @@ namespace DataLayer
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT or Replace INTO tours(id,name,maxAttendees,price,startDate,endDate,createdFrom,changedFrom,syncedFrom,deleteFlag,status_id,Tourguide_id,created_at,updated_at) VALUES " +
-                    "(" + tour.ID + ",'" + tour.Name + "'," + tour.MaxAttendees + "," + tour.Price + ",'" + tour.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.EndDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.CreatedFrom + "','" + tour.ChangedFrom + "'," + tour.SyncedFrom + ",'" + tour.DeleteFlag + "',"+tour.StatusID+","+tour.TourGuideID+",'" + tour.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    "(" + tour.ID + ",'" + tour.Name + "'," + tour.MaxAttendees + ",@price,'" + tour.StartDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.EndDate.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.CreatedFrom + "','" + tour.ChangedFrom + "'," + tour.SyncedFrom + ",'" + tour.DeleteFlag + "',"+tour.StatusID+","+tour.TourGuideID+",'" + tour.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "','" + tour.UpdatedAt.ToString("yyyy-MM-dd HH:mm:ss") + "')";
+
+                command.Parameters.AddWithValue("@price", tour.Price);
                 command.ExecuteNonQuery();
                 connection.Close();
             }

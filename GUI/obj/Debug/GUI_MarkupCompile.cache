@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\obj\Debug\
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\obj\Debug\
 GUI
 none
 false
 DEBUG;TRACE
-C:\Users\Dejvid\Documents\Wirtschaftsinformatik\4.Semester\Fallstudie 4\Implementierung\desktop-app\GUI\App.xaml
+C:\Users\Alex\Documents\GitHub\Desktop-App\GUI\App.xaml
 15836593143
 
 341157010147
-84-1054056673
+8554930063
 MainWindow.xaml;Themes\Generic.xaml;View\CalendarReport.xaml;View\ListReport.xaml;View\Login.xaml;View\Member.xaml;View\Position.xaml;View\Rating.xaml;View\Tour.xaml;View\TourPositions.xaml;View\UserControls\AppointmentControl.xaml;View\UserControls\DayBoxControl.xaml;View\UserControls\MonthViewControl.xaml;View\UserControls\StarRatingCustom.xaml;View\UserControls\WeekOfDaysControl.xaml;
 
 False
